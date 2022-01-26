@@ -11,7 +11,7 @@ type Props = {
 const Container = ({ children, container, layout }: Props) => {
   return (
     <div className={cn(styles.container, container)}>
-      <div className={layout}>{children}</div>
+      <div className={cn(styles.inner, layout)}>{children}</div>
     </div>
   );
 };
