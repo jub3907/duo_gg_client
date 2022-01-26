@@ -1,0 +1,16 @@
+.layout {
+  display: flex;
+  align-items: center;
+  width: 600px;
+  background-color: $gray-1;
+  height: 50px;
+  border-radius: $spacing-4;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  outline: none !important;
+  background-color: $gray-1;
+  padding: $spacing-12;
+}
