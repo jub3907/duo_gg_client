@@ -1,0 +1,12 @@
+.menus {
+  color: $gray-5;
+}
+
+.menu {
+  @include h5;
+  padding: $spacing-16;
+}
+
+.active {
+  color: $white;
+}

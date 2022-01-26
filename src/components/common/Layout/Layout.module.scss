@@ -1,0 +1,16 @@
+.layout {
+  position: fixed;
+  top: $header-top;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  > div {
+    flex: 1;
+    width: 100%;
+  }
+}
