@@ -17,7 +17,9 @@
     "rootDir": ".",
     "baseUrl": "./",
     "paths": {
-      "*" : ["./src/*", "./*"]
+      "@common/*" : ["./src/components/common/*"],
+      "@pages/*" : ["./src/components/pages/*"],
+      "*" : ["./src/*", "./*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
