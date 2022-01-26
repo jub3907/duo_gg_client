@@ -32,3 +32,154 @@ $font-spoqa: 'Spoqa Han Sans';
 $font-regular: 400;
 $font-medium: 500;
 $font-bold: 700;
+
+@mixin h1 {
+  font-size: 2.25rem;
+  font-weight: $font-regular;
+  line-height: 1.5;
+  min-height: 2.25rem;
+}
+
+@mixin h1-bold {
+  @include h1;
+  font-weight: $font-bold;
+}
+
+@mixin h2 {
+  font-size: 1.75rem;
+  font-weight: $font-regular;
+  line-height: 1.75;
+  min-height: 1.75rem;
+}
+
+@mixin h2-bold {
+  @include h2;
+  font-weight: $font-bold;
+}
+
+@mixin h3 {
+  font-size: 1.5rem;
+  font-weight: $font-regular;
+  line-height: 1.75;
+  min-height: 1.5rem;
+}
+
+@mixin h3-bold {
+  @include h3;
+  font-weight: $font-bold;
+}
+
+@mixin h4 {
+  font-size: 1.125rem;
+  font-weight: $font-regular;
+  line-height: 1.77;
+  min-height: 1.125rem;
+}
+
+@mixin h4-bold {
+  @include h4;
+  font-weight: $font-bold;
+}
+
+@mixin h5 {
+  font-size: 1rem;
+  font-weight: $font-regular;
+  line-height: 1.5;
+  min-height: 1rem;
+}
+
+@mixin h5-medium {
+  @include h5;
+  font-weight: $font-medium;
+}
+
+@mixin h5-bold {
+  @include h5;
+  font-weight: $font-bold;
+}
+
+@mixin h5-underlined {
+  @include h5;
+  text-decoration: underline;
+}
+
+@mixin body1 {
+  font-size: 1rem;
+  line-height: 1.75;
+  font-weight: $font-regular;
+  min-height: 1rem;
+}
+
+@mixin body1-medium {
+  @include body1;
+  font-weight: $font-medium;
+}
+
+@mixin body1-bold {
+  @include body1;
+  font-weight: $font-bold;
+}
+
+@mixin body1-underlined {
+  @include body1;
+  text-decoration: underline;
+}
+
+@mixin body1-strike {
+  @include body1;
+  text-decoration: line-through;
+}
+
+@mixin body2 {
+  font-size: 0.875rem;
+  line-height: 1.71;
+  font-weight: $font-regular;
+  min-height: 0.875rem;
+}
+
+@mixin body2-medium {
+  @include body2;
+  font-weight: $font-medium;
+}
+
+@mixin body2-bold {
+  @include body2;
+  font-weight: $font-bold;
+}
+
+@mixin body2-underlined {
+  @include body2;
+  text-decoration: underline;
+}
+
+@mixin body2-strike {
+  @include body2;
+  text-decoration: line-through;
+}
+
+@mixin body3 {
+  font-size: 0.75rem;
+  line-height: 1.75;
+  font-weight: $font-regular;
+  min-height: 0.75rem;
+}
+
+@mixin body3-bold {
+  @include body3;
+  font-weight: $font-bold;
+}
+
+@mixin body3-underlined {
+  @include body3;
+  text-decoration: underline;
+}
+
+@mixin menu-item {
+  @include h5-medium;
+  color: $gray-5;
+  box-sizing: border-box;
+
+  &.active {
+    color: $gray-7;
+  }
+}
