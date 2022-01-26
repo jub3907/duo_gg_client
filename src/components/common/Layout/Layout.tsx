@@ -14,9 +14,11 @@ const Layout = ({ children, subHeader, activeMenu }: Props) => {
     <>
       <Header activeMenu={activeMenu} />
       <div className={styles.layout}>
-        {subHeader}
-        <div className={styles.container}>
-          <div>{children}</div>
+        <div className={styles.scroll}>
+          {subHeader}
+          <div className={styles.container}>
+            <div>{children}</div>
+          </div>
         </div>
       </div>
     </>

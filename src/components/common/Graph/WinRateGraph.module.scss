@@ -1,0 +1,15 @@
+.layout {
+  display: flex;
+  align-items: center;
+  height: $spacing-24;
+}
+
+.graph {
+  @include body2;
+  flex: 1;
+  display: flex;
+}
+
+.percent {
+  margin-left: $spacing-20;
+}

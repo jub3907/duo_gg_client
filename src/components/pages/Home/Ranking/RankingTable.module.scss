@@ -1,0 +1,47 @@
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.column {
+  @include h5-bold;
+  color: $black;
+  height: $spacing-48;
+  border: 1px solid $gray-6;
+}
+
+.row {
+  @include h5;
+  color: $gray-7;
+  height: $spacing-64;
+  border-left: 1px solid $gray-6;
+  border-right: 1px solid $gray-6;
+  border-bottom: 1px solid $gray-6;
+}
+
+.rank {
+  display: flex;
+  justify-content: center;
+}
+
+.rate {
+  margin-right: $spacing-16;
+}
+
+.summoner {
+  display: flex;
+  align-items: center;
+  column-gap: $spacing-8;
+}
+
+.summoner,
+.rate {
+  flex: 2;
+}
+
+.rank,
+.tier,
+.lp,
+.level {
+  flex: 1;
+}

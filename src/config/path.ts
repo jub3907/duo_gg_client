@@ -10,3 +10,7 @@ const Path = {
 export type PathType = keyof typeof Path;
 
 export default Path;
+
+export const getSummonerTotalUrl = (name: string) => {
+  return `/summoner/${name}`;
+};
