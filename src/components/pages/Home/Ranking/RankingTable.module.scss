@@ -7,16 +7,18 @@
   @include h5-bold;
   color: $black;
   height: $spacing-48;
-  border: 1px solid $gray-6;
+  border: 1px solid $gray-4;
+  background-color: $gray-3;
 }
 
 .row {
-  @include h5;
+  @include body2;
   color: $gray-7;
   height: $spacing-64;
-  border-left: 1px solid $gray-6;
-  border-right: 1px solid $gray-6;
-  border-bottom: 1px solid $gray-6;
+  border-left: 1px solid $gray-4;
+  border-right: 1px solid $gray-4;
+  border-bottom: 1px solid $gray-4;
+  background-color: $gray-1;
 }
 
 .rank {
@@ -29,9 +31,10 @@
 }
 
 .summoner {
+  @include body1-bold;
   display: flex;
   align-items: center;
-  column-gap: $spacing-8;
+  column-gap: $spacing-16;
 }
 
 .summoner,

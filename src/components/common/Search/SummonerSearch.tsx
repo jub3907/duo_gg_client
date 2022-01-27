@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { ChangeEvent, useCallback, useState } from 'react';
 import Path from 'config/path';
 
-const SubHeaderSearchForm = () => {
+const SubHeaderSearch = () => {
   const router = useRouter();
   const [name, setName] = useState('');
 
@@ -37,4 +37,4 @@ const SubHeaderSearchForm = () => {
   );
 };
 
-export default SubHeaderSearchForm;
+export default SubHeaderSearch;
