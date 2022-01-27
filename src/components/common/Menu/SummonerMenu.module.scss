@@ -1,0 +1,19 @@
+.menus {
+  color: $gray-5;
+  display: flex;
+  column-gap: $spacing-32;
+}
+
+.menu {
+  @include h4-bold;
+  padding: $spacing-8;
+}
+
+.active {
+  color: $black;
+}
+
+.divider {
+  border-top: 1px solid $black;
+  width: 50%;
+}
