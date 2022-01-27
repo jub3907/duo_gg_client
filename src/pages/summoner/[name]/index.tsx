@@ -3,6 +3,10 @@ import SubHeader from '@common/Header/SubHeader';
 import Layout from '@common/Layout/Layout';
 import PageTitleLayout from '@common/Layout/PageTitleLayout';
 import { GetServerSidePropsContext } from 'next';
+import SummonerMenu from '@common/Menu/SummonerMenu';
+import styles from '@pages/Summoner/Summoner.module.scss';
+import CommentList from '@pages/Summoner/List/CommentList';
+import MasteryList from '@pages/Summoner/List/MasteryList';
 
 const basicSummonerInfo = {
   freeRank: {
@@ -35,6 +39,13 @@ const SummonerPage = ({ name }: { name: string }) => {
     <Layout subHeader={<SubHeader />} activeMenu="summoner">
       <PageTitleLayout title="전적 검색 결과">
         <SummonerCard summoner={basicSummonerInfo} />
+        <div className={styles.menu}>
+          <SummonerMenu activeMenu="index" name={name} />
+        </div>
+        <div className={styles.lists}>
+          <CommentList name={basicSummonerInfo.name} />
+          <MasteryList summonerId={basicSummonerInfo.id} />
+        </div>
       </PageTitleLayout>
     </Layout>
   );

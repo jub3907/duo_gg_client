@@ -1,0 +1,18 @@
+.mastery {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $spacing-16;
+}
+
+.flex {
+  flex: 1;
+  display: flex;
+  column-gap: $spacing-8;
+  align-items: center;
+}
+
+.date {
+  flex: 0.5;
+}

@@ -30,7 +30,7 @@ const RankingCard = ({ summoner }: Props) => {
             <div className={styles.rank}>
               <div>{summoner.soleRank.tier}</div>
               <div>{summoner.soleRank.leaguePoints} LP</div>
-              <div>{summoner.summonerLevel} Lv</div>
+              <div>Lv. {summoner.summonerLevel} </div>
             </div>
             <div className={styles.rate}>
               <WinRateGraph

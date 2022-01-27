@@ -14,3 +14,11 @@ export default Path;
 export const getSummonerUrl = (name: string) => {
   return `/summoner/${name}`;
 };
+
+export const getSummonerCommentUrl = (name: string) => {
+  return `/summoner/${name}/comment`;
+};
+
+export const getSummonerStatUrl = (name: string) => {
+  return `/summoner/${name}/statistics`;
+};

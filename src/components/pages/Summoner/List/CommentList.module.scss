@@ -1,0 +1,40 @@
+.comment {
+  flex: 1;
+  display: flex;
+  padding: $spacing-16;
+  align-items: center;
+}
+
+.writer {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 $spacing-80;
+  align-items: center;
+
+  .nickname {
+    @include body1-bold;
+    @include ellipsis(1);
+  }
+
+  .date {
+    @include body3;
+    color: $gray-5;
+  }
+}
+
+.divider {
+  border-left: 1px solid $gray-4;
+  height: $spacing-32;
+  margin: 0 $spacing-16;
+}
+
+.text {
+  @include body2;
+  @include ellipsis(3);
+  flex: 1;
+}
+
+.button {
+  background-color: $gray-3;
+  border-radius: none;
+}
