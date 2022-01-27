@@ -16,7 +16,7 @@ const SubHeaderSearchForm = () => {
 
   const onClick = () => {
     router.push({
-      pathname: Path.summonerTotal,
+      pathname: Path.summoner,
       query: { name },
     });
   };

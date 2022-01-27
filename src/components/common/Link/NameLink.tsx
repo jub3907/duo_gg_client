@@ -1,4 +1,4 @@
-import { getSummonerTotalUrl } from 'config/path';
+import { getSummonerUrl } from 'config/path';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
@@ -10,7 +10,7 @@ type Props = {
 
 const NameLink = ({ className, name, children }: Props) => {
   return (
-    <Link href={getSummonerTotalUrl(name)}>
+    <Link href={getSummonerUrl(name)}>
       <a className={className}>{children ? children : name}</a>
     </Link>
   );

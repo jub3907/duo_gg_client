@@ -1,6 +1,6 @@
 const Path = {
   home: '/',
-  summonerTotal: '/summoner/[name]',
+  summoner: '/summoner/[name]',
   summonerStat: '/summoner/[name]/statistics',
   summonerComment: '/summoner/[name]/comment',
   multi: '/multi',
@@ -11,6 +11,6 @@ export type PathType = keyof typeof Path;
 
 export default Path;
 
-export const getSummonerTotalUrl = (name: string) => {
+export const getSummonerUrl = (name: string) => {
   return `/summoner/${name}`;
 };
