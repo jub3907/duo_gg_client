@@ -20,3 +20,14 @@
     background-color: $gray-4;
   }
 }
+
+@mixin ellipsis($line) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: $line;
+  white-space: normal;
+  word-break: break-all;
+  -webkit-line-clamp: $line; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}

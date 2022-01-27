@@ -15,7 +15,7 @@ module.exports = (phase) => {
       prependData: `
       @import "${(path.resolve(__dirname), './src/styles/_variables.scss')}";
       @import "${(path.resolve(__dirname), './src/styles/_typography.scss')}";
-      @import "${(path.resolve(__dirname), './src/styles/_layout.scss')}";
+      @import "${(path.resolve(__dirname), './src/styles/_mixins.scss')}";
       `,
     },
   };
