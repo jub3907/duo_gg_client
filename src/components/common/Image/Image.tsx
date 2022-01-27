@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 type Props = {
   className?: string;
-  variant: 'rect' | 'circle';
+  variant?: 'rect' | 'circle';
 } & ImageProps;
 
 const Image = ({ className, variant = 'rect', src, ...props }: Props) => {

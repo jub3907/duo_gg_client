@@ -7,6 +7,7 @@ export type SummonerBasic = {
   name: string;
   profileIconId: number;
   summonerLevel: number;
+  updatedAt: number;
   freeRank: Entry | null;
   soleRank: Entry | null;
 };

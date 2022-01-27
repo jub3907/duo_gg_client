@@ -8,6 +8,7 @@ import Ranking from '@pages/Home/Ranking/Ranking';
 const ranking = [
   {
     freeRank: null,
+    updatedAt: 1643245892905,
     iconPath:
       'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/4631.png',
     id: 'EsLFmBxEIWeIa1WhiET-p1oXRKq6Xejauon7QUlHOPzYCfw',
@@ -16,8 +17,8 @@ const ranking = [
     puuid:
       'cauUGVIorJzRY1qWsdW1I6UQghHELC84Od9tPTQVLxAqDCgcu0rwKgVC5y_sOpbX313TVPJerYAppA',
     soleRank: {
-      leaguePoints: 1103,
-      losses: 106,
+      leaguePoints: 1087,
+      losses: 107,
       rank: 'I',
       tier: 'Challenger',
       wins: 136,
@@ -26,6 +27,45 @@ const ranking = [
   },
   {
     freeRank: null,
+    updatedAt: 1643245892905,
+    iconPath:
+      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/25.png',
+    id: 'amyuHjBZG9dJzpeJtAFn1_vPRU3Z_gdPBLnMl3iIoOdRJXU',
+    name: 'Sound 0f Winter',
+    profileIconId: 25,
+    puuid:
+      'AFdb-bJWA8rBTi5js37i2KH33U-49-8IPD0IFtJJXJxxI4KySVLMByJZ8dyMEKTUJjsbrazw96QCnQ',
+    soleRank: {
+      leaguePoints: 1041,
+      losses: 70,
+      rank: 'I',
+      tier: 'Challenger',
+      wins: 114,
+    },
+    summonerLevel: 517,
+  },
+  {
+    freeRank: null,
+    updatedAt: 1643245892905,
+    iconPath:
+      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/3495.png',
+    id: '7DDrsSuk0osGih12fa_1U4AyW4_W--PMbgzsgvKLZiJeHRI',
+    name: '칼과 창 방패',
+    profileIconId: 3495,
+    puuid:
+      '9Sz8dzZn4bzC8lRYcIimcl7ayIfR7d64N-fMXxACTsIkFzkas9b647B7cPivZuqim-MTEL2EcZd9VA',
+    soleRank: {
+      leaguePoints: 1018,
+      losses: 78,
+      rank: 'I',
+      tier: 'Challenger',
+      wins: 107,
+    },
+    summonerLevel: 484,
+  },
+  {
+    freeRank: null,
+    updatedAt: 1643245892905,
     iconPath:
       'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/1428.png',
     id: 'oR3yVUKz_TVXrldJQZ_Gdy9iu4z74hR4U-u5DG6oIY538tA',
@@ -44,42 +84,7 @@ const ranking = [
   },
   {
     freeRank: null,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/25.png',
-    id: 'amyuHjBZG9dJzpeJtAFn1_vPRU3Z_gdPBLnMl3iIoOdRJXU',
-    name: 'Sound 0f Winter',
-    profileIconId: 25,
-    puuid:
-      'AFdb-bJWA8rBTi5js37i2KH33U-49-8IPD0IFtJJXJxxI4KySVLMByJZ8dyMEKTUJjsbrazw96QCnQ',
-    soleRank: {
-      leaguePoints: 974,
-      losses: 66,
-      rank: 'I',
-      tier: 'Challenger',
-      wins: 108,
-    },
-    summonerLevel: 516,
-  },
-  {
-    freeRank: null,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/3495.png',
-    id: '7DDrsSuk0osGih12fa_1U4AyW4_W--PMbgzsgvKLZiJeHRI',
-    name: '칼과 창 방패',
-    profileIconId: 3495,
-    puuid:
-      '9Sz8dzZn4bzC8lRYcIimcl7ayIfR7d64N-fMXxACTsIkFzkas9b647B7cPivZuqim-MTEL2EcZd9VA',
-    soleRank: {
-      leaguePoints: 936,
-      losses: 78,
-      rank: 'I',
-      tier: 'Challenger',
-      wins: 103,
-    },
-    summonerLevel: 484,
-  },
-  {
-    freeRank: null,
+    updatedAt: 1643245892905,
     iconPath:
       'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/3846.png',
     id: 'KoweN8EojzOoD1NjMSQUx8rvUYfAE_t6qU597ChcORDRwoM',
@@ -88,16 +93,17 @@ const ranking = [
     puuid:
       'Cv1qAl1WTvnYA-xhl9P00Qaoy4g_Av893YO_G9SC0KY0S6W6-qUuFW1d9AE8dMu2hDaJurpJIayK_g',
     soleRank: {
-      leaguePoints: 935,
-      losses: 111,
+      leaguePoints: 1012,
+      losses: 115,
       rank: 'I',
       tier: 'Challenger',
-      wins: 144,
+      wins: 151,
     },
-    summonerLevel: 542,
+    summonerLevel: 543,
   },
   {
     freeRank: null,
+    updatedAt: 1643245892905,
     iconPath:
       'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/23.png',
     id: 'Lolo-JRV-mjAwqXfPabsVfYJK752r0BE4ppreXIpHtPHk7ocEV9OqcLlSg',
@@ -116,6 +122,7 @@ const ranking = [
   },
   {
     freeRank: null,
+    updatedAt: 1643245892905,
     iconPath:
       'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/4903.png',
     id: 'rHvGglOBU4v0Ou26d_CaXMYEU-dTBMFIXR4lrDivqTjQBg',
@@ -134,6 +141,7 @@ const ranking = [
   },
   {
     freeRank: null,
+    updatedAt: 1643245892905,
     iconPath:
       'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/3495.png',
     id: 'V395j6J4U-cszcuQfv24OM2Mb9V5yXQLyuzb3DiCy6dN9Fq6OLpk_cwxtQ',
@@ -152,6 +160,7 @@ const ranking = [
   },
   {
     freeRank: null,
+    updatedAt: 1643245892905,
     iconPath:
       'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/2074.png',
     id: 'zdqrVOX34VLPEvhTUquRO1MKv1qvHr6DI8rsliL4FeXTV0Q',
@@ -160,31 +169,32 @@ const ranking = [
     puuid:
       'N2lsgWOHvG5l9JWndZ2V94k5oHkycufBixJiJHVmyqNg4edqZBIQ2Q-KCxcUEgnJxS3s0Fu2yK7UBw',
     soleRank: {
-      leaguePoints: 813,
-      losses: 111,
+      leaguePoints: 815,
+      losses: 112,
       rank: 'I',
       tier: 'Challenger',
-      wins: 137,
+      wins: 138,
     },
     summonerLevel: 209,
   },
   {
     freeRank: null,
+    updatedAt: 1643245892905,
     iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/4631.png',
-    id: 'XY8yvE6CBAjWb15Ti-c5oG64c4xcsojZnAQ_qT_NS7HzEyNj_Xc0CGnnEw',
-    name: 'Dispel haze',
-    profileIconId: 4631,
+      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/4568.png',
+    id: 'LKZjxQZFBpSP9z-vBt3f_HPyicMyvPrG5Jm_5ovVfmxwKXQ',
+    name: '버기해적단 버기',
+    profileIconId: 4568,
     puuid:
-      'CnSANeHv5D1LufouDYPYYksAtetQAk3w-1u9QNScB3ERBaijPRMB_3F7LdLLZ2ZuCvFujSsJTG6mTw',
+      '-Lpi-4ER24HCGqEZKOedyGRM944KeHicua_7mPN2D34afH8LD71LPL0ROAFaTJ7pYUQlO8-Sfvj3zg',
     soleRank: {
-      leaguePoints: 789,
-      losses: 101,
+      leaguePoints: 801,
+      losses: 110,
       rank: 'I',
       tier: 'Challenger',
-      wins: 122,
+      wins: 141,
     },
-    summonerLevel: 206,
+    summonerLevel: 200,
   },
 ];
 

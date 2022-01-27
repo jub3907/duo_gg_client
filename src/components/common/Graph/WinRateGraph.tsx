@@ -1,6 +1,7 @@
 import styles from './WinRateGraph.module.scss';
 import Graph from './Graph';
 import { useMemo } from 'react';
+import { getWinRate } from 'lib/utils/utils';
 
 type Props = {
   wins: number;
@@ -15,11 +16,6 @@ const WinRateGraph = ({
   percent = false,
   textVisible = false,
 }: Props) => {
-  const winRate = useMemo(
-    () => ((100 * wins) / (wins + losses)).toFixed(),
-    [wins, losses],
-  );
-
   return (
     <div className={styles.layout}>
       <div className={styles.graph}>
@@ -35,7 +31,9 @@ const WinRateGraph = ({
           color="#F85959"
         />
       </div>
-      {percent && <div className={styles.percent}>{winRate} %</div>}
+      {percent && (
+        <div className={styles.percent}>{getWinRate(wins, losses)} %</div>
+      )}
     </div>
   );
 };
