@@ -5,7 +5,7 @@ import cn from 'classnames';
 import { Icon } from '@mui/material';
 import CellTowerIcon from '@mui/icons-material/CellTower';
 import WinRateGraph from '@common/Graph/WinRateGraph';
-import MatchParticipantCard from '../Card/MatchParticipantCard';
+import MatchParticipantCard from '../../Card/MatchParticipantCard';
 import { useMemo } from 'react';
 
 type Props = {

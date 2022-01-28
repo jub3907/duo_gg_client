@@ -1,6 +1,6 @@
 import styles from './MatchAnalytics.module.scss';
 import { MatchDetailType } from 'lib/types/match';
-import MatchAnalyticsCard from '../Card/MatchAnalyticsCard';
+import MatchAnalyticsCard from '../../Card/MatchAnalyticsCard';
 
 type Props = {
   matchDetail: MatchDetailType;

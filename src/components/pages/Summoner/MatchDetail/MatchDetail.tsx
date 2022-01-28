@@ -2,9 +2,10 @@ import { MatchBasicType } from 'lib/types/match';
 import { useState } from 'react';
 import styles from './MatchDetail.module.scss';
 import MatchDetailMenu from './MatchDetailMenu';
-import MatchTotal from './MatchTotal';
+import MatchTotal from './Total/MatchTotal';
 import { MatchDetailType } from 'lib/types/match';
-import MatchAnalytics from './MatchAnalytics';
+import MatchAnalytics from './Analytics/MatchAnalytics';
+import MatchBuild from './Build/MatchBuild';
 
 const matchDetail = {
   gameCreation: 1642947055000,
@@ -1051,6 +1052,7 @@ const MatchDetail = ({ matchId }: Props) => {
       <div className={styles.tab}>
         {tab === 'total' && <MatchTotal matchDetail={matchDetail} />}
         {tab === 'analytics' && <MatchAnalytics matchDetail={matchDetail} />}
+        {tab === 'build' && <MatchBuild matchDetail={matchDetail} />}
       </div>
     </div>
   );
