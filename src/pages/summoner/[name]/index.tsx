@@ -195,10 +195,20 @@ const recentMatches: MatchBasicType[] = [
         defense: 5002,
         flex: 5003,
         offense: 5007,
-        primarySelections: [8439, 8463, 8473, 8242],
-        primaryStyle: 8400,
-        subSelections: [8009, 9105],
-        subStyle: 8000,
+        primarySelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/VeteranAftershock/VeteranAftershock.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/FontOfLife/FontOfLife.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/BonePlating/BonePlating.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/Unflinching/Unflinching.png',
+        ],
+        primaryStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7204_Resolve.png',
+        subSelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/PresenceOfMind/PresenceOfMind.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LegendTenacity/LegendTenacity.png',
+        ],
+        subStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png',
       },
       puuid:
         'WhX0_L0SzY-UpxFTZFvHASktCbDc-loiJln6RnMNU5Ptwj_6lw98sE-iOPamqp_GNs71T37LFIndLg',
@@ -387,10 +397,20 @@ const recentMatches: MatchBasicType[] = [
         defense: 5002,
         flex: 5008,
         offense: 5008,
-        primarySelections: [9923, 8143, 8138, 8106],
-        primaryStyle: 8100,
-        subSelections: [8473, 8453],
-        subStyle: 8400,
+        primarySelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/HailOfBlades/HailOfBlades.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/SuddenImpact/SuddenImpact.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/EyeballCollection/EyeballCollection.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/UltimateHunter/UltimateHunter.png',
+        ],
+        primaryStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7200_Domination.png',
+        subSelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/BonePlating/BonePlating.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/Revitalize/Revitalize.png',
+        ],
+        subStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7204_Resolve.png',
       },
       puuid:
         'WhX0_L0SzY-UpxFTZFvHASktCbDc-loiJln6RnMNU5Ptwj_6lw98sE-iOPamqp_GNs71T37LFIndLg',
@@ -578,10 +598,20 @@ const recentMatches: MatchBasicType[] = [
         defense: 5002,
         flex: 5008,
         offense: 5005,
-        primarySelections: [8010, 9111, 9104, 8014],
-        primaryStyle: 8000,
-        subSelections: [8304, 8347],
-        subStyle: 8300,
+        primarySelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Triumph.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LegendAlacrity/LegendAlacrity.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/CoupDeGrace/CoupDeGrace.png',
+        ],
+        primaryStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png',
+        subSelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/MagicalFootwear/MagicalFootwear.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/CosmicInsight/CosmicInsight.png',
+        ],
+        subStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7203_Whimsy.png',
       },
       puuid:
         'WhX0_L0SzY-UpxFTZFvHASktCbDc-loiJln6RnMNU5Ptwj_6lw98sE-iOPamqp_GNs71T37LFIndLg',
@@ -770,10 +800,20 @@ const recentMatches: MatchBasicType[] = [
         defense: 5002,
         flex: 5008,
         offense: 5005,
-        primarySelections: [8010, 9111, 9104, 8014],
-        primaryStyle: 8000,
-        subSelections: [8304, 8347],
-        subStyle: 8300,
+        primarySelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Triumph.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LegendAlacrity/LegendAlacrity.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/CoupDeGrace/CoupDeGrace.png',
+        ],
+        primaryStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png',
+        subSelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/MagicalFootwear/MagicalFootwear.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/CosmicInsight/CosmicInsight.png',
+        ],
+        subStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7203_Whimsy.png',
       },
       puuid:
         'WhX0_L0SzY-UpxFTZFvHASktCbDc-loiJln6RnMNU5Ptwj_6lw98sE-iOPamqp_GNs71T37LFIndLg',
@@ -961,10 +1001,20 @@ const recentMatches: MatchBasicType[] = [
         defense: 5002,
         flex: 5008,
         offense: 5005,
-        primarySelections: [8008, 8009, 9104, 8014],
-        primaryStyle: 8000,
-        subSelections: [8138, 8106],
-        subStyle: 8100,
+        primarySelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/PresenceOfMind/PresenceOfMind.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LegendAlacrity/LegendAlacrity.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/CoupDeGrace/CoupDeGrace.png',
+        ],
+        primaryStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png',
+        subSelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/EyeballCollection/EyeballCollection.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/UltimateHunter/UltimateHunter.png',
+        ],
+        subStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7200_Domination.png',
       },
       puuid:
         'WhX0_L0SzY-UpxFTZFvHASktCbDc-loiJln6RnMNU5Ptwj_6lw98sE-iOPamqp_GNs71T37LFIndLg',
@@ -1149,10 +1199,20 @@ const recentMatches: MatchBasicType[] = [
         defense: 5002,
         flex: 5008,
         offense: 5005,
-        primarySelections: [8010, 9111, 9104, 8014],
-        primaryStyle: 8000,
-        subSelections: [8304, 8347],
-        subStyle: 8300,
+        primarySelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Triumph.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LegendAlacrity/LegendAlacrity.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/CoupDeGrace/CoupDeGrace.png',
+        ],
+        primaryStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png',
+        subSelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/MagicalFootwear/MagicalFootwear.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/CosmicInsight/CosmicInsight.png',
+        ],
+        subStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7203_Whimsy.png',
       },
       puuid:
         'WhX0_L0SzY-UpxFTZFvHASktCbDc-loiJln6RnMNU5Ptwj_6lw98sE-iOPamqp_GNs71T37LFIndLg',
@@ -1340,10 +1400,20 @@ const recentMatches: MatchBasicType[] = [
         defense: 5002,
         flex: 5008,
         offense: 5007,
-        primarySelections: [8439, 8463, 8429, 8453],
-        primaryStyle: 8400,
-        subSelections: [9111, 9105],
-        subStyle: 8000,
+        primarySelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/VeteranAftershock/VeteranAftershock.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/FontOfLife/FontOfLife.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/Conditioning/Conditioning.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/Revitalize/Revitalize.png',
+        ],
+        primaryStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7204_Resolve.png',
+        subSelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Triumph.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LegendTenacity/LegendTenacity.png',
+        ],
+        subStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png',
       },
       puuid:
         'WhX0_L0SzY-UpxFTZFvHASktCbDc-loiJln6RnMNU5Ptwj_6lw98sE-iOPamqp_GNs71T37LFIndLg',
@@ -1532,10 +1602,20 @@ const recentMatches: MatchBasicType[] = [
         defense: 5002,
         flex: 5008,
         offense: 5005,
-        primarySelections: [8010, 9111, 9104, 8014],
-        primaryStyle: 8000,
-        subSelections: [8304, 8347],
-        subStyle: 8300,
+        primarySelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Triumph.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LegendAlacrity/LegendAlacrity.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/CoupDeGrace/CoupDeGrace.png',
+        ],
+        primaryStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png',
+        subSelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/MagicalFootwear/MagicalFootwear.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Inspiration/CosmicInsight/CosmicInsight.png',
+        ],
+        subStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7203_Whimsy.png',
       },
       puuid:
         'WhX0_L0SzY-UpxFTZFvHASktCbDc-loiJln6RnMNU5Ptwj_6lw98sE-iOPamqp_GNs71T37LFIndLg',
@@ -1721,10 +1801,20 @@ const recentMatches: MatchBasicType[] = [
         defense: 5002,
         flex: 5008,
         offense: 5007,
-        primarySelections: [8439, 8463, 8429, 8453],
-        primaryStyle: 8400,
-        subSelections: [9111, 9105],
-        subStyle: 8000,
+        primarySelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/VeteranAftershock/VeteranAftershock.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/FontOfLife/FontOfLife.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/Conditioning/Conditioning.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/Revitalize/Revitalize.png',
+        ],
+        primaryStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7204_Resolve.png',
+        subSelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Triumph.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LegendTenacity/LegendTenacity.png',
+        ],
+        subStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png',
       },
       puuid:
         'WhX0_L0SzY-UpxFTZFvHASktCbDc-loiJln6RnMNU5Ptwj_6lw98sE-iOPamqp_GNs71T37LFIndLg',
@@ -1913,10 +2003,20 @@ const recentMatches: MatchBasicType[] = [
         defense: 5002,
         flex: 5008,
         offense: 5005,
-        primarySelections: [8008, 8009, 9103, 8014],
-        primaryStyle: 8000,
-        subSelections: [8139, 8135],
-        subStyle: 8100,
+        primarySelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/PresenceOfMind/PresenceOfMind.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LegendBloodline/LegendBloodline.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/CoupDeGrace/CoupDeGrace.png',
+        ],
+        primaryStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7201_Precision.png',
+        subSelections: [
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/TasteOfBlood/GreenTerror_TasteOfBlood.png',
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/RavenousHunter/RavenousHunter.png',
+        ],
+        subStyle:
+          'http://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/7200_Domination.png',
       },
       puuid:
         'WhX0_L0SzY-UpxFTZFvHASktCbDc-loiJln6RnMNU5Ptwj_6lw98sE-iOPamqp_GNs71T37LFIndLg',

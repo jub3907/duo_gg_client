@@ -1,0 +1,30 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(19, 1fr);
+  gap: $spacing-2;
+  margin-bottom: $spacing-2;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $gray-7;
+  color: $white;
+  height: $spacing-24;
+}
+
+.skill {
+  @include body2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $blue;
+  height: $spacing-24;
+  color: $white;
+}
+
+.blank {
+  height: $spacing-24;
+  background-color: $blue-op2;
+}

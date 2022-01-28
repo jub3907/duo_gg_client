@@ -9,6 +9,7 @@ import NameLink from '@common/Link/NameLink';
 import { useCallback, useState } from 'react';
 import MatchDetail from '../MatchDetail/MatchDetail';
 import { getRate } from 'lib/utils/utils';
+import ArrowDropDownTwoToneIcon from '@mui/icons-material/ArrowDropDownTwoTone';
 
 type Props = {
   match: MatchBasicType;
@@ -148,9 +149,13 @@ const MatchBasicInfoCard = ({
             );
           })}
         </div>
-        <Button onClick={onClick}>1</Button>
+        <Button variant="text" onClick={onClick}>
+          <ArrowDropDownTwoToneIcon />
+        </Button>
       </div>
-      {detailOpen && <MatchDetail matchId={matchId} />}
+      {detailOpen && (
+        <MatchDetail matchId={matchId} perk={summonerInGameData.perks} />
+      )}
     </div>
   );
 };

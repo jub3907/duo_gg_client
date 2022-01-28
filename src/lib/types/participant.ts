@@ -46,13 +46,15 @@ export type ParticipantType = {
     type: string;
     iconPath: string;
   }[];
-  perks: {
-    flex: number;
-    defense: number;
-    offense: number;
-    primaryStyle: number;
-    primarySelections: number[];
-    subStyle: number;
-    subSelections: number[];
-  };
+  perks: PerkType;
+};
+
+export type PerkType = {
+  flex: number;
+  defense: number;
+  offense: number;
+  primaryStyle: string;
+  primarySelections: string[];
+  subStyle: string;
+  subSelections: string[];
 };

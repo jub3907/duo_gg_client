@@ -95,7 +95,7 @@ const MatchSummaryCard = ({ matches }: Props) => {
             <PositionInfo total={total} data={JUNGLE} type="JUNGLE" />
           </div>
           <div className={styles.column}>
-            <PositionInfo total={total} data={BOTTOM} type="TOP" />
+            <PositionInfo total={total} data={BOTTOM} type="BOTTOM" />
             <PositionInfo total={total} data={UTILITY} type="UTILITY" />
             {/* <PositionInfo total={total} data={Invalid} type="Invalid" /> */}
           </div>
