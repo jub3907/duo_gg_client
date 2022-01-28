@@ -28,6 +28,9 @@
 .graph {
   width: 150px;
   height: 150px;
+  .percent {
+    @include h4-bold;
+  }
 }
 
 .score {

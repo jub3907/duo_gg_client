@@ -6,6 +6,7 @@ import { Icon } from '@mui/material';
 import CellTowerIcon from '@mui/icons-material/CellTower';
 import WinRateGraph from '@common/Graph/WinRateGraph';
 import MatchParticipantCard from '../Card/MatchParticipantCard';
+import { useMemo } from 'react';
 
 type Props = {
   matchDetail: MatchDetailType;
@@ -18,10 +19,11 @@ const Winner = ({ wins, teamId }: { wins: number; teamId: number }) => {
   return <div className={styles.loss}>패</div>;
 };
 
-const MatchTotal = ({
-  matchDetail: { gameCreation, gameDuration, matchId, matchType, red, blue },
-}: Props) => {
-  const { wins, blueSummary, redSummary } = getMatchDetailSummary(red, blue);
+const MatchTotal = ({ matchDetail: { matchId, red, blue } }: Props) => {
+  const { wins, blueSummary, redSummary } = useMemo(
+    () => getMatchDetailSummary(red, blue),
+    [red, blue],
+  );
 
   return (
     <div className={styles.layout}>

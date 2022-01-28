@@ -7,14 +7,6 @@
   justify-content: center;
 }
 
-.percent {
-  @include h4-bold;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .graph {
   position: absolute;
   top: 0;

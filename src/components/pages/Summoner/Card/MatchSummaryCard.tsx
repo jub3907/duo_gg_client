@@ -1,5 +1,4 @@
 import PieGraph from '@common/Graph/PieGraph';
-import WinRatePieGraph from '@common/Graph/WinRatePieGraph';
 import Image from '@common/Image/Image';
 import { MatchBasicType } from 'lib/types/match';
 import { getImagePath, getMatchSummary, getWinRate } from 'lib/utils/utils';
@@ -60,7 +59,16 @@ const MatchSummaryCard = ({ matches }: Props) => {
         <div className={styles.title}>최근 게임 승률</div>
         <div className={styles.ingame}>
           <div className={styles.graph}>
-            <WinRatePieGraph wins={wins} losses={losses} />
+            <PieGraph
+              red={losses}
+              blue={wins}
+              labels={['패', '승']}
+              Center={
+                <div className={styles.percent}>
+                  {((100 * wins) / total).toFixed(0)} %
+                </div>
+              }
+            />
           </div>
           <div className={styles.score}>
             <div className={styles.win}>

@@ -1,0 +1,10 @@
+.layout {
+  display: flex;
+}
+
+.grid {
+  flex: 1;
+  padding: $spacing-16;
+  display: grid;
+  grid-template-columns: 1fr;
+}
