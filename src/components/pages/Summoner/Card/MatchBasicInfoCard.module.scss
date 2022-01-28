@@ -1,0 +1,126 @@
+.layout {
+  display: flex;
+  border: 1px solid $gray-4;
+  background-color: $red-op;
+}
+
+.blue {
+  background-color: $blue-op;
+}
+
+.divider {
+  border-left: 1px solid $gray-4;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  flex: 1;
+  row-gap: $spacing-4;
+  padding: $spacing-20 $spacing-16;
+  .type {
+    @include h5-bold;
+  }
+  .date {
+    @include body2;
+    color: $gray-5;
+  }
+  .win {
+    @include h5-bold;
+    color: $blue;
+  }
+  .loss {
+    @include h5-bold;
+    color: $red;
+  }
+}
+
+.ingame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-32 $spacing-16;
+  flex: 3;
+
+  .spell {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: $spacing-8;
+    margin-left: $spacing-12;
+  }
+
+  .score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    row-gap: $spacing-8;
+
+    .kill {
+      @include h4-bold;
+    }
+    .rate {
+      @include body2;
+      color: $gray-6;
+    }
+  }
+
+  .items {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-auto-flow: column;
+    gap: $spacing-8;
+  }
+
+  .blank {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
+}
+
+.meta {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: $spacing-8;
+    flex: 1;
+  }
+
+  .index {
+    @include h5-bold;
+  }
+
+  .value {
+    @include body2;
+    color: $gray-6;
+  }
+}
+
+.participants {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  flex: 1.5;
+  padding: $spacing-16;
+  column-gap: $spacing-8;
+
+  .participant {
+    column-gap: $spacing-4;
+    display: flex;
+    align-items: center;
+  }
+  .name {
+    @include body3;
+    @include ellipsis(1);
+  }
+}

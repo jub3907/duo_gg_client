@@ -1,0 +1,16 @@
+.menus {
+  display: flex;
+  column-gap: $spacing-16;
+}
+
+.button {
+  width: 8rem;
+  border: 1px solid $white;
+  background-color: $gray-4;
+  border-radius: 0;
+  color: $gray-7;
+}
+
+.active {
+  background-color: $gray-2;
+}
