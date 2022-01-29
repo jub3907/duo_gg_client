@@ -2,6 +2,7 @@ import SubHeader from '@common/Header/SubHeader';
 import Layout from '@common/Layout/Layout';
 import PageTitleLayout from '@common/Layout/PageTitleLayout';
 import { Button } from '@mui/material';
+import DuoCard from '@pages/Duo/Card/DuoCard';
 import styles from '@pages/Duo/DuoPage.module.scss';
 import DuoModal from '@pages/Duo/Modal/DuoModal';
 import { useCallback, useState } from 'react';
@@ -10,7 +11,7 @@ const posts = [
   {
     createdAt: 1643438988703,
     name: '21세기광부',
-    text: '듀오 구해요',
+    text: '듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 듀오 구해요 ',
     title: '솔로랭크 실버3 포지션 상관없이 구함',
   },
   {
@@ -46,7 +47,7 @@ const posts = [
   {
     createdAt: 1643439013107,
     name: '21세기광부',
-    text: '듀오 구해요',
+    text: '듀오 구해요듀오 구해요듀오 구해요듀오 구해요듀오 구해요듀오 구해요듀오 구해요',
     title: '자유랭크 실버3 탑',
   },
 ];
@@ -65,7 +66,20 @@ const DuoPage = () => {
     <Layout subHeader={<SubHeader />} activeMenu="duo">
       <PageTitleLayout title="듀오 신청">
         <div className={styles.button}>
-          <Button onClick={openModal}>듀오 신청</Button>
+          <Button variant="contained" onClick={openModal}>
+            듀오 신청
+          </Button>
+        </div>
+
+        <div className={styles.grid}>
+          {posts.map((post, index) => {
+            return (
+              <DuoCard
+                post={post}
+                key={`duo-card-${post.createdAt}-${index}`}
+              />
+            );
+          })}
         </div>
       </PageTitleLayout>
 

@@ -1,0 +1,36 @@
+.layout {
+  padding: $spacing-16;
+  border: 1px solid $gray-7;
+  background-color: $gray-3;
+  border-radius: $spacing-4;
+  min-height: 15rem;
+}
+
+.layout:hover {
+  border: 1px solid $blue;
+  transition: border 0.5s;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .name {
+    @include h5-bold;
+    color: $gray-7;
+  }
+  .date {
+    @include body2;
+    color: $gray-5;
+  }
+  margin-bottom: $spacing-16;
+}
+
+.title {
+  @include h5-bold;
+  margin-bottom: $spacing-16;
+}
+
+.text {
+  @include body2;
+}
