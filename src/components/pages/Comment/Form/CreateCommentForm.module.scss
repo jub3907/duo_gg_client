@@ -1,0 +1,25 @@
+.layout {
+  display: flex;
+  padding: $spacing-12 $spacing-12 0 $spacing-12;
+  border: 1px solid $gray-3;
+  column-gap: $spacing-32;
+  position: relative;
+  //   align-items: center;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  row-gap: $spacing-12;
+  width: 10rem;
+}
+
+.body {
+  flex: 1;
+}
+
+.button {
+  height: 9.25rem;
+  width: 5rem;
+  background-color: $blue;
+}
