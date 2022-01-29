@@ -6,6 +6,7 @@ import SummonerMenu from '@common/Menu/SummonerMenu';
 import SummonerCard from '@pages/Summoner/Card/SummonerCard';
 import { GetServerSidePropsContext } from 'next';
 import CreateCommentForm from '@pages/Comment/Form/CreateCommentForm';
+import CommentCard from '@pages/Comment/Card/CommentCard';
 
 const basicSummonerInfo = {
   freeRank: {
@@ -33,6 +34,39 @@ const basicSummonerInfo = {
   summonerLevel: 147,
 };
 
+const comments = [
+  {
+    _id: '61ef74afe397ccb38e4b4453',
+    createdAt: 1643082927078,
+    nickname: '패배1',
+    text: '댓글이에요',
+  },
+  {
+    _id: '61ef74b1e397ccb38e4b4457',
+    createdAt: 1643082929931,
+    nickname: '패배',
+    text: '오우야2',
+  },
+  {
+    _id: '61ef74b4e397ccb38e4b445c',
+    createdAt: 1643082932068,
+    nickname: '패배2',
+    text: '오우야3',
+  },
+  {
+    _id: '61ef74b5e397ccb38e4b4462',
+    createdAt: 1643082933881,
+    nickname: '패배',
+    text: '오우야4',
+  },
+  {
+    _id: '61ef74b7e397ccb38e4b4469',
+    createdAt: 1643082935708,
+    nickname: '패배',
+    text: '오우야5',
+  },
+];
+
 const SummonerCommentPage = ({ name }: { name: string }) => {
   return (
     <Layout subHeader={<SubHeader />} activeMenu="summoner">
@@ -43,6 +77,12 @@ const SummonerCommentPage = ({ name }: { name: string }) => {
         </div>
         <div className={styles.form}>
           <CreateCommentForm name={basicSummonerInfo.name} />
+        </div>
+
+        <div className={styles.comments}>
+          {comments.map((comment) => {
+            return <CommentCard comment={comment} key={comment._id} />;
+          })}
         </div>
       </PageTitleLayout>
     </Layout>

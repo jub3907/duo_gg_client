@@ -1,0 +1,36 @@
+.layout {
+  margin: $spacing-20;
+  padding: 0 $spacing-20 $spacing-20 $spacing-20;
+  border: 1px solid $gray-5;
+  border-radius: $spacing-8;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: $spacing-12;
+  height: $spacing-64;
+
+  .nickname {
+    @include h5-bold;
+    flex: 1;
+  }
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  column-gap: $spacing-12;
+  .date {
+    color: $gray-5;
+  }
+  .delete {
+    @include h3;
+    color: $red;
+    cursor: pointer;
+  }
+}
+
+.text {
+  @include body1;
+}
