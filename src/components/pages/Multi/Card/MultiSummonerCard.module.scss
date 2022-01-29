@@ -1,0 +1,79 @@
+.layout {
+  border: 1px solid $gray-6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-8;
+  row-gap: $spacing-16;
+}
+
+.name {
+  @include h4-bold;
+}
+
+.info {
+  width: 100%;
+}
+
+.mastery {
+  width: 100%;
+}
+
+.matches {
+  width: 100%;
+}
+
+.rank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: $spacing-4;
+  .tier {
+    @include body1-bold;
+    color: $gray-6;
+    margin-left: $spacing-8;
+  }
+}
+
+.unrank {
+  margin-bottom: $spacing-24;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-8;
+}
+
+.score {
+  @include body2;
+}
+
+.date {
+  @include body3;
+}
+
+.result {
+  @include body3-bold;
+  display: flex;
+  align-items: center;
+  column-gap: $spacing-8;
+
+  .win {
+    color: $blue;
+  }
+
+  .loss {
+    color: $red;
+  }
+}
+
+.stat {
+  @include body3;
+}
+
+.position {
+  @include caption;
+  color: $gray-5;
+}

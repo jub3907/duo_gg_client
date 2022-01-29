@@ -1,0 +1,6 @@
+.grid {
+  margin-top: $spacing-32;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: $spacing-4;
+}
