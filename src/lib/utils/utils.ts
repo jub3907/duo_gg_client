@@ -29,6 +29,25 @@ export const getRate = (kills: number, deaths: number, assists: number) => {
   return deaths === 0 ? 'Perfect' : ((kills + assists) / deaths).toFixed(1);
 };
 
+export const parseMultiSearchInput = (text: string) => {
+  // case1. ,를 기준으로 아이디를 입력
+  if (text.includes(',')) {
+    return text.split(',').slice(0, 5);
+  } else {
+    const lines = text.split('\n');
+    return lines
+      .reduce((acc: string[], val: string) => {
+        if (val.includes('님이 방에')) {
+          acc.push(val.split('님이 방에')[0]);
+        }
+        return acc;
+      }, [])
+      .slice(0, 5);
+  }
+};
+
+//TODO: 백엔드로 옮겨야함
+
 export const getMatchDetailSummary = (
   red: ParticipantType[],
   blue: ParticipantType[],
@@ -75,8 +94,6 @@ export const getMatchDetailSummary = (
 
   return { wins, redSummary, blueSummary };
 };
-
-//TODO: 백엔드로 옮겨야함
 
 export const getMatchSummary = (matches: MatchBasicType[]) => {
   return matches.reduce(
