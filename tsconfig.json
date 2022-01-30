@@ -5,8 +5,10 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -17,9 +19,9 @@
     "rootDir": ".",
     "baseUrl": "./",
     "paths": {
-      "@common/*" : ["./src/components/common/*"],
-      "@pages/*" : ["./src/components/pages/*"],
-      "*" : ["./src/*", "./*"],
+      "@common/*": ["./src/components/common/*"],
+      "@pages/*": ["./src/components/pages/*"],
+      "*": ["./src/*", "./*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

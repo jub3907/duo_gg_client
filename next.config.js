@@ -10,6 +10,12 @@ module.exports = (phase) => {
     images: {
       domains: ['ddragon.leagueoflegends.com'],
     },
+
+    env: {
+      API_URL: process.env.API_URL,
+      SITE_URL: process.env.SITE_URL,
+    },
+
     sassOptions: {
       includePaths: [path.join(__dirname, './src/styles')],
       prependData: `
