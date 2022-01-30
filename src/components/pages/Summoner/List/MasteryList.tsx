@@ -1,147 +1,93 @@
+import { gql, useMutation, useQuery } from '@apollo/client';
 import Image from '@common/Image/Image';
 import List from '@common/List/List';
+import { selectSummonerState } from 'lib/slice/summonerSlice';
+import { MasteryType } from 'lib/types/mastery';
 import { getDateFromNow } from 'lib/utils/date';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './MasteryList.module.scss';
 
-type Props = {
-  summonerId: string;
-};
-
-const mastery = [
-  {
-    championId: 412,
-    championLevel: 7,
-    championPoints: 613908,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/Thresh.png',
-    lastPlayTime: 1638076565000,
-  },
-  {
-    championId: 117,
-    championLevel: 7,
-    championPoints: 213614,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/Lulu.png',
-    lastPlayTime: 1633737603000,
-  },
-  {
-    championId: 267,
-    championLevel: 7,
-    championPoints: 158992,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/Nami.png',
-    lastPlayTime: 1633792976000,
-  },
-  {
-    championId: 64,
-    championLevel: 7,
-    championPoints: 137923,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/LeeSin.png',
-    lastPlayTime: 1642266610000,
-  },
-  {
-    championId: 555,
-    championLevel: 7,
-    championPoints: 93051,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/Pyke.png',
-    lastPlayTime: 1642940134000,
-  },
-  {
-    championId: 89,
-    championLevel: 7,
-    championPoints: 80544,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/Leona.png',
-    lastPlayTime: 1642948335000,
-  },
-  {
-    championId: 41,
-    championLevel: 6,
-    championPoints: 63258,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/Gangplank.png',
-    lastPlayTime: 1632036575000,
-  },
-  {
-    championId: 21,
-    championLevel: 7,
-    championPoints: 57680,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/MissFortune.png',
-    lastPlayTime: 1638682852000,
-  },
-  {
-    championId: 76,
-    championLevel: 5,
-    championPoints: 48850,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/Nidalee.png',
-    lastPlayTime: 1635426901000,
-  },
-  {
-    championId: 142,
-    championLevel: 6,
-    championPoints: 47744,
-    iconPath:
-      'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/champion/Zoe.png',
-    lastPlayTime: 1636290800000,
-  },
-];
+const MASTERY = gql`
+  query mastery($summonerId: String!, $count: Float!) {
+    mastery(summonerId: $summonerId, count: $count) {
+      championId
+      championLevel
+      championPoints
+      iconPath
+      lastPlayTime
+    }
+  }
+`;
 
 // TODO: 챔피언 이름 받아오기
 
-const MasteryList = ({ summonerId }: Props) => {
-  const Masteries = () => {
+const MasteryList = () => {
+  const { id } = useSelector(selectSummonerState);
+  const { data } = useQuery<{ mastery: MasteryType[] }>(MASTERY, {
+    skip: !id,
+    variables: {
+      summonerId: id,
+      count: 3,
+    },
+  });
+
+  const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
+    if (!masteries) {
+      return <div>Loading</div>;
+    }
+
     return (
       <>
-        {mastery
-          .slice(0, 4)
-          .map(
-            (
-              {
-                championId,
-                championLevel,
-                championPoints,
-                iconPath,
-                lastPlayTime,
-              },
-              index,
-            ) => {
-              return (
-                <div
-                  className={styles.mastery}
-                  key={`mastery-${championId}-${index}`}
-                >
-                  <div className={styles.flex}>
-                    <Image
-                      src={iconPath}
-                      alt="챔피언 아이콘"
-                      width={40}
-                      height={40}
-                      variant="circle"
-                    />
-                    <div className={styles.champ}>이름</div>
+        {masteries.map(
+          (
+            {
+              championId,
+              championLevel,
+              championPoints,
+              iconPath,
+              lastPlayTime,
+            },
+            index,
+          ) => {
+            return (
+              <div
+                className={styles.mastery}
+                key={`mastery-${championId}-${index}`}
+              >
+                <div className={styles.flex}>
+                  <Image
+                    src={iconPath}
+                    alt="챔피언 아이콘"
+                    width={40}
+                    height={40}
+                    variant="circle"
+                  />
+                </div>
+                <div className={styles.info}>
+                  <div className={styles.score}>
+                    {championPoints.toLocaleString()}점
                   </div>
-
-                  <div className={styles.flex}>
-                    <div>{championPoints.toLocaleString()}점</div>
-                    <div>Lv. {championLevel}</div>
-                  </div>
+                  <div className={styles.level}>Lv. {championLevel}</div>
 
                   <div className={styles.date}>
                     {getDateFromNow(lastPlayTime)}
                   </div>
                 </div>
-              );
-            },
-          )}
+              </div>
+            );
+          },
+        )}
       </>
     );
   };
 
-  return <List title="숙련도 정보" contents={<Masteries />} />;
+  return (
+    <List
+      title="숙련도 정보"
+      contents={<Masteries masteries={data?.mastery} />}
+    />
+  );
 };
 
 export default MasteryList;

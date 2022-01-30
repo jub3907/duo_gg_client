@@ -6,14 +6,17 @@ import {
 import Link from 'next/link';
 import styles from './SummonerMenu.module.scss';
 import cn from 'classnames';
+import { selectSummonerState } from 'lib/slice/summonerSlice';
+import { useSelector } from 'react-redux';
 
 type MenuType = 'index' | 'statistic' | 'comment';
 
 type Props = {
   activeMenu: MenuType;
-  name: string;
 };
-const SummonerMenu = ({ activeMenu, name }: Props) => {
+const SummonerMenu = ({ activeMenu }: Props) => {
+  const { name } = useSelector(selectSummonerState);
+
   return (
     <>
       <div className={styles.menus}>

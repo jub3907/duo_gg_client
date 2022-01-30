@@ -1,15 +1,28 @@
+import { gql, useQuery } from '@apollo/client';
 import List from '@common/List/List';
 import { Button, ListSubheader } from '@mui/material';
 import { style } from '@mui/system';
 import { getSummonerCommentUrl } from 'config/path';
+import summonerSlice, { selectSummonerState } from 'lib/slice/summonerSlice';
 import { CommentType } from 'lib/types/comment';
+import { PostType } from 'lib/types/post';
 import { getDateFromNow } from 'lib/utils/date';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 import styles from './CommentList.module.scss';
 
-type Props = {
-  name: string;
-};
+const COMMENTS = gql`
+  query comments($count: Float!, $name: String!) {
+    comments(count: $count, name: $name) {
+      _id
+      createdAt
+      nickname
+      text
+    }
+  }
+`;
+
 const comments = [
   {
     _id: '61ef74b7e397ccb38e4b4469',
@@ -26,31 +39,48 @@ const comments = [
 ];
 
 // TODO: 컴포넌트 분리
-const CommentList = ({ name }: Props) => {
-  const Comments = () => {
+const CommentList = () => {
+  const { name } = useSelector(selectSummonerState);
+
+  const { data: comments, loading } = useQuery<{ comments: CommentType[] }>(
+    COMMENTS,
+    {
+      skip: name === undefined,
+      variables: { name: name, count: 2 },
+      onError: (e) => {
+        console.log('error', e);
+      },
+    },
+  );
+
+  const Comments = ({ comments }: { comments: CommentType[] }) => {
     return (
       <>
         {comments.length > 0 &&
-          comments.map(({ createdAt, nickname, text }: CommentType, index) => {
-            return (
-              <div
-                className={styles.comment}
-                key={`comment-${createdAt}-${index}}`}
-              >
-                <div className={styles.writer}>
-                  <div className={styles.nickname}>{nickname}</div>
-                  <div className={styles.date}>{getDateFromNow(createdAt)}</div>
+          comments
+            .slice(0, 3)
+            .map(({ createdAt, nickname, text }: CommentType, index) => {
+              return (
+                <div
+                  className={styles.comment}
+                  key={`comment-${createdAt}-${index}}`}
+                >
+                  <div className={styles.writer}>
+                    <div className={styles.nickname}>{nickname}</div>
+                    <div className={styles.date}>
+                      {getDateFromNow(createdAt)}
+                    </div>
+                  </div>
+                  <div className={styles.divider} />
+                  <div className={styles.text}>{text}</div>
                 </div>
-                <div className={styles.divider} />
-                <div className={styles.text}>{text}</div>
-              </div>
-            );
-          })}
+              );
+            })}
       </>
     );
   };
 
-  const CommentButton = () => {
+  const CommentButton = ({ name }: { name: string }) => {
     return (
       <Link href={getSummonerCommentUrl(name)}>
         <a>
@@ -65,8 +95,14 @@ const CommentList = ({ name }: Props) => {
   return (
     <List
       title="최근 한마디"
-      contents={<Comments />}
-      button={<CommentButton />}
+      contents={
+        loading ? (
+          <div>Loading</div>
+        ) : (
+          <Comments comments={comments?.comments} />
+        )
+      }
+      button={<CommentButton name={name} />}
     />
   );
 };

@@ -11,32 +11,103 @@ import MatchSummaryCard from '@pages/Summoner/Card/MatchSummaryCard';
 import { MatchBasicType } from 'lib/types/match';
 import { style } from '@mui/system';
 import MatchBasicInfoCard from '@pages/Summoner/Card/MatchBasicInfoCard';
+import { gql, useMutation } from '@apollo/client';
+import { initializeApollo, withApollo } from 'lib/apollo/apolloClient';
+import { SummonerBasic } from 'lib/types/summoner';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
 
-const basicSummonerInfo = {
-  freeRank: {
-    leaguePoints: 17,
-    losses: 17,
-    rank: 'IV',
-    tier: 'GOLD',
-    wins: 20,
-  },
-  updatedAt: 1643245720678,
-  iconPath:
-    'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/0.png',
-  id: 'cNzdPLFUnyV0RvH0HrIdLerm_DaOrYl-xpGPmBx0s0Zfyu67Z3cDDoYQHQ',
-  name: '라이스케잌',
-  profileIconId: 0,
-  puuid:
-    'KWxPJ8lfwiDvpyR9cQ_bpMRlvh_vfhFk4Fgi3WdW2a8OGloWCKjnagxD3vWoajQkBY9NAE3qOIbcnw',
-  soleRank: {
-    leaguePoints: 75,
-    losses: 68,
-    rank: 'II',
-    tier: 'DIAMOND',
-    wins: 84,
-  },
-  summonerLevel: 147,
-};
+const BASIC_SUMMONER_INFO = gql`
+  mutation basicSummonerInfo($name: String!) {
+    basicSummonerInfo(name: $name) {
+      freeRank {
+        leaguePoints
+        losses
+        rank
+        tier
+        wins
+      }
+      iconPath
+      id
+      name
+      profileIconId
+      puuid
+      soleRank {
+        leaguePoints
+        losses
+        rank
+        tier
+        wins
+      }
+      summonerLevel
+      updatedAt
+    }
+  }
+`;
+
+const RECENT_MATCHES = gql`
+  mutation recentMatches($count: Float!, $name: String!) {
+    recentMatches(count: $count, name: $name) {
+      gameCreation
+      gameDuration
+      matchId
+      matchType
+      participants {
+        championIconPath
+        participantId
+        puuid
+        summonerName
+      }
+      puuid
+      summonerInGameData {
+        assists
+        baronKills
+        champLevel
+        championIconPath
+        championId
+        deaths
+        dragonKills
+        goldEarned
+        individualPosition
+        items {
+          iconPath
+          id
+          index
+          type
+        }
+        kills
+        participantId
+        perks {
+          defense
+          flex
+          offense
+          primarySelections
+          primaryStyle
+          subSelections
+          subStyle
+        }
+        puuid
+        summonerName
+        summoners {
+          iconPath
+          id
+          index
+          type
+        }
+        teamId
+        totalDamageDealtToChampions
+        totalDamageTaken
+        totalMinionsKilled
+        turretKills
+        visionWardsBoughtInGame
+        wardsKilled
+        wardsPlaced
+        win
+      }
+    }
+  }
+`;
 
 const recentMatches: MatchBasicType[] = [
   {
@@ -2050,27 +2121,65 @@ const recentMatches: MatchBasicType[] = [
   },
 ];
 
-const SummonerPage = ({ name }: { name: string }) => {
+type Props = {
+  basicSummonerInfo: SummonerBasic;
+};
+
+const SummonerPage = ({ basicSummonerInfo }: Props) => {
+  const dispatch = useDispatch();
+  const [recentMatches, setRecentMatches] = useState([]);
+  const [recentMatch, { loading }] = useMutation<{
+    recentMatches: MatchBasicType[];
+  }>(RECENT_MATCHES, {
+    onCompleted: ({ recentMatches }) => {
+      console.log(recentMatches);
+      setRecentMatches(recentMatches);
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+  });
+
+  useEffect(() => {
+    dispatch(initSummonerState(basicSummonerInfo));
+
+    recentMatch({
+      variables: { count: 10, name: basicSummonerInfo.name },
+    });
+  }, [basicSummonerInfo]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearSummonerState());
+    };
+  }, []);
+
   return (
     <Layout subHeader={<SubHeader />} activeMenu="summoner">
       <PageTitleLayout title="전적 검색 결과">
         <SummonerCard summoner={basicSummonerInfo} />
         <div className={styles.menu}>
-          <SummonerMenu activeMenu="index" name={name} />
+          <SummonerMenu activeMenu="index" />
         </div>
         <div className={styles.lists}>
-          <CommentList name={basicSummonerInfo.name} />
-          <MasteryList summonerId={basicSummonerInfo.id} />
+          <CommentList />
+          <MasteryList />
         </div>
-        <div className={styles.summary}>
-          <MatchSummaryCard matches={recentMatches} />
-        </div>
+        {loading ? (
+          <div>Loading</div>
+        ) : (
+          <>
+            <div className={styles.summary}>
+              <MatchSummaryCard matches={recentMatches} />
+            </div>
 
-        <div className={styles.matches}>
-          {recentMatches.map((match: MatchBasicType, index) => {
-            return <MatchBasicInfoCard match={match} key={match.matchId} />;
-          })}
-        </div>
+            <div className={styles.matches}>
+              {recentMatches.map((match: MatchBasicType, index) => {
+                return <MatchBasicInfoCard match={match} key={match.matchId} />;
+              })}
+            </div>
+          </>
+        )}
       </PageTitleLayout>
     </Layout>
   );
@@ -2078,15 +2187,31 @@ const SummonerPage = ({ name }: { name: string }) => {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const params = ctx.params;
+  const apolloClient = initializeApollo(ctx);
   if (!params) {
-    return;
+    return {
+      notFound: true,
+    };
+  }
+
+  const { data } = await apolloClient.mutate<Props>({
+    mutation: BASIC_SUMMONER_INFO,
+    variables: {
+      name: params.name,
+    },
+  });
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
   }
 
   return {
     props: {
-      name: params.name,
+      basicSummonerInfo: data.basicSummonerInfo,
     },
   };
 }
 
-export default SummonerPage;
+export default withApollo(SummonerPage);
