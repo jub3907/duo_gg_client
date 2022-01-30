@@ -17,97 +17,7 @@ import { SummonerBasic } from 'lib/types/summoner';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
-
-const BASIC_SUMMONER_INFO = gql`
-  mutation basicSummonerInfo($name: String!) {
-    basicSummonerInfo(name: $name) {
-      freeRank {
-        leaguePoints
-        losses
-        rank
-        tier
-        wins
-      }
-      iconPath
-      id
-      name
-      profileIconId
-      puuid
-      soleRank {
-        leaguePoints
-        losses
-        rank
-        tier
-        wins
-      }
-      summonerLevel
-      updatedAt
-    }
-  }
-`;
-
-const RECENT_MATCHES = gql`
-  mutation recentMatches($count: Float!, $name: String!) {
-    recentMatches(count: $count, name: $name) {
-      gameCreation
-      gameDuration
-      matchId
-      matchType
-      participants {
-        championIconPath
-        participantId
-        puuid
-        summonerName
-      }
-      puuid
-      summonerInGameData {
-        assists
-        baronKills
-        champLevel
-        championIconPath
-        championId
-        deaths
-        dragonKills
-        goldEarned
-        individualPosition
-        items {
-          iconPath
-          id
-          index
-          type
-        }
-        kills
-        participantId
-        perks {
-          defense
-          flex
-          offense
-          primarySelections
-          primaryStyle
-          subSelections
-          subStyle
-        }
-        puuid
-        summonerName
-        summoners {
-          iconPath
-          id
-          index
-          type
-        }
-        teamId
-        totalDamageDealtToChampions
-        totalDamageTaken
-        totalMinionsKilled
-        turretKills
-        visionWardsBoughtInGame
-        wardsKilled
-        wardsPlaced
-        win
-      }
-    }
-  }
-`;
+import { BASIC_SUMMONER_INFO, RECENT_MATCHES } from 'lib/utils/query';
 
 type Props = {
   basicSummonerInfo: SummonerBasic;
@@ -115,13 +25,13 @@ type Props = {
 
 const SummonerPage = ({ basicSummonerInfo }: Props) => {
   const dispatch = useDispatch();
-  const [recentMatches, setRecentMatches] = useState([]);
+  const [matches, setMatches] = useState([]);
   const [recentMatch, { loading }] = useMutation<{
     recentMatches: MatchBasicType[];
   }>(RECENT_MATCHES, {
     onCompleted: ({ recentMatches }) => {
       console.log(recentMatches);
-      setRecentMatches(recentMatches);
+      setMatches(recentMatches);
     },
     onError: (e) => {
       console.log(e);
@@ -158,11 +68,11 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
         ) : (
           <>
             <div className={styles.summary}>
-              <MatchSummaryCard matches={recentMatches} />
+              <MatchSummaryCard matches={matches} />
             </div>
 
             <div className={styles.matches}>
-              {recentMatches.map((match: MatchBasicType, index) => {
+              {matches.map((match: MatchBasicType, index) => {
                 return <MatchBasicInfoCard match={match} key={match.matchId} />;
               })}
             </div>

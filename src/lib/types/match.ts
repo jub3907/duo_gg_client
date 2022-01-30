@@ -18,3 +18,11 @@ export type MatchDetailType = {
   red: ParticipantType[];
   blue: ParticipantType[];
 };
+
+export type MatchBuildType = {
+  items: {
+    iconPathes: string[];
+    timestamp: number;
+  }[];
+  skills: number[];
+};

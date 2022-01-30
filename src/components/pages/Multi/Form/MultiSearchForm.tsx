@@ -3,17 +3,13 @@ import { parseMultiSearchInput, preventEvent } from 'lib/utils/utils';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import styles from './MultiSearchForm.module.scss';
 
-const MultiSearchForm = () => {
-  const [value, setValue] = useState('');
-  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  }, []);
+type Props = {
+  text: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: any) => void;
+};
 
-  const onSubmit = (e: any) => {
-    preventEvent(e);
-    console.log('submit');
-  };
-
+const MultiSearchForm = ({ text, onChange, onSubmit }: Props) => {
   const placeholder = useMemo(
     () =>
       `Duo TOP님이 방에 참가했습니다.
@@ -24,16 +20,14 @@ Duo SUP님이 방에 참가했습니다.`,
     [],
   );
 
-  const helperText = useMemo(() => {
-    return parseMultiSearchInput(value);
-  }, [value]);
+  const helperText = useMemo(() => parseMultiSearchInput(text), [text]);
 
   return (
     <form onSubmit={onSubmit}>
       <div className={styles.layout}>
         <TextField
           id="names"
-          value={value}
+          value={text}
           onChange={onChange}
           placeholder={placeholder}
           helperText={`검색 대상: ${helperText}`}

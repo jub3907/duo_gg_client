@@ -109,7 +109,8 @@
 .participants {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-auto-flow: column;
   flex: 1.5;
   padding: $spacing-16;
   column-gap: $spacing-8;

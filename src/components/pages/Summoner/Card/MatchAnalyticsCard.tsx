@@ -62,68 +62,72 @@ const MatchAnalyticsCard = ({ red, blue, title, dataKey }: Props) => {
   return (
     <div className={styles.layout}>
       <div className={styles.title}>{title}</div>
-      <div className={styles.stat}>
-        <div className={styles.team}>
-          {blue.map((participant) => {
-            return (
-              <div
-                className={styles.participant}
-                key={`${participant.totalDamageDealtToChampions}-${participant.puuid}-${dataKey}`}
-              >
-                <Image
-                  src={participant.championIconPath}
-                  alt="아이콘"
-                  width={16}
-                  height={16}
-                />
-                <Graph
-                  color="#00a2ff"
-                  width={`${(100 * participant[dataKey]) / blueMax}%`}
-                  className={styles.bar}
-                  text={participant[dataKey].toFixed()}
-                />
-              </div>
-            );
-          })}
-        </div>
-        <div className={styles.graph}>
-          <PieGraph
-            red={redSummary}
-            blue={blueSummary}
-            labels={[`레드팀 ${title}`, `블루팀 ${title}`]}
-            Center={
-              <div className={styles.desc}>
-                <div className={styles.blue}>
-                  {blueSummary.toLocaleString()}
+      <div className={styles.body}>
+        <div className={styles.stat}>
+          <div className={styles.team}>
+            {blue.map((participant) => {
+              return (
+                <div
+                  className={styles.participant}
+                  key={`${participant.totalDamageDealtToChampions}-${participant.puuid}-${dataKey}`}
+                >
+                  <Image
+                    src={participant.championIconPath}
+                    alt="아이콘"
+                    width={16}
+                    height={16}
+                  />
+                  <Graph
+                    color="#00a2ff"
+                    width={`${(100 * participant[dataKey]) / blueMax}%`}
+                    className={styles.bar}
+                    text={participant[dataKey].toFixed()}
+                  />
                 </div>
-                <div className={styles.vs}>VS</div>
-                <div className={styles.red}>{redSummary.toLocaleString()}</div>
-              </div>
-            }
-          />
-        </div>
-        <div className={styles.team}>
-          {red.map((participant) => {
-            return (
-              <div
-                className={styles.participant}
-                key={`${participant.totalDamageDealtToChampions}-${participant.puuid}-${dataKey}`}
-              >
-                <Image
-                  src={participant.championIconPath}
-                  alt="아이콘"
-                  width={16}
-                  height={16}
-                />
-                <Graph
-                  color="#f85959"
-                  width={`${(100 * participant[dataKey]) / redMax}%`}
-                  className={styles.bar}
-                  text={participant[dataKey].toFixed()}
-                />
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+          <div className={styles.graph}>
+            <PieGraph
+              red={redSummary}
+              blue={blueSummary}
+              labels={[`레드팀 ${title}`, `블루팀 ${title}`]}
+              Center={
+                <div className={styles.desc}>
+                  <div className={styles.blue}>
+                    {blueSummary.toLocaleString()}
+                  </div>
+                  <div className={styles.vs}>VS</div>
+                  <div className={styles.red}>
+                    {redSummary.toLocaleString()}
+                  </div>
+                </div>
+              }
+            />
+          </div>
+          <div className={styles.team}>
+            {red.map((participant) => {
+              return (
+                <div
+                  className={styles.participant}
+                  key={`${participant.totalDamageDealtToChampions}-${participant.puuid}-${dataKey}`}
+                >
+                  <Image
+                    src={participant.championIconPath}
+                    alt="아이콘"
+                    width={16}
+                    height={16}
+                  />
+                  <Graph
+                    color="#f85959"
+                    width={`${(100 * participant[dataKey]) / redMax}%`}
+                    className={styles.bar}
+                    text={participant[dataKey].toFixed()}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

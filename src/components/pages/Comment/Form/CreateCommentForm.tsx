@@ -1,39 +1,84 @@
+import { gql, useMutation } from '@apollo/client';
 import { Button, TextField } from '@mui/material';
+import produce from 'immer';
+import { selectSummonerState } from 'lib/slice/summonerSlice';
+import { CommentType } from 'lib/types/comment';
+import { COMMENTS } from 'lib/utils/query';
 import { preventEvent } from 'lib/utils/utils';
 import { ChangeEvent, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './CreateCommentForm.module.scss';
+import { LoadingButton } from '@mui/lab';
 
 type CommentInput = 'nickname' | 'password' | 'text';
 
-type Props = {
-  name: string;
-};
+const CREATE_COMMENT = gql`
+  mutation createComment($input: CommentCreateInput!, $name: String!) {
+    createComment(input: $input, name: $name) {
+      _id
+      createdAt
+      nickname
+      text
+    }
+  }
+`;
 
-const CreateCommentForm = ({ name }: Props) => {
-  const onSubmit = (e: any) => {
-    preventEvent(e);
-    console.log('submit');
-  };
-
-  const [input, setInput] = useState({
-    nickname: '',
-    password: '',
-    text: '',
+const CreateCommentForm = () => {
+  const { name } = useSelector(selectSummonerState);
+  const [createComment, { loading }] = useMutation<{
+    createComment: CommentType;
+  }>(CREATE_COMMENT, {
+    onCompleted: ({ createComment }) => {
+      console.log(createComment);
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+    refetchQueries: [COMMENTS],
   });
+
+  const initState = useMemo(
+    () => ({
+      nickname: '',
+      password: '',
+      text: '',
+    }),
+    [],
+  );
+
+  const [input, setInput] = useState(initState);
+
+  const onSubmit = async (e: any) => {
+    preventEvent(e);
+    await createComment({ variables: { input, name } });
+    setInput(initState);
+  };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const key = e.target.id as CommentInput;
 
     if (key === 'nickname') {
       if (e.target.value.length < 11) {
-        setInput({ ...input, nickname: e.target.value });
+        setInput(
+          produce(input, (draft) => {
+            draft.nickname = e.target.value;
+          }),
+        );
       }
     } else if (key === 'text') {
       if (e.target.value.length < 201) {
-        setInput({ ...input, text: e.target.value });
+        setInput(
+          produce(input, (draft) => {
+            draft.text = e.target.value;
+          }),
+        );
       }
     } else {
-      setInput({ ...input, password: e.target.value });
+      setInput(
+        produce(input, (draft) => {
+          draft.password = e.target.value;
+        }),
+      );
     }
   };
 
@@ -78,15 +123,16 @@ const CreateCommentForm = ({ name }: Props) => {
           rows={5}
         />
 
-        <Button
+        <LoadingButton
           variant="contained"
           type="submit"
           className={styles.button}
           sx={{ height: '100%' }}
           disabled={blockSubmit}
+          loading={loading}
         >
           등록
-        </Button>
+        </LoadingButton>
       </div>
     </form>
   );

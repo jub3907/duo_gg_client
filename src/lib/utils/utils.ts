@@ -36,12 +36,7 @@ export const parseMultiSearchInput = (text: string) => {
   } else {
     const lines = text.split('\n');
     return lines
-      .reduce((acc: string[], val: string) => {
-        if (val.includes('님이 방에')) {
-          acc.push(val.split('님이 방에')[0]);
-        }
-        return acc;
-      }, [])
+      .map((line) => line.replace('님이 방에 참가했습니다.', ''))
       .slice(0, 5);
   }
 };

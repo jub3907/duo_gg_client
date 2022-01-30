@@ -1,4 +1,6 @@
 .title {
   @include h4-bold;
   margin-bottom: $spacing-16;
+  background-color: $gray-3;
+  padding: $spacing-4 $spacing-8;
 }

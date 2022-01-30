@@ -1,22 +1,54 @@
+import { gql, useMutation } from '@apollo/client';
+import { LoadingButton } from '@mui/lab';
 import { Button, TextField } from '@mui/material';
+import { selectSummonerState } from 'lib/slice/summonerSlice';
+import { CommentType } from 'lib/types/comment';
+import { COMMENTS } from 'lib/utils/query';
 import { preventEvent } from 'lib/utils/utils';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './DeleteCommentForm.module.scss';
-
-type CommentInput = 'nickname' | 'password' | 'text';
 
 type Props = {
   id: string;
-  name: string;
 };
 
-const DeleteCommentForm = ({ id, name }: Props) => {
-  const onSubmit = (e: any) => {
-    preventEvent(e);
-    console.log('delete');
-  };
+const DELETE_COMMENT = gql`
+  mutation deleteComment($input: CommentDeleteInput!) {
+    deleteComment(input: $input)
+  }
+`;
 
+const DeleteCommentForm = ({ id }: Props) => {
+  const { name } = useSelector(selectSummonerState);
   const [password, setPassword] = useState('');
+  const [deleteComment, { loading }] = useMutation<{
+    deleteComment: boolean;
+  }>(DELETE_COMMENT, {
+    onCompleted: ({ deleteComment }) => {
+      console.log(deleteComment);
+    },
+    onError: (e) => {
+      console.log(e);
+    },
+    refetchQueries: [COMMENTS],
+  });
+
+  const onSubmit = useCallback(
+    async (e: any) => {
+      preventEvent(e);
+      await deleteComment({
+        variables: {
+          input: {
+            summonerName: name,
+            id,
+            password,
+          },
+        },
+      });
+    },
+    [name, id, password],
+  );
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -32,9 +64,14 @@ const DeleteCommentForm = ({ id, name }: Props) => {
           className={styles.input}
           placeholder="비밀번호"
         />
-        <Button variant="contained" className={styles.button} type="submit">
+        <LoadingButton
+          variant="contained"
+          className={styles.button}
+          type="submit"
+          loading={loading}
+        >
           삭제
-        </Button>
+        </LoadingButton>
       </div>
     </form>
   );

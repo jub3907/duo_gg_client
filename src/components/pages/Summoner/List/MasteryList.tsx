@@ -4,21 +4,10 @@ import List from '@common/List/List';
 import { selectSummonerState } from 'lib/slice/summonerSlice';
 import { MasteryType } from 'lib/types/mastery';
 import { getDateFromNow } from 'lib/utils/date';
+import { MASTERY } from 'lib/utils/query';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './MasteryList.module.scss';
-
-const MASTERY = gql`
-  query mastery($summonerId: String!, $count: Float!) {
-    mastery(summonerId: $summonerId, count: $count) {
-      championId
-      championLevel
-      championPoints
-      iconPath
-      lastPlayTime
-    }
-  }
-`;
 
 // TODO: 챔피언 이름 받아오기
 

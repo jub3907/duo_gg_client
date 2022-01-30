@@ -6,11 +6,21 @@
 }
 
 .blue {
-  background-color: $blue-op2;
+  .ingame {
+    background-color: $blue-op2;
+  }
+  .header {
+    background-color: $blue-op;
+  }
 }
 
 .red {
-  background-color: $red-op2;
+  .ingame {
+    background-color: $red-op2;
+  }
+  .header {
+    background-color: $red-op;
+  }
 }
 
 .header {

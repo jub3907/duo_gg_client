@@ -7,83 +7,60 @@ import SummonerCard from '@pages/Summoner/Card/SummonerCard';
 import { GetServerSidePropsContext } from 'next';
 import CreateCommentForm from '@pages/Comment/Form/CreateCommentForm';
 import CommentCard from '@pages/Comment/Card/CommentCard';
+import { initializeApollo, withApollo } from 'lib/apollo/apolloClient';
+import { BASIC_SUMMONER_INFO, COMMENTS } from 'lib/utils/query';
+import { SummonerBasic } from 'lib/types/summoner';
+import { useQuery } from '@apollo/client';
+import { CommentType } from 'lib/types/comment';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
 
-const basicSummonerInfo = {
-  freeRank: {
-    leaguePoints: 17,
-    losses: 17,
-    rank: 'IV',
-    tier: 'GOLD',
-    wins: 20,
-  },
-  updatedAt: 1643245720678,
-  iconPath:
-    'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/profileicon/0.png',
-  id: 'cNzdPLFUnyV0RvH0HrIdLerm_DaOrYl-xpGPmBx0s0Zfyu67Z3cDDoYQHQ',
-  name: '라이스케잌',
-  profileIconId: 0,
-  puuid:
-    'KWxPJ8lfwiDvpyR9cQ_bpMRlvh_vfhFk4Fgi3WdW2a8OGloWCKjnagxD3vWoajQkBY9NAE3qOIbcnw',
-  soleRank: {
-    leaguePoints: 75,
-    losses: 68,
-    rank: 'II',
-    tier: 'DIAMOND',
-    wins: 84,
-  },
-  summonerLevel: 147,
+type Props = {
+  basicSummonerInfo: SummonerBasic;
 };
 
-const comments = [
-  {
-    _id: '61ef74afe397ccb38e4b4453',
-    createdAt: 1643082927078,
-    nickname: '패배1',
-    text: '댓글이에요',
-  },
-  {
-    _id: '61ef74b1e397ccb38e4b4457',
-    createdAt: 1643082929931,
-    nickname: '패배',
-    text: '오우야2',
-  },
-  {
-    _id: '61ef74b4e397ccb38e4b445c',
-    createdAt: 1643082932068,
-    nickname: '패배2',
-    text: '오우야3',
-  },
-  {
-    _id: '61ef74b5e397ccb38e4b4462',
-    createdAt: 1643082933881,
-    nickname: '패배',
-    text: '오우야4',
-  },
-  {
-    _id: '61ef74b7e397ccb38e4b4469',
-    createdAt: 1643082935708,
-    nickname: '패배',
-    text: '오우야5',
-  },
-];
+const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
+  const dispatch = useDispatch();
 
-const SummonerCommentPage = ({ name }: { name: string }) => {
+  const { data, loading } = useQuery<{ comments: CommentType[] }>(COMMENTS, {
+    skip: !basicSummonerInfo,
+    variables: { name: basicSummonerInfo.name, count: 10 },
+    onError: (e) => {
+      console.log('error', e);
+    },
+  });
+
+  useEffect(() => {
+    dispatch(initSummonerState(basicSummonerInfo));
+  }, [basicSummonerInfo]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearSummonerState());
+    };
+  }, []);
+
   return (
     <Layout subHeader={<SubHeader />} activeMenu="summoner">
       <PageTitleLayout title="전적 검색 결과">
         <SummonerCard summoner={basicSummonerInfo} />
         <div className={styles.menu}>
-          <SummonerMenu activeMenu="comment" name={name} />
+          <SummonerMenu activeMenu="comment" />
         </div>
         <div className={styles.form}>
           <CreateCommentForm name={basicSummonerInfo.name} />
         </div>
 
-        <div className={styles.comments}>
-          {comments.map((comment) => {
-            return <CommentCard comment={comment} key={comment._id} />;
-          })}
-        </div>
+        {loading ? (
+          <div>Loading</div>
+        ) : (
+          <div className={styles.comments}>
+            {data.comments.map((comment) => {
+              return <CommentCard comment={comment} key={comment._id} />;
+            })}
+          </div>
+        )}
       </PageTitleLayout>
     </Layout>
   );
@@ -91,16 +68,31 @@ const SummonerCommentPage = ({ name }: { name: string }) => {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const params = ctx.params;
-
+  const apolloClient = initializeApollo(ctx);
   if (!params) {
-    return;
+    return {
+      notFound: true,
+    };
+  }
+
+  const { data } = await apolloClient.mutate<Props>({
+    mutation: BASIC_SUMMONER_INFO,
+    variables: {
+      name: params.name,
+    },
+  });
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
   }
 
   return {
     props: {
-      name: params.name,
+      basicSummonerInfo: data.basicSummonerInfo,
     },
   };
 }
 
-export default SummonerCommentPage;
+export default withApollo(SummonerCommentPage);

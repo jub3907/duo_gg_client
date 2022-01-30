@@ -27,9 +27,7 @@ const CommentCard = ({ comment }: Props) => {
             </div>
           )}
 
-          {deleteOpen === true && (
-            <DeleteCommentForm id={comment._id} name={comment.nickname} />
-          )}
+          {deleteOpen === true && <DeleteCommentForm id={comment._id} />}
           <DeleteIcon className={styles.delete} onClick={toggleDeleteOpen} />
         </div>
       </div>
