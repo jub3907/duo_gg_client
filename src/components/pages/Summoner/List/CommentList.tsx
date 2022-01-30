@@ -55,28 +55,24 @@ const CommentList = () => {
 
   const Comments = ({ comments }: { comments: CommentType[] }) => {
     return (
-      <>
+      <div className={styles.comments}>
         {comments.length > 0 &&
-          comments
-            .slice(0, 3)
-            .map(({ createdAt, nickname, text }: CommentType, index) => {
-              return (
-                <div
-                  className={styles.comment}
-                  key={`comment-${createdAt}-${index}}`}
-                >
-                  <div className={styles.writer}>
-                    <div className={styles.nickname}>{nickname}</div>
-                    <div className={styles.date}>
-                      {getDateFromNow(createdAt)}
-                    </div>
-                  </div>
-                  <div className={styles.divider} />
-                  <div className={styles.text}>{text}</div>
+          comments.map(({ createdAt, nickname, text }: CommentType, index) => {
+            return (
+              <div
+                className={styles.comment}
+                key={`comment-${createdAt}-${index}}`}
+              >
+                <div className={styles.writer}>
+                  <div className={styles.nickname}>{nickname}</div>
+                  <div className={styles.date}>{getDateFromNow(createdAt)}</div>
                 </div>
-              );
-            })}
-      </>
+                <div className={styles.divider} />
+                <div className={styles.text}>{text}</div>
+              </div>
+            );
+          })}
+      </div>
     );
   };
 

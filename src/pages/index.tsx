@@ -63,6 +63,7 @@ export async function getStaticProps(ctx: GetServerSidePropsContext) {
       notFound: true,
     };
   }
+
   return {
     props: {
       ranking: data.ranking,

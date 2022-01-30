@@ -1,3 +1,6 @@
+.comments {
+  flex: 1;
+}
 .comment {
   flex: 1;
   display: flex;
@@ -35,6 +38,7 @@
 }
 
 .button {
-  background-color: $gray-3;
+  background-color: $blue;
   border-radius: none;
+  border-radius: 0;
 }

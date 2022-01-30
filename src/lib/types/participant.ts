@@ -13,7 +13,7 @@ export type ParticipantType = {
   win: boolean;
   individualPosition:
     | 'TOP'
-    | 'MID'
+    | 'MIDDLE'
     | 'JUNGLE'
     | 'BOTTOM'
     | 'UTILITY'

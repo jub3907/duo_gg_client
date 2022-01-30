@@ -15,7 +15,7 @@ type PostionInfoProps = {
     wins: number;
     losses: number;
   };
-  type: 'TOP' | 'MID' | 'JUNGLE' | 'BOTTOM' | 'UTILITY' | 'Invalid';
+  type: 'TOP' | 'MIDDLE' | 'JUNGLE' | 'BOTTOM' | 'UTILITY' | 'Invalid';
 };
 
 const PositionInfo = ({ total, data, type }: PostionInfoProps) => {
@@ -47,7 +47,7 @@ const MatchSummaryCard = ({ matches }: Props) => {
     assists,
     TOP,
     JUNGLE,
-    MID,
+    MIDDLE,
     BOTTOM,
     UTILITY,
     Invalid,
@@ -91,7 +91,7 @@ const MatchSummaryCard = ({ matches }: Props) => {
         <div className={styles.grid}>
           <div className={styles.column}>
             <PositionInfo total={total} data={TOP} type="TOP" />
-            <PositionInfo total={total} data={MID} type="MID" />
+            <PositionInfo total={total} data={MIDDLE} type="MIDDLE" />
             <PositionInfo total={total} data={JUNGLE} type="JUNGLE" />
           </div>
           <div className={styles.column}>

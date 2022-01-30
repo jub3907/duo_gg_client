@@ -132,7 +132,7 @@ export const getMatchSummary = (matches: MatchBasicType[]) => {
         wins: 0,
         losses: 0,
       },
-      MID: {
+      MIDDLE: {
         total: 0,
         wins: 0,
         losses: 0,
