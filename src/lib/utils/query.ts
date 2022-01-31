@@ -113,3 +113,14 @@ export const RECENT_MATCHES = gql`
     }
   }
 `;
+
+export const POSTS = gql`
+  query posts($createdAt: Float!, $limit: Float!) {
+    posts(createdAt: $createdAt, limit: $limit) {
+      createdAt
+      name
+      text
+      title
+    }
+  }
+`;

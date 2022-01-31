@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useCallback, useState } from 'react';
 import Path from 'config/path';
+import ErrorToast from '@common/Toast/ErrorToast';
 
 const SubHeaderSearch = () => {
   const router = useRouter();
@@ -15,6 +16,10 @@ const SubHeaderSearch = () => {
   };
 
   const onClick = () => {
+    if (name === '') {
+      ErrorToast('소환사명을 입력해 주세요.');
+      return;
+    }
     router.push({
       pathname: Path.summoner,
       query: { name },

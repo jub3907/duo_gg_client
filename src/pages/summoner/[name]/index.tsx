@@ -100,24 +100,31 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     };
   }
 
-  const { data } = await apolloClient.mutate<Props>({
-    mutation: BASIC_SUMMONER_INFO,
-    variables: {
-      name: params.name,
-    },
-  });
+  try {
+    const { data } = await apolloClient.mutate<Props>({
+      mutation: BASIC_SUMMONER_INFO,
+      variables: {
+        name: params.name,
+      },
+    });
 
-  if (!data) {
+    if (!data) {
+      return {
+        notFound: true,
+      };
+    }
+
+    return {
+      props: {
+        basicSummonerInfo: data.basicSummonerInfo,
+      },
+    };
+  } catch (e) {
+    console.log(e);
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: {
-      basicSummonerInfo: data.basicSummonerInfo,
-    },
-  };
 }
 
 export default withApollo(SummonerPage);

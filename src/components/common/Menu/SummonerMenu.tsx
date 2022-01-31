@@ -30,7 +30,7 @@ const SummonerMenu = ({ activeMenu }: Props) => {
           </a>
         </Link>
 
-        <Link href={getSummonerStatUrl(name)}>
+        {/* <Link href={getSummonerStatUrl(name)}>
           <a
             className={cn(styles.menu, {
               [styles.active]: activeMenu === 'statistic',
@@ -38,7 +38,7 @@ const SummonerMenu = ({ activeMenu }: Props) => {
           >
             통계
           </a>
-        </Link>
+        </Link> */}
 
         <Link href={getSummonerCommentUrl(name)}>
           <a

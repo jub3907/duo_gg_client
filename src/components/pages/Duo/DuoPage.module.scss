@@ -13,3 +13,14 @@
   grid-template-columns: repeat(3, 1fr);
   gap: $spacing-16;
 }
+
+.fetch {
+  margin-top: $spacing-32;
+  display: flex;
+  justify-content: center;
+  .fetch-button {
+    @include h4;
+    background-color: $red;
+    height: $spacing-48;
+  }
+}

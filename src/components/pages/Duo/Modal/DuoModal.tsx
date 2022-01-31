@@ -16,30 +16,66 @@ import {
   PostInputType,
   PostQueueType,
   PostRoleType,
+  PostType,
 } from 'lib/types/post';
 import { preventEvent } from 'lib/utils/utils';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import styles from './DuoModal.module.scss';
 import produce from 'immer';
+import { gql } from '@apollo/client';
+import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
+import ErrorToast from '@common/Toast/ErrorToast';
+import { LoadingButton } from '@mui/lab';
+import { useDispatch } from 'react-redux';
+import { addCreatedPost } from 'lib/slice/postSlice';
 
 type Props = {
   closeModal: () => void;
   open: boolean;
 };
 
-const DuoModal = ({ closeModal, open }: Props) => {
-  const onSubmit = (e: any) => {
-    preventEvent(e);
-    console.log('submit');
-  };
+const CREATE_POST = gql`
+  mutation createPost($post: PostCreateInput!) {
+    createPost(post: $post) {
+      createdAt
+      name
+      text
+      title
+    }
+  }
+`;
 
-  const [input, setInput] = useState<PostInputType>({
+const DuoModal = ({ closeModal, open }: Props) => {
+  const dispatch = useDispatch();
+  const [createPost, { loading }] = useMutation<{ createPost: PostType }>(
+    CREATE_POST,
+    {
+      onCompleted: ({ createPost }) => {
+        dispatch(addCreatedPost(createPost));
+      },
+      onError: () => {
+        ErrorToast('포스트 등록중 오류가 발생했습니다.');
+      },
+    },
+  );
+
+  const initInput: PostInputType = {
     name: '',
     text: '',
     tier: '',
     queueType: '솔로랭크',
     role: '포지션 상관없이 구함',
-  });
+  };
+
+  const [input, setInput] = useState<PostInputType>(initInput);
+
+  const onSubmit = async (e: any) => {
+    preventEvent(e);
+    await createPost({ variables: { post: input } });
+
+    closeModal();
+    setInput(initInput);
+  };
 
   const blockSubmit = useMemo(
     () =>
@@ -167,14 +203,15 @@ const DuoModal = ({ closeModal, open }: Props) => {
             rows={4}
           />
           <div className={styles.button}>
-            <Button
+            <LoadingButton
               variant="contained"
               type="submit"
               disabled={blockSubmit}
               className={styles.submit}
+              loading={loading}
             >
               등록
-            </Button>
+            </LoadingButton>
             <Button
               variant="text"
               onClick={closeModal}
