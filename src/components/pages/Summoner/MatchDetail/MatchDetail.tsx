@@ -8,6 +8,8 @@ import MatchAnalytics from './Analytics/MatchAnalytics';
 import MatchBuild from './Build/MatchBuild';
 import { PerkType } from 'lib/types/participant';
 import { gql, useLazyQuery } from '@apollo/client';
+import CircularLoading from '@common/Loading/CircularLoading';
+import ReloadButton from '@common/Button/ReloadButton';
 
 const MATCH_DETAIL = gql`
   query matchDetail($matchId: String!) {
@@ -124,7 +126,7 @@ const MatchDetail = ({ matchId, perk }: Props) => {
   };
   const [matchInfo, setMatchInfo] = useState<MatchDetailType>(null);
 
-  const [matchDetail, { loading }] = useLazyQuery(MATCH_DETAIL, {
+  const [matchDetail, { loading, error }] = useLazyQuery(MATCH_DETAIL, {
     onCompleted: ({ matchDetail }) => {
       setMatchInfo(matchDetail);
     },
@@ -149,9 +151,14 @@ const MatchDetail = ({ matchId, perk }: Props) => {
         <MatchDetailMenu activeMenu={tab} onClickTab={onClickTab} />
       </div>
       <div className={styles.tab}>
-        {loading || !matchInfo ? (
-          <div>Loading</div>
-        ) : (
+        {loading && <CircularLoading />}
+        {error && (
+          <ReloadButton
+            onClick={() => matchDetail({ variables: { matchId } })}
+            loading={loading}
+          />
+        )}
+        {matchInfo && (
           <>
             {tab === 'total' && <MatchTotal matchDetail={matchInfo} />}
             {tab === 'analytics' && <MatchAnalytics matchDetail={matchInfo} />}

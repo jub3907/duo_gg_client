@@ -18,6 +18,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
 import { BASIC_SUMMONER_INFO, RECENT_MATCHES } from 'lib/utils/query';
+import CircularLoading from '@common/Loading/CircularLoading';
+import ErrorToast from '@common/Toast/ErrorToast';
+import ReloadButton from '@common/Button/ReloadButton';
 
 type Props = {
   basicSummonerInfo: SummonerBasic;
@@ -26,24 +29,22 @@ type Props = {
 const SummonerPage = ({ basicSummonerInfo }: Props) => {
   const dispatch = useDispatch();
   const [matches, setMatches] = useState([]);
-  const [recentMatch, { loading }] = useMutation<{
+  const [recentMatch, { loading, error }] = useMutation<{
     recentMatches: MatchBasicType[];
   }>(RECENT_MATCHES, {
+    variables: { count: 10, name: basicSummonerInfo.name },
     onCompleted: ({ recentMatches }) => {
-      console.log(recentMatches);
       setMatches(recentMatches);
     },
     onError: (e) => {
-      console.log(e);
+      ErrorToast('매치 정보를 불러오는데 실패했어요.');
     },
   });
 
   useEffect(() => {
     dispatch(initSummonerState(basicSummonerInfo));
 
-    recentMatch({
-      variables: { count: 10, name: basicSummonerInfo.name },
-    });
+    recentMatch();
   }, [basicSummonerInfo]);
 
   useEffect(() => {
@@ -63,9 +64,16 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
           <CommentList />
           <MasteryList />
         </div>
-        {loading ? (
-          <div>Loading</div>
-        ) : (
+        {loading && <CircularLoading />}
+        {error && (
+          <ReloadButton
+            onClick={() => {
+              recentMatch();
+            }}
+            loading={loading}
+          />
+        )}
+        {matches && matches.length > 0 && (
           <>
             <div className={styles.summary}>
               <MatchSummaryCard matches={matches} />

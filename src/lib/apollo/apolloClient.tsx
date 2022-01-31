@@ -33,7 +33,7 @@ export function createApolloClient() {
         if (process.env.NODE_ENV === 'development') {
           console.log(`[Network Error]: ${networkError}`);
         }
-        networkError.message = '서버 오류 발생가 발생했습니다.';
+        networkError.message = '서버 오류가 발생했습니다.';
       }
     },
   );

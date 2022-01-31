@@ -88,7 +88,7 @@ const MatchParticipantCard = ({ participant }: Props) => {
           {participant.items.map((item, index) => {
             return item.iconPath === '' ? (
               <div
-                key={`item-icon-${item.id}-${item.index}`}
+                key={`item-icon-${item.iconPath}-${item.id}-${item.index}-${index}`}
                 className={styles.blank}
               ></div>
             ) : (

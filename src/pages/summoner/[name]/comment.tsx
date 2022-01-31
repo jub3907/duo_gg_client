@@ -15,6 +15,7 @@ import { CommentType } from 'lib/types/comment';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
+import CircularLoading from '@common/Loading/CircularLoading';
 
 type Props = {
   basicSummonerInfo: SummonerBasic;
@@ -23,13 +24,16 @@ type Props = {
 const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
   const dispatch = useDispatch();
 
-  const { data, loading } = useQuery<{ comments: CommentType[] }>(COMMENTS, {
-    skip: !basicSummonerInfo,
-    variables: { name: basicSummonerInfo.name, count: 10 },
-    onError: (e) => {
-      console.log('error', e);
+  const { data, loading, error } = useQuery<{ comments: CommentType[] }>(
+    COMMENTS,
+    {
+      skip: !basicSummonerInfo,
+      variables: { name: basicSummonerInfo.name, count: 10 },
+      onError: (e) => {
+        console.log('error', e);
+      },
     },
-  });
+  );
 
   useEffect(() => {
     dispatch(initSummonerState(basicSummonerInfo));
@@ -49,12 +53,11 @@ const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
           <SummonerMenu activeMenu="comment" />
         </div>
         <div className={styles.form}>
-          <CreateCommentForm name={basicSummonerInfo.name} />
+          <CreateCommentForm />
         </div>
 
-        {loading ? (
-          <div>Loading</div>
-        ) : (
+        {loading && <CircularLoading />}
+        {data && data.comments && (
           <div className={styles.comments}>
             {data.comments.map((comment) => {
               return <CommentCard comment={comment} key={comment._id} />;
