@@ -37,13 +37,13 @@ const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
 
   useEffect(() => {
     dispatch(initSummonerState(basicSummonerInfo));
-  }, [basicSummonerInfo]);
+  }, [basicSummonerInfo, dispatch]);
 
   useEffect(() => {
     return () => {
       dispatch(clearSummonerState());
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <Layout subHeader={<SubHeader />} activeMenu="summoner">

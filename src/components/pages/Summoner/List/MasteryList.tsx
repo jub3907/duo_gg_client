@@ -69,7 +69,7 @@ const MasteryList = () => {
     if (id !== undefined) {
       mastery();
     }
-  }, []);
+  }, [id, mastery]);
 
   return (
     <List

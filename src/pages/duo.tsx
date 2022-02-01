@@ -45,7 +45,7 @@ const DuoPage = () => {
 
   useEffect(() => {
     fetchPost();
-  }, []);
+  }, [fetchPost]);
 
   return (
     <Layout subHeader={<SubHeader />} activeMenu="duo">

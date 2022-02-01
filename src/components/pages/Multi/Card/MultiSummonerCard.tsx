@@ -199,7 +199,7 @@ const MultiSummonerCard = ({ name }: Props) => {
 
   useEffect(() => {
     basicSummonerInfo({ variables: { name } });
-  }, [name]);
+  }, [basicSummonerInfo, name]);
 
   return (
     <div className={styles.layout}>
