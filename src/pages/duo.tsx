@@ -8,19 +8,14 @@ import { Button } from '@mui/material';
 import DuoCard from '@pages/Duo/Card/DuoCard';
 import styles from '@pages/Duo/DuoPage.module.scss';
 import DuoModal from '@pages/Duo/Modal/DuoModal';
-import { initializeApollo, withApollo } from 'lib/apollo/apolloClient';
+import { withApollo } from 'lib/apollo/apolloClient';
 import { addPosts, initPosts, selectPostState } from 'lib/slice/postSlice';
 import { PostType } from 'lib/types/post';
 import { POSTS } from 'lib/utils/query';
-import { GetStaticPropsContext } from 'next';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-type Props = {
-  posts: PostType[];
-};
-
-const DuoPage = ({ posts: initPostData }: Props) => {
+const DuoPage = () => {
   const dispatch = useDispatch();
   const { createdAt, posts } = useSelector(selectPostState);
   const [modalOpen, setModalOpen] = useState(false);
@@ -44,12 +39,12 @@ const DuoPage = ({ posts: initPostData }: Props) => {
     setModalOpen(true);
   }, []);
 
-  const onClickFetch = async () => {
+  const fetchPost = async () => {
     await postQuery({ variables: { createdAt, limit: 9 } });
   };
 
   useEffect(() => {
-    dispatch(initPosts(initPostData));
+    fetchPost();
   }, []);
 
   return (
@@ -74,7 +69,7 @@ const DuoPage = ({ posts: initPostData }: Props) => {
         <div className={styles.fetch}>
           <LoadingButton
             fullWidth
-            onClick={onClickFetch}
+            onClick={fetchPost}
             className={styles['fetch-button']}
             loading={loading}
             variant="contained"
@@ -90,21 +85,3 @@ const DuoPage = ({ posts: initPostData }: Props) => {
 };
 
 export default withApollo(DuoPage);
-
-export async function getStaticProps(ctx: GetStaticPropsContext) {
-  const apolloClient = initializeApollo(ctx);
-
-  const { data } = await apolloClient.query<Props>({
-    query: POSTS,
-    variables: {
-      createdAt: new Date().getTime(),
-      limit: 9,
-    },
-  });
-
-  return {
-    props: {
-      posts: data.posts,
-    },
-  };
-}
