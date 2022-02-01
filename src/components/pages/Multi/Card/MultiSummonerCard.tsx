@@ -225,9 +225,9 @@ const MultiSummonerCard = ({ name }: Props) => {
               reloadButton={
                 <ReloadButton
                   onClick={() => {
-                    recentMatches({
+                    mastery({
                       variables: {
-                        name: info.basicSummonerInfo.name,
+                        summonerId: info.basicSummonerInfo.id,
                         count: 3,
                       },
                     });
@@ -247,9 +247,9 @@ const MultiSummonerCard = ({ name }: Props) => {
                 reloadButton={
                   <ReloadButton
                     onClick={() => {
-                      mastery({
+                      recentMatches({
                         variables: {
-                          summonerId: info.basicSummonerInfo.id,
+                          name: info.basicSummonerInfo.name,
                           count: 3,
                         },
                       });
