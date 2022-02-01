@@ -18,11 +18,11 @@ const postSlice = createSlice({
   reducers: {
     initPosts: (state, { payload }: PayloadAction<PostType[]>) => {
       state.posts = payload;
-      state.createdAt = payload[payload.length - 1].createdAt;
+      state.createdAt = payload[payload.length - 1]?.createdAt;
     },
     addPosts: (state, { payload }: PayloadAction<PostType[]>) => {
       state.posts = state.posts.concat(payload);
-      state.createdAt = payload[payload.length - 1].createdAt;
+      state.createdAt = payload[payload.length - 1]?.createdAt;
     },
     addCreatedPost: (state, { payload }: PayloadAction<PostType>) => {
       state.posts = [payload].concat(state.posts);
