@@ -1,0 +1,53 @@
+.layout {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 720px;
+  //   height: 500px;
+  border: 2px solid $black;
+  background-color: white;
+  padding: $spacing-16;
+}
+
+.title {
+  @include h4-bold;
+}
+
+.divider {
+  border-top: 1px solid $black;
+  margin: $spacing-8 0 $spacing-32;
+  width: 50%;
+}
+
+.dropdown {
+  display: flex;
+  column-gap: $spacing-16;
+  margin-bottom: $spacing-16;
+}
+
+.name,
+.tier,
+.text {
+  margin-bottom: $spacing-16;
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: $spacing-16;
+  button {
+    width: $spacing-120;
+  }
+}
+
+.cancel {
+  border: none;
+  color: $black;
+  background-color: $gray-4;
+}
+
+.submit {
+  background-color: $blue;
+}

@@ -1,0 +1,50 @@
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.column {
+  @include h5-bold;
+  color: $black;
+  height: $spacing-48;
+  border: 1px solid $gray-4;
+  background-color: $gray-3;
+}
+
+.row {
+  @include body2;
+  color: $gray-7;
+  height: $spacing-64;
+  border-left: 1px solid $gray-4;
+  border-right: 1px solid $gray-4;
+  border-bottom: 1px solid $gray-4;
+  background-color: $gray-1;
+}
+
+.rank {
+  display: flex;
+  justify-content: center;
+}
+
+.rate {
+  margin-right: $spacing-16;
+}
+
+.summoner {
+  @include body1-bold;
+  display: flex;
+  align-items: center;
+  column-gap: $spacing-16;
+}
+
+.summoner,
+.rate {
+  flex: 2;
+}
+
+.rank,
+.tier,
+.lp,
+.level {
+  flex: 1;
+}

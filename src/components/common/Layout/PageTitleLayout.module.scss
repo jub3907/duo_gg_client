@@ -1,0 +1,13 @@
+.title {
+  @include h3-bold;
+  margin-top: $spacing-32;
+  margin-bottom: $spacing-12;
+}
+.divider {
+  border-top: 1px solid $black;
+  width: 50%;
+}
+
+.layout {
+  margin-top: $spacing-32;
+}

@@ -1,0 +1,26 @@
+.card {
+  width: 30rem;
+  border: 3px solid $gray-5;
+  padding: $spacing-32;
+  display: flex;
+  border-radius: $spacing-4;
+  column-gap: $spacing-20;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: $gray-6;
+}
+.name {
+  @include h4-bold;
+  color: $gray-7;
+}
+
+.rank {
+  @include h5;
+  display: flex;
+  justify-content: space-between;
+}

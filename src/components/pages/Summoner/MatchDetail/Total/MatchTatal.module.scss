@@ -1,0 +1,70 @@
+.layout {
+  @include body2;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.summary {
+  justify-content: center;
+  column-gap: $spacing-16;
+  width: 100%;
+  flex: 1;
+}
+
+.win {
+  @include h5-bold;
+  color: $blue;
+}
+
+.loss {
+  @include h5-bold;
+  color: $red;
+}
+
+.team {
+  @include h5-bold;
+}
+
+.icons {
+  column-gap: $spacing-16;
+}
+
+.icon {
+  column-gap: $spacing-4;
+}
+
+.info {
+  flex-direction: column;
+  justify-content: center;
+  flex: 1.8;
+}
+
+.head,
+.count {
+  display: flex;
+  justify-content: center;
+}
+
+.head {
+  @include body2-bold;
+  flex: 1.5;
+}
+
+.count {
+  flex: 1;
+}
+
+.graph {
+  flex: 3;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-auto-flow: column;
+  gap: $spacing-4;
+}

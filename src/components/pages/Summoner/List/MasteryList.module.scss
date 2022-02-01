@@ -1,0 +1,26 @@
+.mastery {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: $spacing-8 $spacing-16;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  margin-left: $spacing-32;
+}
+
+.score {
+  flex: 1;
+}
+
+.level {
+  flex: 1;
+}
+
+.date {
+  flex: 0.5;
+}

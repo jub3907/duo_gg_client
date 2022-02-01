@@ -1,0 +1,16 @@
+.layout {
+  display: flex;
+  align-items: center;
+  column-gap: $spacing-4;
+}
+.input {
+  background-color: $white;
+  border: none;
+  width: $spacing-120;
+  input {
+    padding: $spacing-8 !important;
+  }
+}
+.button {
+  background-color: $blue;
+}

@@ -1,0 +1,74 @@
+.layout {
+  border: 1px solid $gray-5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: $spacing-16;
+}
+
+.title {
+  @include h5-bold;
+  text-align: center;
+  background-color: $gray-4;
+  width: 100%;
+  padding: $spacing-4 0;
+}
+.body {
+  width: 100%;
+  padding: $spacing-8;
+}
+
+.stat {
+  width: 100%;
+  display: flex;
+  column-gap: $spacing-16;
+}
+
+.team {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: $spacing-4;
+}
+
+.participant {
+  display: flex;
+  column-gap: $spacing-4;
+}
+
+.bar {
+  @include caption;
+  justify-content: flex-end;
+  padding: 0 $spacing-4;
+  margin-right: 0 $spacing-4;
+  min-width: $spacing-16;
+
+  color: $gray-2;
+}
+
+.graph {
+  width: 100px;
+  height: 100px;
+}
+
+.desc {
+  @include body3-bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .blue {
+    color: $blue;
+  }
+  .red {
+    color: $red;
+  }
+
+  .vs {
+    @include body2-bold;
+  }
+}
+
+.vs {
+  @include body2-bold;
+}

@@ -1,0 +1,13 @@
+.background {
+  background-color: $gray-7;
+}
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-80 0;
+}
+
+.logo {
+  margin-bottom: $spacing-32;
+}

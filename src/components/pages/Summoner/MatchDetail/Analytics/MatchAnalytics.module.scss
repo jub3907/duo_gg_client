@@ -1,0 +1,12 @@
+.layout {
+  display: flex;
+  padding: $spacing-8;
+  column-gap: $spacing-16;
+}
+
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-8;
+}

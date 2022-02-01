@@ -1,0 +1,46 @@
+.layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  column-gap: $spacing-32;
+  border: 1px solid $gray-6;
+  border-radius: $spacing-4;
+  padding: $spacing-48 $spacing-32;
+}
+.flex {
+  flex: 1;
+  display: flex;
+  column-gap: $spacing-16;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.name {
+  @include h3-bold;
+}
+
+.time {
+  @include body2;
+  color: $gray-5;
+}
+
+.title {
+  @include h4-bold;
+}
+
+.tier {
+  @include body1;
+  color: $gray-7;
+}
+.rate {
+  @include body2;
+  color: $gray-5;
+  display: flex;
+  column-gap: $spacing-32;
+}

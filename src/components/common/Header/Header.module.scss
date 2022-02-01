@@ -1,0 +1,23 @@
+.layout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $header-top;
+  background-color: $black;
+}
+
+.container {
+  height: 100%;
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.logo {
+  flex: 1;
+  max-width: $spacing-160;
+}

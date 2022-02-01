@@ -1,0 +1,8 @@
+.title {
+  @include h3-bold;
+}
+
+.caption {
+  @include h4;
+  color: $gray-6;
+}

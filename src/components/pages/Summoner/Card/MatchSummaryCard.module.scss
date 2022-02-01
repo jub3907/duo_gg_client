@@ -1,0 +1,68 @@
+.layout {
+  display: flex;
+  justify-content: space-between;
+
+  column-gap: $spacing-32;
+  border: 1px solid $gray-6;
+  border-radius: $spacing-4;
+  padding: $spacing-32;
+}
+.flex {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  @include h4-bold;
+  margin-bottom: $spacing-20;
+}
+
+.ingame {
+  flex: 1;
+  display: flex;
+  column-gap: $spacing-32;
+  align-items: center;
+}
+
+.graph {
+  width: 150px;
+  height: 150px;
+  .percent {
+    @include h4-bold;
+  }
+}
+
+.score {
+  @include body2;
+  color: $gray-5;
+  display: flex;
+  flex-direction: column;
+  row-gap: $spacing-12;
+  align-items: center;
+
+  .kill {
+    @include h4-bold;
+    color: $gray-7;
+  }
+}
+
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.row {
+  @include body3;
+  color: $gray-5;
+  display: flex;
+  column-gap: $spacing-8;
+  align-items: center;
+}

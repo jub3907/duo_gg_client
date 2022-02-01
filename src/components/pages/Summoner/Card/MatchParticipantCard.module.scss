@@ -1,0 +1,96 @@
+.layout {
+  border: 1px solid $gray-5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.blue {
+  .ingame {
+    background-color: $blue-op2;
+  }
+  .header {
+    background-color: $blue-op;
+  }
+}
+
+.red {
+  .ingame {
+    background-color: $red-op2;
+  }
+  .header {
+    background-color: $red-op;
+  }
+}
+
+.header {
+  display: flex;
+  column-gap: $spacing-8;
+  border-bottom: 1px solid $gray-5;
+  padding: $spacing-4 $spacing-8;
+
+  .name {
+    @include body2-bold;
+  }
+}
+
+.ingame {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: $spacing-16;
+  column-gap: $spacing-8;
+}
+
+.spell {
+  display: flex;
+  flex-direction: column;
+  row-gap: $spacing-4;
+}
+
+.score {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 $spacing-16;
+  .kill {
+    @include h5-bold;
+  }
+}
+
+.meta {
+  flex: 0.7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: $spacing-8;
+    flex: 1;
+  }
+
+  .index {
+    @include body2-bold;
+  }
+
+  .value {
+    @include body2;
+    color: $gray-6;
+  }
+}
+
+.items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-auto-flow: column;
+  gap: $spacing-8;
+}
+
+.blank {
+  background-color: rgba(0, 0, 0, 0.15);
+}

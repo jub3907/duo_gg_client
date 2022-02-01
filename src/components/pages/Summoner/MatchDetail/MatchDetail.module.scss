@@ -1,0 +1,14 @@
+.layout {
+  padding-top: $spacing-8;
+  border-left: 1px solid $gray-4;
+  border-right: 1px solid $gray-4;
+  border-bottom: 1px solid $gray-4;
+}
+.menus {
+  margin-bottom: $spacing-8;
+  display: flex;
+  justify-content: center;
+}
+.tab {
+  margin: $spacing-16;
+}
