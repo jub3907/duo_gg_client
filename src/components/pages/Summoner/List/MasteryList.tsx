@@ -14,7 +14,6 @@ import styles from './MasteryList.module.scss';
 // TODO: 챔피언 이름 받아오기
 
 const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
-  console.log(masteries);
   return (
     <>
       {masteries &&
@@ -69,7 +68,7 @@ const MasteryList = () => {
     if (id !== undefined) {
       mastery();
     }
-  }, []);
+  }, [id, mastery]);
 
   return (
     <List

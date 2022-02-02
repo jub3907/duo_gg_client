@@ -45,13 +45,13 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
     dispatch(initSummonerState(basicSummonerInfo));
 
     recentMatch();
-  }, [basicSummonerInfo]);
+  }, [basicSummonerInfo, dispatch, recentMatch]);
 
   useEffect(() => {
     return () => {
       dispatch(clearSummonerState());
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <Layout subHeader={<SubHeader />} activeMenu="summoner">

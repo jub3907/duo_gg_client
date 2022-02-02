@@ -9,6 +9,7 @@ import { ChangeEvent, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './CreateCommentForm.module.scss';
 import { LoadingButton } from '@mui/lab';
+import ErrorToast from '@common/Toast/ErrorToast';
 
 type CommentInput = 'nickname' | 'password' | 'text';
 
@@ -28,11 +29,9 @@ const CreateCommentForm = () => {
   const [createComment, { loading }] = useMutation<{
     createComment: CommentType;
   }>(CREATE_COMMENT, {
-    onCompleted: ({ createComment }) => {
-      console.log(createComment);
-    },
     onError: (e) => {
       console.log(e);
+      ErrorToast('댓글 작성에 실패했습니다.');
     },
     refetchQueries: [COMMENTS],
   });

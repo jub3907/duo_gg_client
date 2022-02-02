@@ -69,7 +69,7 @@ const CommentList = () => {
     if (name !== undefined) {
       comments();
     }
-  }, []);
+  }, [comments, name]);
 
   return (
     <List

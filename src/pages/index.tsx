@@ -52,7 +52,7 @@ const Home = ({ ranking }: Props) => {
 
 export default withApollo(Home);
 
-export async function getStaticProps(ctx: GetServerSidePropsContext) {
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const apolloClient = initializeApollo(ctx);
   const { data } = await apolloClient.mutate<Props>({
     mutation: RANKING,
@@ -68,6 +68,6 @@ export async function getStaticProps(ctx: GetServerSidePropsContext) {
     props: {
       ranking: data.ranking,
     },
-    revalidate: 300,
+    // revalidate: 300,
   };
 }

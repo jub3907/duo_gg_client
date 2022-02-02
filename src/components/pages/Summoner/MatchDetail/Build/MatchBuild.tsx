@@ -126,7 +126,7 @@ const MatchBuild = ({ matchId, perk }: Props) => {
 
   useEffect(() => {
     matchBuild({ variables: { matchId, puuid } });
-  }, [matchId]);
+  }, [matchBuild, matchId, puuid]);
 
   useEffect(() => {
     return () => {

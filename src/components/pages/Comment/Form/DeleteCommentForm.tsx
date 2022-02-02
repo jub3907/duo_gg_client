@@ -25,9 +25,6 @@ const DeleteCommentForm = ({ id }: Props) => {
   const [deleteComment, { loading }] = useMutation<{
     deleteComment: boolean;
   }>(DELETE_COMMENT, {
-    onCompleted: ({ deleteComment }) => {
-      console.log(deleteComment);
-    },
     onError: (e) => {
       console.log(e);
     },

@@ -137,7 +137,7 @@ const MatchDetail = ({ matchId, perk }: Props) => {
 
   useEffect(() => {
     matchDetail({ variables: { matchId } });
-  }, [matchId]);
+  }, [matchDetail, matchId]);
 
   useEffect(() => {
     return () => {
