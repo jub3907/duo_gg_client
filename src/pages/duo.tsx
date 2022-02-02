@@ -39,9 +39,9 @@ const DuoPage = () => {
     setModalOpen(true);
   }, []);
 
-  const fetchPost = async () => {
+  const fetchPost = useCallback(async () => {
     await postQuery({ variables: { createdAt, limit: 9 } });
-  };
+  }, [createdAt, postQuery]);
 
   useEffect(() => {
     fetchPost();
