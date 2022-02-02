@@ -104,7 +104,6 @@ const DuoModal = ({ closeModal, open }: Props) => {
 
   const onChangeSelect = useCallback(
     (e: SelectChangeEvent) => {
-      console.log(e.target.name, e.target.value);
       const key = e.target.name as 'queueType' | 'role';
       if (key === 'queueType') {
         setInput(

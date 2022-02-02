@@ -51,7 +51,7 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
     return () => {
       dispatch(clearSummonerState());
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <Layout subHeader={<SubHeader />} activeMenu="summoner">

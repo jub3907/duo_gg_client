@@ -144,7 +144,6 @@ const MultiSummonerCard = ({ name }: Props) => {
       basicSummonerInfo: SummonerBasic;
     }>(BASIC_SUMMONER_INFO, {
       onCompleted: async ({ basicSummonerInfo }) => {
-        console.log(basicSummonerInfo);
         setInfo(
           produce(info, (draft) => {
             draft.basicSummonerInfo = basicSummonerInfo;
@@ -185,7 +184,6 @@ const MultiSummonerCard = ({ name }: Props) => {
       mastery: MasteryType[];
     }>(MASTERY, {
       onCompleted: ({ mastery }) => {
-        console.log(mastery);
         setInfo(
           produce(info, (draft) => {
             draft.mastery = mastery;
