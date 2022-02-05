@@ -3,7 +3,6 @@ import { MatchDetailType } from 'lib/types/match';
 import { getMatchDetailSummary } from 'lib/utils/utils';
 import cn from 'classnames';
 import { Icon, Tooltip } from '@mui/material';
-import CellTowerIcon from '@mui/icons-material/CellTower';
 import {
   GiWhiteTower,
   GiSpikedDragonHead,
@@ -90,18 +89,24 @@ const MatchTotal = ({ matchDetail: { matchId, red, blue } }: Props) => {
 
         <div className={cn(styles.summary, styles.flex)}>
           <div className={cn(styles.icons, styles.flex)}>
-            <div className={cn(styles.icon, styles.flex)}>
-              <CellTowerIcon fontSize="small" />
-              <div>{blueSummary.baronKills}</div>
-            </div>
-            <div className={cn(styles.icon, styles.flex)}>
-              <CellTowerIcon fontSize="small" />
-              <div>{blueSummary.dragonKills}</div>
-            </div>
-            <div className={cn(styles.icon, styles.flex)}>
-              <CellTowerIcon fontSize="small" />
-              <div>{blueSummary.turretKills}</div>
-            </div>
+            <Tooltip title="타워">
+              <div className={cn(styles.icon, styles.flex)}>
+                <GiWhiteTower fontSize="small" />
+                <div>{blueSummary.turretKills}</div>
+              </div>
+            </Tooltip>
+            <Tooltip title="드래곤">
+              <div className={cn(styles.icon, styles.flex)}>
+                <GiSpikedDragonHead fontSize="small" />
+                <div>{blueSummary.dragonKills}</div>
+              </div>
+            </Tooltip>
+            <Tooltip title="바론">
+              <div className={cn(styles.icon, styles.flex)}>
+                <GiFishMonster fontSize="small" />
+                <div>{blueSummary.baronKills}</div>
+              </div>
+            </Tooltip>
           </div>
 
           <div className={styles.team}>레드팀</div>
