@@ -40,12 +40,12 @@ const DuoPage = () => {
   }, []);
 
   const fetchPost = useCallback(async () => {
-    await postQuery({ variables: { createdAt, limit: 9 } });
+    await postQuery({ variables: { createdAt, limit: 6 } });
   }, [createdAt, postQuery]);
 
   useEffect(() => {
     fetchPost();
-  }, [fetchPost]);
+  }, []);
 
   return (
     <Layout subHeader={<SubHeader />} activeMenu="duo">
