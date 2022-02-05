@@ -12,13 +12,13 @@ export type PathType = keyof typeof Path;
 export default Path;
 
 export const getSummonerUrl = (name: string) => {
-  return `/summoner/${name}`;
+  return name ? `/summoner/${name}` : '#';
 };
 
 export const getSummonerCommentUrl = (name: string) => {
-  return `/summoner/${name}/comment`;
+  return name ? `/summoner/${name}/comment` : '#';
 };
 
 export const getSummonerStatUrl = (name: string) => {
-  return `/summoner/${name}/statistics`;
+  return name ? `/summoner/${name}/statistics` : '#';
 };

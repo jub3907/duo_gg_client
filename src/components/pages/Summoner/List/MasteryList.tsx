@@ -65,7 +65,7 @@ const MasteryList = () => {
   });
 
   useEffect(() => {
-    if (id !== undefined) {
+    if (id !== '') {
       mastery();
     }
   }, [id, mastery]);

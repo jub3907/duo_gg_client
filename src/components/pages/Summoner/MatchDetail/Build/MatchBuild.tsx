@@ -6,7 +6,7 @@ import styles from './MatchBuild.module.scss';
 import SkillBuild from './SkillBuild';
 import ItemBuild from './ItemBuild';
 import { PerkType } from 'lib/types/participant';
-import ArrowRightRoundedIcon from '@mui/icons-material/ArrowRightRounded';
+import { IoMdArrowDropright } from 'react-icons/io';
 import { getImagePath } from 'lib/utils/utils';
 import { gql, useMutation } from '@apollo/client';
 import { useSelector } from 'react-redux';
@@ -30,84 +30,6 @@ const MATCH_BUILD = gql`
     }
   }
 `;
-
-const matchBuild = {
-  items: [
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/6660.png',
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/1001.png',
-      ],
-      timestamp: 0,
-    },
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/1033.png',
-      ],
-      timestamp: 3,
-    },
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/3111.png',
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/1033.png',
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/2031.png',
-      ],
-      timestamp: 4,
-    },
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/1029.png',
-      ],
-      timestamp: 5,
-    },
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/6662.png',
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/1028.png',
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/1028.png',
-      ],
-      timestamp: 7,
-    },
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/4401.png',
-      ],
-      timestamp: 11,
-    },
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/3076.png',
-      ],
-      timestamp: 12,
-    },
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/1028.png',
-      ],
-      timestamp: 13,
-    },
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/1011.png',
-      ],
-      timestamp: 14,
-    },
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/3075.png',
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/1033.png',
-      ],
-      timestamp: 15,
-    },
-    {
-      iconPathes: [
-        'http://ddragon.leagueoflegends.com/cdn/12.2.1/img/item/3067.png',
-      ],
-      timestamp: 18,
-    },
-  ],
-  skills: [3, 2, 1, 2, 2, 4, 2, 3, 2, 3, 4, 3, 3, 1, 1, 4, 1, 1],
-};
 
 const MatchBuild = ({ matchId, perk }: Props) => {
   const [build, setBuild] = useState<MatchBuildType>(null);
@@ -175,7 +97,7 @@ const MatchBuild = ({ matchId, perk }: Props) => {
                   width={40}
                   height={40}
                 />
-                <ArrowRightRoundedIcon className={styles.icon} />
+                <IoMdArrowDropright className={styles.icon} />
                 {perk.primarySelections.map((path, index) => {
                   return (
                     <Image
@@ -196,7 +118,7 @@ const MatchBuild = ({ matchId, perk }: Props) => {
                   width={40}
                   height={40}
                 />
-                <ArrowRightRoundedIcon className={styles.icon} />
+                <IoMdArrowDropright className={styles.icon} />
                 {perk.subSelections.map((path, index) => {
                   return (
                     <Image

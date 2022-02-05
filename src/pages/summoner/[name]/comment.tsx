@@ -27,7 +27,7 @@ const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
   const { data, loading, error } = useQuery<{ comments: CommentType[] }>(
     COMMENTS,
     {
-      skip: !basicSummonerInfo,
+      skip: !basicSummonerInfo || !basicSummonerInfo.name,
       variables: { name: basicSummonerInfo.name, count: 10 },
       onError: (e) => {
         console.log('error', e);

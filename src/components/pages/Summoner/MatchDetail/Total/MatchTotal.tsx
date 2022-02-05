@@ -2,8 +2,13 @@ import styles from './MatchTatal.module.scss';
 import { MatchDetailType } from 'lib/types/match';
 import { getMatchDetailSummary } from 'lib/utils/utils';
 import cn from 'classnames';
-import { Icon } from '@mui/material';
+import { Icon, Tooltip } from '@mui/material';
 import CellTowerIcon from '@mui/icons-material/CellTower';
+import {
+  GiWhiteTower,
+  GiSpikedDragonHead,
+  GiFishMonster,
+} from 'react-icons/gi';
 import WinRateGraph from '@common/Graph/WinRateGraph';
 import MatchParticipantCard from '../../Card/MatchParticipantCard';
 import { useMemo } from 'react';
@@ -33,18 +38,24 @@ const MatchTotal = ({ matchDetail: { matchId, red, blue } }: Props) => {
 
           <div className={styles.team}>블루팀</div>
           <div className={cn(styles.icons, styles.flex)}>
-            <div className={cn(styles.icon, styles.flex)}>
-              <CellTowerIcon fontSize="small" />
-              <div>{blueSummary.baronKills}</div>
-            </div>
-            <div className={cn(styles.icon, styles.flex)}>
-              <CellTowerIcon fontSize="small" />
-              <div>{blueSummary.dragonKills}</div>
-            </div>
-            <div className={cn(styles.icon, styles.flex)}>
-              <CellTowerIcon fontSize="small" />
-              <div>{blueSummary.turretKills}</div>
-            </div>
+            <Tooltip title="바론">
+              <div className={cn(styles.icon, styles.flex)}>
+                <GiFishMonster fontSize="small" />
+                <div>{blueSummary.baronKills}</div>
+              </div>
+            </Tooltip>
+            <Tooltip title="드래곤">
+              <div className={cn(styles.icon, styles.flex)}>
+                <GiSpikedDragonHead fontSize="small" />
+                <div>{blueSummary.dragonKills}</div>
+              </div>
+            </Tooltip>
+            <Tooltip title="타워">
+              <div className={cn(styles.icon, styles.flex)}>
+                <GiWhiteTower fontSize="small" />
+                <div>{blueSummary.turretKills}</div>
+              </div>
+            </Tooltip>
           </div>
         </div>
         <div className={cn(styles.info, styles.flex)}>
