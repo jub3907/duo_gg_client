@@ -1,7 +1,7 @@
 import Image from '@common/Image/Image';
 import React from 'react';
 import styles from './ItemBuild.module.scss';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import { IoIosArrowForward } from 'react-icons/io';
 
 type Props = {
   iconPathes: string[];
@@ -27,7 +27,7 @@ const ItemBuild = ({ timestamp, iconPathes }: Props) => {
         </div>
         <div className={styles.timestamp}>{timestamp}분</div>
       </div>
-      <ArrowForwardIosRoundedIcon className={styles.icon} />
+      <IoIosArrowForward className={styles.icon} />
     </React.Fragment>
   );
 };

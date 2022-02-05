@@ -1,11 +1,11 @@
 import styles from './SummonerSearch.module.scss';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useCallback, useState } from 'react';
 import Path from 'config/path';
 import ErrorToast from '@common/Toast/ErrorToast';
+import { FaSearch } from 'react-icons/fa';
 
 const SubHeaderSearch = () => {
   const router = useRouter();
@@ -36,7 +36,7 @@ const SubHeaderSearch = () => {
       />
       <Divider sx={{ height: 28 }} orientation="vertical" />
       <IconButton onClick={onClick} sx={{ p: '12px' }} aria-label="search">
-        <SearchIcon />
+        <FaSearch fontSize={16} />
       </IconButton>
     </div>
   );

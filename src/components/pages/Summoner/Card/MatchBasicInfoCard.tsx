@@ -9,7 +9,7 @@ import NameLink from '@common/Link/NameLink';
 import { useCallback, useState } from 'react';
 import MatchDetail from '../MatchDetail/MatchDetail';
 import { getRate } from 'lib/utils/utils';
-import ArrowDropDownTwoToneIcon from '@mui/icons-material/ArrowDropDownTwoTone';
+import { IoIosArrowDown } from 'react-icons/io';
 
 type Props = {
   match: MatchBasicType;
@@ -150,7 +150,7 @@ const MatchBasicInfoCard = ({
           })}
         </div>
         <Button variant="text" onClick={onClick}>
-          <ArrowDropDownTwoToneIcon />
+          <IoIosArrowDown />
         </Button>
       </div>
       {detailOpen && (

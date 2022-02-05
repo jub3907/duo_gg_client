@@ -3,8 +3,8 @@ import { CommentType } from 'lib/types/comment';
 import { getDateFromNow } from 'lib/utils/date';
 import { useCallback, useState } from 'react';
 import styles from './CommentCard.module.scss';
-import DeleteIcon from '@mui/icons-material/Delete';
 import DeleteCommentForm from '../Form/DeleteCommentForm';
+import { MdDelete } from 'react-icons/md';
 
 type Props = {
   comment: CommentType;
@@ -28,7 +28,7 @@ const CommentCard = ({ comment }: Props) => {
           )}
 
           {deleteOpen === true && <DeleteCommentForm id={comment._id} />}
-          <DeleteIcon className={styles.delete} onClick={toggleDeleteOpen} />
+          <MdDelete className={styles.delete} onClick={toggleDeleteOpen} />
         </div>
       </div>
       <div className={styles.text}>{comment.text}</div>
