@@ -66,7 +66,7 @@ const CommentList = () => {
   });
 
   useEffect(() => {
-    if (name !== undefined) {
+    if (name !== '') {
       comments();
     }
   }, [comments, name]);
