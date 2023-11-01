@@ -7,10 +7,7 @@ import SummonerCard from '@pages/Summoner/Card/SummonerCard';
 import { GetServerSidePropsContext } from 'next';
 import CreateCommentForm from '@pages/Comment/Form/CreateCommentForm';
 import CommentCard from '@pages/Comment/Card/CommentCard';
-import { initializeApollo, withApollo } from 'lib/apollo/apolloClient';
-import { BASIC_SUMMONER_INFO, COMMENTS } from 'lib/utils/query';
 import { SummonerBasic } from 'lib/types/summoner';
-import { useQuery } from '@apollo/client';
 import { CommentType } from 'lib/types/comment';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -24,16 +21,16 @@ type Props = {
 const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
   const dispatch = useDispatch();
 
-  const { data, loading, error } = useQuery<{ comments: CommentType[] }>(
-    COMMENTS,
-    {
-      skip: !basicSummonerInfo || !basicSummonerInfo.name,
-      variables: { name: basicSummonerInfo.name, count: 10 },
-      onError: (e) => {
-        console.log('error', e);
-      },
-    },
-  );
+  // const { data, loading, error } = useQuery<{ comments: CommentType[] }>(
+  //   COMMENTS,
+  //   {
+  //     skip: !basicSummonerInfo || !basicSummonerInfo.name,
+  //     variables: { name: basicSummonerInfo.name, count: 10 },
+  //     onError: (e) => {
+  //       console.log('error', e);
+  //     },
+  //   },
+  // );
 
   useEffect(() => {
     dispatch(initSummonerState(basicSummonerInfo));
@@ -56,14 +53,14 @@ const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
           <CreateCommentForm />
         </div>
 
-        {loading && <CircularLoading />}
+        {/* {loading && <CircularLoading />}
         {data && data.comments && (
           <div className={styles.comments}>
             {data.comments.map((comment) => {
               return <CommentCard comment={comment} key={comment._id} />;
             })}
           </div>
-        )}
+        )} */}
       </PageTitleLayout>
     </Layout>
   );
@@ -71,31 +68,30 @@ const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const params = ctx.params;
-  const apolloClient = initializeApollo(ctx);
   if (!params) {
     return {
       notFound: true,
     };
   }
 
-  const { data } = await apolloClient.mutate<Props>({
-    mutation: BASIC_SUMMONER_INFO,
-    variables: {
-      name: params.name,
-    },
-  });
+  // const { data } = await apolloClient.mutate<Props>({
+  //   mutation: BASIC_SUMMONER_INFO,
+  //   variables: {
+  //     name: params.name,
+  //   },
+  // });
 
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
+  // if (!data) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
 
-  return {
-    props: {
-      basicSummonerInfo: data.basicSummonerInfo,
-    },
-  };
+  // return {
+  //   props: {
+  //     basicSummonerInfo: data.basicSummonerInfo,
+  //   },
+  // };
 }
 
-export default withApollo(SummonerCommentPage);
+export default SummonerCommentPage;

@@ -7,7 +7,6 @@ import styles from '@pages/Multi/MultiSearch.module.scss';
 import MultiSummonerCard from '@pages/Multi/Card/MultiSummonerCard';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import { parseMultiSearchInput, preventEvent } from 'lib/utils/utils';
-import { withApollo } from 'lib/apollo/apolloClient';
 
 const names = ['Duo TOP', 'Duo MID', 'Duo JUG', 'Duo BOT', 'Duo SUP'];
 
@@ -42,4 +41,4 @@ const MultiSearchPage = () => {
   );
 };
 
-export default withApollo(MultiSearchPage);
+export default MultiSearchPage;

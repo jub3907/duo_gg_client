@@ -1,4 +1,3 @@
-import { gql, useLazyQuery, useQuery } from '@apollo/client';
 import ReloadButton from '@common/Button/ReloadButton';
 import List from '@common/List/List';
 import CircularLoading from '@common/Loading/CircularLoading';
@@ -10,7 +9,6 @@ import summonerSlice, { selectSummonerState } from 'lib/slice/summonerSlice';
 import { CommentType } from 'lib/types/comment';
 import { PostType } from 'lib/types/post';
 import { getDateFromNow } from 'lib/utils/date';
-import { COMMENTS } from 'lib/utils/query';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -56,14 +54,14 @@ const CommentButton = ({ name }: { name: string }) => {
 const CommentList = () => {
   const { name } = useSelector(selectSummonerState);
 
-  const [comments, { data, loading, error }] = useLazyQuery<{
-    comments: CommentType[];
-  }>(COMMENTS, {
-    variables: { name: name, count: 2 },
-    onError: (e) => {
-      ErrorToast('댓글을 불러오는데 실패했어요.');
-    },
-  });
+  // const [comments, { data, loading, error }] = useLazyQuery<{
+  //   comments: CommentType[];
+  // }>(COMMENTS, {
+  //   variables: { name: name, count: 2 },
+  //   onError: (e) => {
+  //     ErrorToast('댓글을 불러오는데 실패했어요.');
+  //   },
+  // });
 
   useEffect(() => {
     if (name !== '') {

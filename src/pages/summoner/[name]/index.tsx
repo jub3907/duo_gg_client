@@ -11,13 +11,10 @@ import MatchSummaryCard from '@pages/Summoner/Card/MatchSummaryCard';
 import { MatchBasicType } from 'lib/types/match';
 import { style } from '@mui/system';
 import MatchBasicInfoCard from '@pages/Summoner/Card/MatchBasicInfoCard';
-import { gql, useMutation } from '@apollo/client';
-import { initializeApollo, withApollo } from 'lib/apollo/apolloClient';
 import { SummonerBasic } from 'lib/types/summoner';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
-import { BASIC_SUMMONER_INFO, RECENT_MATCHES } from 'lib/utils/query';
 import CircularLoading from '@common/Loading/CircularLoading';
 import ErrorToast from '@common/Toast/ErrorToast';
 import ReloadButton from '@common/Button/ReloadButton';
@@ -29,23 +26,23 @@ type Props = {
 const SummonerPage = ({ basicSummonerInfo }: Props) => {
   const dispatch = useDispatch();
   const [matches, setMatches] = useState([]);
-  const [recentMatch, { loading, error }] = useMutation<{
-    recentMatches: MatchBasicType[];
-  }>(RECENT_MATCHES, {
-    variables: { count: 10, name: basicSummonerInfo.name },
-    onCompleted: ({ recentMatches }) => {
-      setMatches(recentMatches);
-    },
-    onError: (e) => {
-      ErrorToast('매치 정보를 불러오는데 실패했어요.');
-    },
-  });
+  // const [recentMatch, { loading, error }] = useMutation<{
+  //   recentMatches: MatchBasicType[];
+  // }>(RECENT_MATCHES, {
+  //   variables: { count: 10, name: basicSummonerInfo.name },
+  //   onCompleted: ({ recentMatches }) => {
+  //     setMatches(recentMatches);
+  //   },
+  //   onError: (e) => {
+  //     ErrorToast('매치 정보를 불러오는데 실패했어요.');
+  //   },
+  // });
 
-  useEffect(() => {
-    dispatch(initSummonerState(basicSummonerInfo));
+  // useEffect(() => {
+  //   dispatch(initSummonerState(basicSummonerInfo));
 
-    recentMatch();
-  }, [basicSummonerInfo, dispatch, recentMatch]);
+  //   recentMatch();
+  // }, [basicSummonerInfo, dispatch, recentMatch]);
 
   useEffect(() => {
     return () => {
@@ -128,4 +125,4 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   }
 }
 
-export default withApollo(SummonerPage);
+export default SummonerPage;

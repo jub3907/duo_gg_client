@@ -4,37 +4,8 @@ import type { GetServerSidePropsContext, NextPage } from 'next';
 import HomeSubHeader from '@pages/Home/HomeSubHeader/HomeSubHeader';
 import PageTitleLayout from '@common/Layout/PageTitleLayout';
 import Ranking from '@pages/Home/Ranking/Ranking';
-import { initializeApollo, withApollo } from 'lib/apollo/apolloClient';
 import { gql } from '@apollo/client';
 import { SummonerBasic } from 'lib/types/summoner';
-
-const RANKING = gql`
-  mutation ranking {
-    ranking {
-      freeRank {
-        leaguePoints
-        losses
-        rank
-        tier
-        wins
-      }
-      iconPath
-      id
-      name
-      profileIconId
-      puuid
-      soleRank {
-        leaguePoints
-        losses
-        rank
-        tier
-        wins
-      }
-      summonerLevel
-      updatedAt
-    }
-  }
-`;
 
 type Props = {
   ranking: SummonerBasic[];
@@ -50,13 +21,10 @@ const Home = ({ ranking }: Props) => {
   );
 };
 
-export default withApollo(Home);
+export default Home;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const apolloClient = initializeApollo(ctx);
-  const { data } = await apolloClient.mutate<Props>({
-    mutation: RANKING,
-  });
+  //TODO: Basic Summoner Info Rest API
 
   if (!data) {
     return {

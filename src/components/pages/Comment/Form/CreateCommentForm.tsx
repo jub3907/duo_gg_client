@@ -1,9 +1,7 @@
-import { gql, useMutation } from '@apollo/client';
 import { Button, TextField } from '@mui/material';
 import produce from 'immer';
 import { selectSummonerState } from 'lib/slice/summonerSlice';
 import { CommentType } from 'lib/types/comment';
-import { COMMENTS } from 'lib/utils/query';
 import { preventEvent } from 'lib/utils/utils';
 import { ChangeEvent, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -13,28 +11,17 @@ import ErrorToast from '@common/Toast/ErrorToast';
 
 type CommentInput = 'nickname' | 'password' | 'text';
 
-const CREATE_COMMENT = gql`
-  mutation createComment($input: CommentCreateInput!, $name: String!) {
-    createComment(input: $input, name: $name) {
-      _id
-      createdAt
-      nickname
-      text
-    }
-  }
-`;
-
 const CreateCommentForm = () => {
   const { name } = useSelector(selectSummonerState);
-  const [createComment, { loading }] = useMutation<{
-    createComment: CommentType;
-  }>(CREATE_COMMENT, {
-    onError: (e) => {
-      console.log(e);
-      ErrorToast('댓글 작성에 실패했습니다.');
-    },
-    refetchQueries: [COMMENTS],
-  });
+  // const [createComment, { loading }] = useMutation<{
+  //   createComment: CommentType;
+  // }>(CREATE_COMMENT, {
+  //   onError: (e) => {
+  //     console.log(e);
+  //     ErrorToast('댓글 작성에 실패했습니다.');
+  //   },
+  //   refetchQueries: [COMMENTS],
+  // });
 
   const initState = useMemo(
     () => ({
@@ -49,7 +36,7 @@ const CreateCommentForm = () => {
 
   const onSubmit = async (e: any) => {
     preventEvent(e);
-    await createComment({ variables: { input, name } });
+    // await createComment({ variables: { input, name } });
     setInput(initState);
   };
 
@@ -128,7 +115,7 @@ const CreateCommentForm = () => {
           className={styles.button}
           sx={{ height: '100%' }}
           disabled={blockSubmit}
-          loading={loading}
+          // loading={loading}
         >
           등록
         </LoadingButton>

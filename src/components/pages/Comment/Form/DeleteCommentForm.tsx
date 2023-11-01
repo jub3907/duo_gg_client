@@ -1,9 +1,7 @@
-import { gql, useMutation } from '@apollo/client';
 import { LoadingButton } from '@mui/lab';
 import { Button, TextField } from '@mui/material';
 import { selectSummonerState } from 'lib/slice/summonerSlice';
 import { CommentType } from 'lib/types/comment';
-import { COMMENTS } from 'lib/utils/query';
 import { preventEvent } from 'lib/utils/utils';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -22,27 +20,27 @@ const DELETE_COMMENT = gql`
 const DeleteCommentForm = ({ id }: Props) => {
   const { name } = useSelector(selectSummonerState);
   const [password, setPassword] = useState('');
-  const [deleteComment, { loading }] = useMutation<{
-    deleteComment: boolean;
-  }>(DELETE_COMMENT, {
-    onError: (e) => {
-      console.log(e);
-    },
-    refetchQueries: [COMMENTS],
-  });
+  // const [deleteComment, { loading }] = useMutation<{
+  //   deleteComment: boolean;
+  // }>(DELETE_COMMENT, {
+  //   onError: (e) => {
+  //     console.log(e);
+  //   },
+  //   refetchQueries: [COMMENTS],
+  // });
 
   const onSubmit = useCallback(
     async (e: any) => {
       preventEvent(e);
-      await deleteComment({
-        variables: {
-          input: {
-            summonerName: name,
-            id,
-            password,
-          },
-        },
-      });
+      // await deleteComment({
+      //   variables: {
+      //     input: {
+      //       summonerName: name,
+      //       id,
+      //       password,
+      //     },
+      //   },
+      // });
     },
     [name, id, password],
   );
@@ -65,7 +63,7 @@ const DeleteCommentForm = ({ id }: Props) => {
           variant="contained"
           className={styles.button}
           type="submit"
-          loading={loading}
+          // loading={loading}
         >
           삭제
         </LoadingButton>

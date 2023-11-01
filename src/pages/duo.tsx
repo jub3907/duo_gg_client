@@ -1,4 +1,3 @@
-import { useLazyQuery } from '@apollo/client';
 import SubHeader from '@common/Header/SubHeader';
 import Layout from '@common/Layout/Layout';
 import PageTitleLayout from '@common/Layout/PageTitleLayout';
@@ -8,10 +7,8 @@ import { Button } from '@mui/material';
 import DuoCard from '@pages/Duo/Card/DuoCard';
 import styles from '@pages/Duo/DuoPage.module.scss';
 import DuoModal from '@pages/Duo/Modal/DuoModal';
-import { withApollo } from 'lib/apollo/apolloClient';
 import { addPosts, initPosts, selectPostState } from 'lib/slice/postSlice';
 import { PostType } from 'lib/types/post';
-import { POSTS } from 'lib/utils/query';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -20,16 +17,16 @@ const DuoPage = () => {
   const { createdAt, posts } = useSelector(selectPostState);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [postQuery, { loading }] = useLazyQuery<{ posts: PostType[] }>(POSTS, {
-    onCompleted: ({ posts }) => {
-      if (posts.length > 0) {
-        dispatch(addPosts(posts));
-      }
-    },
-    onError: (e) => {
-      ErrorToast('포스트를 불러오는데 실패했습니다.');
-    },
-  });
+  // const [postQuery, { loading }] = useLazyQuery<{ posts: PostType[] }>(POSTS, {
+  //   onCompleted: ({ posts }) => {
+  //     if (posts.length > 0) {
+  //       dispatch(addPosts(posts));
+  //     }
+  //   },
+  //   onError: (e) => {
+  //     ErrorToast('포스트를 불러오는데 실패했습니다.');
+  //   },
+  // });
 
   const closeModal = useCallback(() => {
     setModalOpen(false);
@@ -39,13 +36,13 @@ const DuoPage = () => {
     setModalOpen(true);
   }, []);
 
-  const fetchPost = useCallback(async () => {
-    await postQuery({ variables: { createdAt, limit: 6 } });
-  }, [createdAt, postQuery]);
+  // const fetchPost = useCallback(async () => {
+  //   await postQuery({ variables: { createdAt, limit: 6 } });
+  // }, [createdAt, postQuery]);
 
-  useEffect(() => {
-    fetchPost();
-  }, []);
+  // useEffect(() => {
+  //   fetchPost();
+  // }, []);
 
   return (
     <Layout subHeader={<SubHeader />} activeMenu="duo">
@@ -84,4 +81,4 @@ const DuoPage = () => {
   );
 };
 
-export default withApollo(DuoPage);
+export default DuoPage;
