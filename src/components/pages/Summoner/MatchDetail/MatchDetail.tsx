@@ -6,7 +6,6 @@ import { MatchDetailType } from 'lib/types/match';
 import MatchAnalytics from './Analytics/MatchAnalytics';
 import MatchBuild from './Build/MatchBuild';
 import { PerkType } from 'lib/types/participant';
-import { gql, useLazyQuery } from '@apollo/client';
 import CircularLoading from '@common/Loading/CircularLoading';
 import ReloadButton from '@common/Button/ReloadButton';
 

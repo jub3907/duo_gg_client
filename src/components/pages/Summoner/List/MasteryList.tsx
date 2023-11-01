@@ -1,4 +1,3 @@
-import { gql, useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import ReloadButton from '@common/Button/ReloadButton';
 import Image from '@common/Image/Image';
 import List from '@common/List/List';
@@ -6,7 +5,6 @@ import ErrorToast from '@common/Toast/ErrorToast';
 import { selectSummonerState } from 'lib/slice/summonerSlice';
 import { MasteryType } from 'lib/types/mastery';
 import { getDateFromNow } from 'lib/utils/date';
-import { MASTERY } from 'lib/utils/query';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './MasteryList.module.scss';
@@ -52,17 +50,17 @@ const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
 
 const MasteryList = () => {
   const { id } = useSelector(selectSummonerState);
-  const [mastery, { data, loading, error }] = useLazyQuery<{
-    mastery: MasteryType[];
-  }>(MASTERY, {
-    variables: {
-      summonerId: id,
-      count: 3,
-    },
-    onError: (e) => {
-      ErrorToast('숙련도 정보를 불러오는데 실패했어요.');
-    },
-  });
+  // const [mastery, { data, loading, error }] = useLazyQuery<{
+  //   mastery: MasteryType[];
+  // }>(MASTERY, {
+  //   variables: {
+  //     summonerId: id,
+  //     count: 3,
+  //   },
+  //   onError: (e) => {
+  //     ErrorToast('숙련도 정보를 불러오는데 실패했어요.');
+  //   },
+  // });
 
   useEffect(() => {
     if (id !== '') {

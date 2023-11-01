@@ -4,7 +4,6 @@ import type { GetServerSidePropsContext, NextPage } from 'next';
 import HomeSubHeader from '@pages/Home/HomeSubHeader/HomeSubHeader';
 import PageTitleLayout from '@common/Layout/PageTitleLayout';
 import Ranking from '@pages/Home/Ranking/Ranking';
-import { gql } from '@apollo/client';
 import { SummonerBasic } from 'lib/types/summoner';
 
 type Props = {

@@ -8,7 +8,6 @@ import ItemBuild from './ItemBuild';
 import { PerkType } from 'lib/types/participant';
 import { IoMdArrowDropright } from 'react-icons/io';
 import { getImagePath } from 'lib/utils/utils';
-import { gql, useMutation } from '@apollo/client';
 import { useSelector } from 'react-redux';
 import { selectSummonerState } from 'lib/slice/summonerSlice';
 import CircularLoading from '@common/Loading/CircularLoading';
@@ -19,36 +18,24 @@ type Props = {
   perk: PerkType;
 };
 
-const MATCH_BUILD = gql`
-  mutation matchBuild($matchId: String!, $puuid: String!) {
-    matchBuild(matchId: $matchId, puuid: $puuid) {
-      items {
-        iconPathes
-        timestamp
-      }
-      skills
-    }
-  }
-`;
-
 const MatchBuild = ({ matchId, perk }: Props) => {
   const [build, setBuild] = useState<MatchBuildType>(null);
   const { puuid } = useSelector(selectSummonerState);
 
-  const [matchBuild, { loading, error }] = useMutation<{
-    matchBuild: MatchBuildType;
-  }>(MATCH_BUILD, {
-    onCompleted: ({ matchBuild }) => {
-      setBuild(matchBuild);
-    },
-    onError: (e) => {
-      console.log(e);
-    },
-  });
+  // const [matchBuild, { loading, error }] = useMutation<{
+  //   matchBuild: MatchBuildType;
+  // }>(MATCH_BUILD, {
+  //   onCompleted: ({ matchBuild }) => {
+  //     setBuild(matchBuild);
+  //   },
+  //   onError: (e) => {
+  //     console.log(e);
+  //   },
+  // });
 
-  useEffect(() => {
-    matchBuild({ variables: { matchId, puuid } });
-  }, [matchBuild, matchId, puuid]);
+  // useEffect(() => {
+  //   matchBuild({ variables: { matchId, puuid } });
+  // }, [matchBuild, matchId, puuid]);
 
   useEffect(() => {
     return () => {

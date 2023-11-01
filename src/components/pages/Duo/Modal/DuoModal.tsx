@@ -22,8 +22,6 @@ import { preventEvent } from 'lib/utils/utils';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import styles from './DuoModal.module.scss';
 import produce from 'immer';
-import { gql } from '@apollo/client';
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import ErrorToast from '@common/Toast/ErrorToast';
 import { LoadingButton } from '@mui/lab';
 import { useDispatch } from 'react-redux';
@@ -34,30 +32,19 @@ type Props = {
   open: boolean;
 };
 
-const CREATE_POST = gql`
-  mutation createPost($post: PostCreateInput!) {
-    createPost(post: $post) {
-      createdAt
-      name
-      text
-      title
-    }
-  }
-`;
-
 const DuoModal = ({ closeModal, open }: Props) => {
   const dispatch = useDispatch();
-  const [createPost, { loading }] = useMutation<{ createPost: PostType }>(
-    CREATE_POST,
-    {
-      onCompleted: ({ createPost }) => {
-        dispatch(addCreatedPost(createPost));
-      },
-      onError: () => {
-        ErrorToast('포스트 등록중 오류가 발생했습니다.');
-      },
-    },
-  );
+  // const [createPost, { loading }] = useMutation<{ createPost: PostType }>(
+  //   CREATE_POST,
+  //   {
+  //     onCompleted: ({ createPost }) => {
+  //       dispatch(addCreatedPost(createPost));
+  //     },
+  //     onError: () => {
+  //       ErrorToast('포스트 등록중 오류가 발생했습니다.');
+  //     },
+  //   },
+  // );
 
   const initInput: PostInputType = {
     name: '',
@@ -71,7 +58,7 @@ const DuoModal = ({ closeModal, open }: Props) => {
 
   const onSubmit = async (e: any) => {
     preventEvent(e);
-    await createPost({ variables: { post: input } });
+    // await createPost({ variables: { post: input } });
 
     closeModal();
     setInput(initInput);
@@ -207,7 +194,7 @@ const DuoModal = ({ closeModal, open }: Props) => {
               type="submit"
               disabled={blockSubmit}
               className={styles.submit}
-              loading={loading}
+              // loading={loading}
             >
               등록
             </LoadingButton>

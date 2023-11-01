@@ -9,8 +9,6 @@ import List from '@common/List/List';
 import { MatchBasicType } from 'lib/types/match';
 import NameLink from '@common/Link/NameLink';
 import { useEffect, useState } from 'react';
-import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
-import { BASIC_SUMMONER_INFO, MASTERY, RECENT_MATCHES } from 'lib/utils/query';
 import { SummonerBasic } from 'lib/types/summoner';
 import produce from 'immer';
 import { MasteryType } from 'lib/types/mastery';
@@ -139,69 +137,69 @@ const MultiSummonerCard = ({ name }: Props) => {
     mastery: null,
   });
 
-  const [basicSummonerInfo, { loading: infoLoading, error: infoError }] =
-    useMutation<{
-      basicSummonerInfo: SummonerBasic;
-    }>(BASIC_SUMMONER_INFO, {
-      onCompleted: async ({ basicSummonerInfo }) => {
-        setInfo(
-          produce(info, (draft) => {
-            draft.basicSummonerInfo = basicSummonerInfo;
-          }),
-        );
+  // const [basicSummonerInfo, { loading: infoLoading, error: infoError }] =
+  //   useMutation<{
+  //     basicSummonerInfo: SummonerBasic;
+  //   }>(BASIC_SUMMONER_INFO, {
+  //     onCompleted: async ({ basicSummonerInfo }) => {
+  //       setInfo(
+  //         produce(info, (draft) => {
+  //           draft.basicSummonerInfo = basicSummonerInfo;
+  //         }),
+  //       );
 
-        await recentMatches({
-          variables: { name: basicSummonerInfo.name, count: 3 },
-        });
+  //       await recentMatches({
+  //         variables: { name: basicSummonerInfo.name, count: 3 },
+  //       });
 
-        await mastery({
-          variables: { summonerId: basicSummonerInfo.id, count: 3 },
-        });
-      },
-      onError: (e) => {
-        console.log(e);
-      },
-    });
+  //       await mastery({
+  //         variables: { summonerId: basicSummonerInfo.id, count: 3 },
+  //       });
+  //     },
+  //     onError: (e) => {
+  //       console.log(e);
+  //     },
+  //   });
 
-  const [recentMatches, { loading: matchLoading, error: matchError }] =
-    useMutation<{
-      recentMatches: MatchBasicType[];
-    }>(RECENT_MATCHES, {
-      onCompleted: ({ recentMatches }) => {
-        setInfo(
-          produce(info, (draft) => {
-            draft.recentMatches = recentMatches;
-          }),
-        );
-      },
-      onError: (e) => {
-        console.log(e);
-      },
-    });
+  // const [recentMatches, { loading: matchLoading, error: matchError }] =
+  //   useMutation<{
+  //     recentMatches: MatchBasicType[];
+  //   }>(RECENT_MATCHES, {
+  //     onCompleted: ({ recentMatches }) => {
+  //       setInfo(
+  //         produce(info, (draft) => {
+  //           draft.recentMatches = recentMatches;
+  //         }),
+  //       );
+  //     },
+  //     onError: (e) => {
+  //       console.log(e);
+  //     },
+  //   });
 
-  const [mastery, { loading: masteryLoading, error: masteryError }] =
-    useLazyQuery<{
-      mastery: MasteryType[];
-    }>(MASTERY, {
-      onCompleted: ({ mastery }) => {
-        setInfo(
-          produce(info, (draft) => {
-            draft.mastery = mastery;
-          }),
-        );
-      },
-      onError: (e) => {
-        console.log(e);
-      },
-    });
+  // const [mastery, { loading: masteryLoading, error: masteryError }] =
+  //   useLazyQuery<{
+  //     mastery: MasteryType[];
+  //   }>(MASTERY, {
+  //     onCompleted: ({ mastery }) => {
+  //       setInfo(
+  //         produce(info, (draft) => {
+  //           draft.mastery = mastery;
+  //         }),
+  //       );
+  //     },
+  //     onError: (e) => {
+  //       console.log(e);
+  //     },
+  //   });
 
-  useEffect(() => {
-    basicSummonerInfo({ variables: { name } });
-  }, [basicSummonerInfo, name]);
+  // useEffect(() => {
+  //   basicSummonerInfo({ variables: { name } });
+  // }, [basicSummonerInfo, name]);
 
   return (
     <div className={styles.layout}>
-      {infoLoading && <CircularLoading />}
+      {/* {infoLoading && <CircularLoading />} */}
       {info.basicSummonerInfo && (
         <>
           <div className={styles.name}>
@@ -222,13 +220,13 @@ const MultiSummonerCard = ({ name }: Props) => {
               error={masteryError}
               reloadButton={
                 <ReloadButton
-                  onClick={() => {
-                    mastery({
-                      variables: {
-                        summonerId: info.basicSummonerInfo.id,
-                        count: 3,
-                      },
-                    });
+                  // onClick={() => {
+                  //   mastery({
+                  //     variables: {
+                  //       summonerId: info.basicSummonerInfo.id,
+                  //       count: 3,
+                  //     },
+                  //   });
                   }}
                   loading={masteryLoading}
                 />
