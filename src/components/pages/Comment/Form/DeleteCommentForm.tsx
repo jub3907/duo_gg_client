@@ -11,12 +11,6 @@ type Props = {
   id: string;
 };
 
-const DELETE_COMMENT = gql`
-  mutation deleteComment($input: CommentDeleteInput!) {
-    deleteComment(input: $input)
-  }
-`;
-
 const DeleteCommentForm = ({ id }: Props) => {
   const { name } = useSelector(selectSummonerState);
   const [password, setPassword] = useState('');

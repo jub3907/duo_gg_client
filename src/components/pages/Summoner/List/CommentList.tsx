@@ -63,29 +63,30 @@ const CommentList = () => {
   //   },
   // });
 
-  useEffect(() => {
-    if (name !== '') {
-      comments();
-    }
-  }, [comments, name]);
+  // useEffect(() => {
+  //   if (name !== '') {
+  //     comments();
+  //   }
+  // }, [comments, name]);
 
   return (
-    <List
-      title="최근 한마디"
-      contents={<Comments comments={data?.comments} />}
-      button={<CommentButton name={name} />}
-      loading={loading}
-      error={error}
-      reloadButton={
-        <ReloadButton
-          onClick={() => {
-            comments();
-          }}
-          className={styles.reload}
-          loading={loading}
-        />
-      }
-    />
+    <></>
+    // <List
+    //   title="최근 한마디"
+    //   contents={<Comments comments={data?.comments} />}
+    //   button={<CommentButton name={name} />}
+    //   loading={loading}
+    //   error={error}
+    //   reloadButton={
+    //     <ReloadButton
+    //       onClick={() => {
+    //         comments();
+    //       }}
+    //       className={styles.reload}
+    //       loading={loading}
+    //     />
+    //   }
+    // />
   );
 };
 

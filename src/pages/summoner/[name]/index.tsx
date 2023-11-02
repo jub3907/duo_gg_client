@@ -62,7 +62,7 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
           <CommentList />
           <MasteryList />
         </div>
-        {loading && <CircularLoading />}
+        {/* {loading && <CircularLoading />}
         {error && (
           <ReloadButton
             onClick={() => {
@@ -70,7 +70,7 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
             }}
             loading={loading}
           />
-        )}
+        )} */}
         {matches && matches.length > 0 && (
           <>
             <div className={styles.summary}>
@@ -104,18 +104,16 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     //     name: params.name,
     //   },
     // });
-
-    if (!data) {
-      return {
-        notFound: true,
-      };
-    }
-
-    return {
-      props: {
-        basicSummonerInfo: data.basicSummonerInfo,
-      },
-    };
+    // if (!data) {
+    //   return {
+    //     notFound: true,
+    //   };
+    // }
+    // return {
+    //   props: {
+    //     basicSummonerInfo: data.basicSummonerInfo,
+    //   },
+    // };
   } catch (e) {
     console.log(e);
     return {

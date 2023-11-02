@@ -64,7 +64,7 @@ const DuoPage = () => {
           })}
         </div>
         <div className={styles.fetch}>
-          <LoadingButton
+          {/* <LoadingButton
             fullWidth
             onClick={fetchPost}
             className={styles['fetch-button']}
@@ -72,7 +72,7 @@ const DuoPage = () => {
             variant="contained"
           >
             더보기
-          </LoadingButton>
+          </LoadingButton> */}
         </div>
       </PageTitleLayout>
 

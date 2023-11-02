@@ -45,13 +45,13 @@ const MatchBuild = ({ matchId, perk }: Props) => {
 
   return (
     <>
-      {loading && <CircularLoading />}
+      {/* {loading && <CircularLoading />}
       {error && (
         <ReloadButton
           onClick={() => matchBuild({ variables: { matchId, puuid } })}
           loading={loading}
         />
-      )}
+      )} */}
       {build && (
         <div className={styles.layout}>
           <div className={styles.build}>

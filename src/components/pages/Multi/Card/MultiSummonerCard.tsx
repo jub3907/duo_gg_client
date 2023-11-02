@@ -213,7 +213,7 @@ const MultiSummonerCard = ({ name }: Props) => {
             )}
           </div>
           <div className={styles.mastery}>
-            <List
+            {/* <List
               title="숙련도 정보"
               contents={<Masteries masteries={info.mastery} />}
               loading={masteryLoading}
@@ -231,11 +231,11 @@ const MultiSummonerCard = ({ name }: Props) => {
                   loading={masteryLoading}
                 />
               }
-            />
+            /> */}
           </div>
           {info.recentMatches && (
             <div className={styles.matches}>
-              <List
+              {/* <List
                 title="최근 플레이"
                 contents={<Matches recentMatches={info.recentMatches} />}
                 loading={matchLoading}
@@ -253,7 +253,7 @@ const MultiSummonerCard = ({ name }: Props) => {
                     loading={matchLoading}
                   />
                 }
-              />
+              /> */}
             </div>
           )}
         </>
