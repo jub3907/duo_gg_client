@@ -45,7 +45,7 @@ const MatchDetail = ({ matchId, perk }: Props) => {
   return (
     <div className={styles.layout}>
       <div className={styles.menus}>
-        <MatchDetailMenu activeMenu={tab} onClickTab={onClickTab} />
+        {/* <MatchDetailMenu activeMenu={tab} onClickTab={onClickTab} /> */}
       </div>
       <div className={styles.tab}>
         {/* {loading && <CircularLoading />}
