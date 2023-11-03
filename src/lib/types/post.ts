@@ -1,16 +1,18 @@
 export type PostType = {
-  createdAt: number;
+  rankType: string;
+  position: string;
   name: string;
-  text: string;
-  title: string;
+  tier: string;
+  body: string;
+  createdDate: string;
 };
 
 export type PostInputType = {
   name: string;
-  text: string;
+  body: string;
   tier: string;
-  queueType: PostQueueType;
-  role: PostRoleType;
+  rankType: PostQueueType;
+  position: PostRoleType;
 };
 
 export type PostInputKey = keyof PostInputType;
@@ -24,8 +26,8 @@ const PostRoleType = <const>[
   '서폿',
 ];
 
-export type PostRoleType = typeof PostRoleType[number];
+export type PostRoleType = (typeof PostRoleType)[number];
 
 const PostQueueType = <const>['솔로랭크', '자유랭크', '무작위총력전', '일반'];
 
-export type PostQueueType = typeof PostQueueType[number];
+export type PostQueueType = (typeof PostQueueType)[number];

@@ -25,16 +25,16 @@ export default Home;
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   //TODO: Basic Summoner Info Rest API
 
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
+  // if (!data) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
 
   return {
-    props: {
-      ranking: data.ranking,
-    },
+    // props: {
+    //   ranking: data.ranking,
+    // },
     // revalidate: 300,
   };
 }

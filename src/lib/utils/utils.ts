@@ -1,5 +1,5 @@
 import { MatchBasicType } from 'lib/types/match';
-import { ParticipantType } from 'lib/types/participant';
+import { ParticipantDetailType } from 'lib/types/participant';
 
 export const preventEvent = async (event: any) => {
   // this part is for stopping parent forms to trigger their submit
@@ -44,8 +44,8 @@ export const parseMultiSearchInput = (text: string) => {
 //TODO: 백엔드로 옮겨야함
 
 export const getMatchDetailSummary = (
-  red: ParticipantType[],
-  blue: ParticipantType[],
+  red: ParticipantDetailType[],
+  blue: ParticipantDetailType[],
 ) => {
   const wins = red[0].win ? 200 : 100;
 

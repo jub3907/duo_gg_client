@@ -1,6 +1,7 @@
 export type CommentType = {
-  _id: string;
-  createdAt: number;
+  commentId: number;
+  // LocalDateTime, YYYY-MM-DD[T]HH:mm:ss.SSS
+  createdDate: string;
   nickname: string;
-  text: string;
+  content: string;
 };

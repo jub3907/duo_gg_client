@@ -1,5 +1,5 @@
 import Image from '@common/Image/Image';
-import { MatchBuildType, MatchDetailType } from 'lib/types/match';
+import { MatchDetailType } from 'lib/types/match';
 import React, { useEffect, useState } from 'react';
 import BuildLayout from './BuildLayout';
 import styles from './MatchBuild.module.scss';
@@ -19,7 +19,7 @@ type Props = {
 };
 
 const MatchBuild = ({ matchId, perk }: Props) => {
-  const [build, setBuild] = useState<MatchBuildType>(null);
+  // const [build, setBuild] = useState<MatchBuildType>(null);
   const { puuid } = useSelector(selectSummonerState);
 
   // const [matchBuild, { loading, error }] = useMutation<{
@@ -37,11 +37,11 @@ const MatchBuild = ({ matchId, perk }: Props) => {
   //   matchBuild({ variables: { matchId, puuid } });
   // }, [matchBuild, matchId, puuid]);
 
-  useEffect(() => {
-    return () => {
-      setBuild(null);
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     setBuild(null);
+  //   };
+  // }, []);
 
   return (
     <>
@@ -52,7 +52,7 @@ const MatchBuild = ({ matchId, perk }: Props) => {
           loading={loading}
         />
       )} */}
-      {build && (
+      {/* {build && (
         <div className={styles.layout}>
           <div className={styles.build}>
             <BuildLayout title="아이템 빌드">
@@ -172,7 +172,7 @@ const MatchBuild = ({ matchId, perk }: Props) => {
             </BuildLayout>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

@@ -1,11 +1,11 @@
 import styles from './MatchParticipantCard.module.scss';
-import { ParticipantType } from 'lib/types/participant';
+import { ParticipantDetailType } from 'lib/types/participant';
 import Image from '@common/Image/Image';
 import { getImagePath, getRate } from 'lib/utils/utils';
 import NameLink from '@common/Link/NameLink';
 import cn from 'classnames';
 type Props = {
-  participant: ParticipantType;
+  participant: ParticipantDetailType;
 };
 const MatchParticipantCard = ({ participant }: Props) => {
   return (

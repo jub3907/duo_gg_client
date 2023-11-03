@@ -1,13 +1,8 @@
-import { Entry } from './entry';
-
 export type SummonerBasic = {
-  id: string;
-  puuid: string;
-  iconPath: string;
-  name: string;
+  revisionDate: number;
   profileIconId: number;
+  name: string;
+  puuid: string;
+  summonerId: string;
   summonerLevel: number;
-  updatedAt: number;
-  freeRank: Entry | null;
-  soleRank: Entry | null;
 };

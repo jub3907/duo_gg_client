@@ -1,5 +1,5 @@
 import styles from './MatchAnalyticsCard.module.scss';
-import { ParticipantType } from 'lib/types/participant';
+import { ParticipantDetailType } from 'lib/types/participant';
 import Graph from '@common/Graph/Graph';
 import PieGraph from '@common/Graph/PieGraph';
 import { useMemo } from 'react';
@@ -14,8 +14,8 @@ type Props = {
     | 'wardsPlaced'
     | 'totalDamageTaken'
     | 'totalMinionsKilled';
-  red: ParticipantType[];
-  blue: ParticipantType[];
+  red: ParticipantDetailType[];
+  blue: ParticipantDetailType[];
 };
 //
 const MatchAnalyticsCard = ({ red, blue, title, dataKey }: Props) => {

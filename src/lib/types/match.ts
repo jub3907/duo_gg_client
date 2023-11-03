@@ -1,28 +1,67 @@
-import { ParticipantBasicType, ParticipantType } from './participant';
+import {
+  ParticipantBasicType,
+  ParticipantDetailType,
+  PerkType,
+} from './participant';
 
 export type MatchBasicType = {
-  gameCreation: number;
-  gameDuration: number;
   matchId: string;
-  matchType: string;
-  puuid: string;
-  participants: ParticipantBasicType[];
-  summonerInGameData: ParticipantType;
+
+  // 플레이타임
+  gameDuration: number;
+  // 언제 플레이 했는지
+  gameCreation: number;
+  // 랭크 타입
+  gameType: string;
+  gameMode: string;
+  // 승패 여부
+  isWin: boolean;
+
+  // 챔피언 이름
+  championName: string;
+  // 챔피언 아이디
+  championId: number;
+  // 챔피언 레벨
+  champLevel: number;
+
+  // 라인
+  teamPosition: string;
+  // 킬,
+  // 데스
+  // 어시
+  kills: number;
+  deaths: number;
+  assists: number;
+
+  // 아이템 0 ~ 6
+  item0: number;
+  item1: number;
+  item2: number;
+  item3: number;
+  item4: number;
+  item5: number;
+  item6: number;
+  // 스펠 1, 2
+  summoner1Id: number;
+  summoner2Id: number;
+
+  // 팀 전체 킬
+  // 골드 획득량
+  goldEarned: number;
+  // CS
+  totalMinionsKilled: number;
+
+  blue: ParticipantBasicType[];
+  red: ParticipantBasicType[];
 };
 
 export type MatchDetailType = {
   gameCreation: number;
   gameDuration: number;
-  matchId: string;
-  matchType: string;
-  red: ParticipantType[];
-  blue: ParticipantType[];
-};
+  winner: number;
 
-export type MatchBuildType = {
-  items: {
-    iconPathes: string[];
-    timestamp: number;
-  }[];
-  skills: number[];
+  red: ParticipantDetailType[];
+  blue: ParticipantDetailType[];
+
+  perk: PerkType;
 };
