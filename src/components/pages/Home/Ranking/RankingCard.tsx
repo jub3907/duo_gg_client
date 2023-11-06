@@ -1,48 +1,48 @@
 import styles from './RankingCard.module.scss';
-import { SummonerBasic } from 'lib/types/summoner';
 import Image from '@common/Image/Image';
 import WinRateGraph from '@common/Graph/WinRateGraph';
 import NameLink from '@common/Link/NameLink';
+import { RankingType } from 'lib/types/ranking';
 
 type Props = {
-  summoner: SummonerBasic;
+  ranking: RankingType;
 };
 
-const RankingCard = ({ summoner }: Props) => {
+const RankingCard = ({ ranking }: Props) => {
+  //TODO: Profile Icon Id
   return (
     <div className={styles.card}>
-      {summoner.soleRank && (
-        <>
-          <div className={styles.image}>
-            <Image
-              src={summoner.iconPath}
-              alt="소환사아이콘"
-              width={120}
-              height={120}
-              variant="circle"
+      <>
+        <div className={styles.image}>
+          {/* <Image
+            src={summoner.iconPath}
+            alt="소환사아이콘"
+            width={120}
+            height={120}
+            variant="circle"
+          /> */}
+          <div>{ranking.profileIconId} Profile</div>
+        </div>
+
+        <div className={styles.info}>
+          <div className={styles.name}>
+            <NameLink name={ranking.summonerName} />
+          </div>
+          <div className={styles.rank}>
+            <div>{ranking.tier}</div>
+            <div>{ranking.leaguePoints} LP</div>
+            <div>Lv. {ranking.summonerLevel ? ranking.summonerLevel : 100}</div>
+          </div>
+          <div className={styles.rate}>
+            <WinRateGraph
+              wins={ranking.wins}
+              losses={ranking.losses}
+              percent
+              textVisible
             />
           </div>
-
-          <div className={styles.info}>
-            <div className={styles.name}>
-              <NameLink name={summoner.name} />
-            </div>
-            <div className={styles.rank}>
-              <div>{summoner.soleRank.tier}</div>
-              <div>{summoner.soleRank.leaguePoints} LP</div>
-              <div>Lv. {summoner.summonerLevel} </div>
-            </div>
-            <div className={styles.rate}>
-              <WinRateGraph
-                wins={summoner.soleRank.wins}
-                losses={summoner.soleRank.losses}
-                percent
-                textVisible
-              />
-            </div>
-          </div>
-        </>
-      )}
+        </div>
+      </>
     </div>
   );
 };

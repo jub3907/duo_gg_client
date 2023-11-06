@@ -1,20 +1,20 @@
 import Layout from '@common/Layout/Layout';
-import Container from '@common/Container/Container';
-import type { GetServerSidePropsContext, NextPage } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 import HomeSubHeader from '@pages/Home/HomeSubHeader/HomeSubHeader';
 import PageTitleLayout from '@common/Layout/PageTitleLayout';
 import Ranking from '@pages/Home/Ranking/Ranking';
-import { SummonerBasic } from 'lib/types/summoner';
+import apiPath from 'config/apiPath';
+import { RankingType } from 'lib/types/ranking';
 
 type Props = {
-  ranking: SummonerBasic[];
+  rankings: RankingType[];
 };
 
-const Home = ({ ranking }: Props) => {
+const Home = ({ rankings }: Props) => {
   return (
     <Layout subHeader={<HomeSubHeader />} activeMenu="summoner">
       <PageTitleLayout title="소환사 랭킹">
-        <Ranking summoners={ranking} />
+        <Ranking rankings={rankings} />
       </PageTitleLayout>
     </Layout>
   );
@@ -23,18 +23,27 @@ const Home = ({ ranking }: Props) => {
 export default Home;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  //TODO: Basic Summoner Info Rest API
+  const uri = apiPath.base + apiPath.ranking + '?offset=0&limit=10';
 
-  // if (!data) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
+  const res = await fetch(uri, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next: { revalidate: 300 },
+  });
+
+  if (!res.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const data = await res.json();
 
   return {
-    // props: {
-    //   ranking: data.ranking,
-    // },
-    // revalidate: 300,
+    props: {
+      rankings: data,
+    },
   };
 }

@@ -6,12 +6,13 @@ import cn from 'classnames';
 import NameLink from '@common/Link/NameLink';
 import WinRateGraph from '@common/Graph/WinRateGraph';
 import Image from '@common/Image/Image';
+import { RankingType } from 'lib/types/ranking';
 
 type Props = {
-  summoners: SummonerBasic[];
+  rankings: RankingType[];
 };
 
-const Column = () => {
+const TableColumn = () => {
   return (
     <div className={cn(styles.flex, styles.column)}>
       <div className={styles.rank}>랭킹</div>
@@ -24,50 +25,52 @@ const Column = () => {
   );
 };
 
-const row = (summoner: SummonerBasic, index: number) => {
+//TODO: Profile Icon Id
+const row = (ranking: RankingType, index: number) => {
   return (
     <div
       className={cn(styles.flex, styles.row)}
-      key={`${summoner.name}-${index}`}
+      key={`${ranking.summonerName}-${index}`}
     >
-      {summoner.soleRank && (
-        <>
-          <div className={styles.rank}>{index + 2}</div>
-          <div className={styles.summoner}>
-            <>
-              <Image
-                src={summoner.iconPath}
-                alt="소환사아이콘"
-                variant="circle"
-                width={48}
-                height={48}
-                className={styles.image}
-              />
-              <NameLink name={summoner.name} />
-            </>
-          </div>
-          <div className={styles.tier}>{summoner.soleRank.tier}</div>
-          <div className={styles.lp}>{summoner.soleRank.leaguePoints}</div>
-          <div className={styles.level}>{summoner.summonerLevel}</div>
-          <div className={styles.rate}>
-            <WinRateGraph
-              wins={summoner.soleRank.wins}
-              losses={summoner.soleRank.losses}
-              percent
-              textVisible
-            />
-          </div>
-        </>
-      )}
+      <>
+        <div className={styles.rank}>{index + 2}</div>
+        <div className={styles.summoner}>
+          <>
+            {/* <Image
+              src={ranking.iconPath}
+              alt="소환사아이콘"
+              variant="circle"
+              width={48}
+              height={48}
+              className={styles.image}
+            /> */}
+            <div>{ranking.profileIconId} Profile</div>
+            <NameLink name={ranking.summonerName} />
+          </>
+        </div>
+        <div className={styles.tier}>{ranking.tier}</div>
+        <div className={styles.lp}>{ranking.leaguePoints}</div>
+        <div className={styles.level}>
+          {ranking.summonerLevel ? ranking.summonerLevel : 100}
+        </div>
+        <div className={styles.rate}>
+          <WinRateGraph
+            wins={ranking.wins}
+            losses={ranking.losses}
+            percent
+            textVisible
+          />
+        </div>
+      </>
     </div>
   );
 };
 
-const RankingTable = ({ summoners }: Props) => {
+const RankingTable = ({ rankings }: Props) => {
   return (
     <>
-      <Column />
-      {summoners.map((summoner, index) => row(summoner, index))}
+      <TableColumn />
+      {rankings.map((ranking, index) => row(ranking, index))}
     </>
   );
 };

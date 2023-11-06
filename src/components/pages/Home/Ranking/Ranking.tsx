@@ -1,19 +1,19 @@
-import { SummonerBasic } from 'lib/types/summoner';
 import styles from './Ranking.module.scss';
 import RankingCard from './RankingCard';
 import RankingTable from './RankingTable';
+import { RankingType } from 'lib/types/ranking';
 
 type Props = {
-  summoners: SummonerBasic[];
+  rankings: RankingType[];
 };
 
-const Ranking = ({ summoners }: Props) => {
+const Ranking = ({ rankings }: Props) => {
   return (
     <>
       <div className={styles.card}>
-        <RankingCard summoner={summoners[0]} />
+        <RankingCard ranking={rankings[0]} />
       </div>
-      <RankingTable summoners={summoners.slice(1)} />
+      <RankingTable rankings={rankings.slice(1)} />
     </>
   );
 };
