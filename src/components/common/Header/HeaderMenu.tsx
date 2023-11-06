@@ -11,34 +11,31 @@ type Props = {
 const HeaderMenu = ({ activeMenu }: Props) => {
   return (
     <div className={styles.menus}>
-      <Link href={Path.home}>
-        <a
-          className={cn(styles.menu, {
-            [styles.active]: activeMenu === 'summoner',
-          })}
-        >
-          전적 검색
-        </a>
+      <Link
+        href={Path.home}
+        className={cn(styles.menu, {
+          [styles.active]: activeMenu === 'summoner',
+        })}
+      >
+        전적 검색
       </Link>
 
-      <Link href={Path.multi}>
-        <a
-          className={cn(styles.menu, {
-            [styles.active]: activeMenu === 'multi',
-          })}
-        >
-          멀티 서치
-        </a>
+      <Link
+        href={Path.multi}
+        className={cn(styles.menu, {
+          [styles.active]: activeMenu === 'multi',
+        })}
+      >
+        멀티 서치
       </Link>
 
-      <Link href={Path.duo}>
-        <a
-          className={cn(styles.menu, {
-            [styles.active]: activeMenu === 'duo',
-          })}
-        >
-          듀오 신청
-        </a>
+      <Link
+        href={Path.duo}
+        className={cn(styles.menu, {
+          [styles.active]: activeMenu === 'duo',
+        })}
+      >
+        듀오 신청
       </Link>
     </div>
   );

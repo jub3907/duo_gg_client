@@ -10,8 +10,8 @@ type Props = {
 
 const NameLink = ({ className, name, children }: Props) => {
   return (
-    <Link href={getSummonerUrl(name)}>
-      <a className={className}>{children ? children : name}</a>
+    <Link href={getSummonerUrl(name)} className={className}>
+      {children ? children : name}
     </Link>
   );
 };

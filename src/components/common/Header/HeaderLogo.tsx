@@ -4,8 +4,8 @@ import styles from './HeaderLogo.module.scss';
 
 const HeaderLogo = () => {
   return (
-    <Link href={Path.home}>
-      <a className={styles.logo}>Duo.gg</a>
+    <Link href={Path.home} className={styles.logo}>
+      Duo.gg
     </Link>
   );
 };
