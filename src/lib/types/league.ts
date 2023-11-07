@@ -1,6 +1,9 @@
+import { Queuetype } from './queue';
+import { TierType } from './tier';
+
 export type LeagueType = {
-  queueType: string;
-  tier: string;
+  queueType: Queuetype;
+  tier: TierType;
   rank: string;
 
   freshBlood: boolean;

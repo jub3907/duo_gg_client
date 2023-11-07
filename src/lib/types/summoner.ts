@@ -1,4 +1,4 @@
-export type SummonerBasic = {
+export type SummonerBasicType = {
   revisionDate: number;
   profileIconId: number;
   name: string;
