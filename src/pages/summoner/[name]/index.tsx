@@ -11,16 +11,17 @@ import MatchSummaryCard from '@pages/Summoner/Card/MatchSummaryCard';
 import { MatchBasicType } from 'lib/types/match';
 import { style } from '@mui/system';
 import MatchBasicInfoCard from '@pages/Summoner/Card/MatchBasicInfoCard';
-import { SummonerBasic } from 'lib/types/summoner';
+import { SummonerBasicType } from 'lib/types/summoner';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
 import CircularLoading from '@common/Loading/CircularLoading';
 import ErrorToast from '@common/Toast/ErrorToast';
 import ReloadButton from '@common/Button/ReloadButton';
+import apiPath from 'config/apiPath';
 
 type Props = {
-  basicSummonerInfo: SummonerBasic;
+  basicSummonerInfo: SummonerBasicType;
 };
 
 const SummonerPage = ({ basicSummonerInfo }: Props) => {
@@ -38,11 +39,9 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
   //   },
   // });
 
-  // useEffect(() => {
-  //   dispatch(initSummonerState(basicSummonerInfo));
-
-  //   recentMatch();
-  // }, [basicSummonerInfo, dispatch, recentMatch]);
+  useEffect(() => {
+    dispatch(initSummonerState(basicSummonerInfo));
+  }, [basicSummonerInfo, dispatch]);
 
   useEffect(() => {
     return () => {
@@ -59,8 +58,8 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
           <SummonerMenu activeMenu="index" />
         </div>
         <div className={styles.lists}>
-          <CommentList />
-          <MasteryList />
+          {/* <CommentList /> */}
+          {/* <MasteryList /> */}
         </div>
         {/* {loading && <CircularLoading />}
         {error && (
@@ -71,7 +70,7 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
             loading={loading}
           />
         )} */}
-        {matches && matches.length > 0 && (
+        {/* {matches && matches.length > 0 && (
           <>
             <div className={styles.summary}>
               <MatchSummaryCard matches={matches} />
@@ -83,7 +82,7 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
               })}
             </div>
           </>
-        )}
+        )} */}
       </PageTitleLayout>
     </Layout>
   );
@@ -91,35 +90,49 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const params = ctx.params;
-  if (!params) {
+  if (!params.name) {
     return {
       notFound: true,
     };
   }
 
-  try {
-    // const { data } = await apolloClient.mutate<Props>({
-    //   mutation: BASIC_SUMMONER_INFO,
-    //   variables: {
-    //     name: params.name,
-    //   },
-    // });
-    // if (!data) {
-    //   return {
-    //     notFound: true,
-    //   };
-    // }
-    // return {
-    //   props: {
-    //     basicSummonerInfo: data.basicSummonerInfo,
-    //   },
-    // };
-  } catch (e) {
-    console.log(e);
+  const uri = (apiPath.base + apiPath.summoner).replace(
+    '[name]',
+    params.name.toString(),
+  );
+
+  const postRes = await fetch(uri, {
+    method: 'POST',
+    next: { revalidate: 300 },
+  });
+
+  if (!postRes.ok) {
     return {
       notFound: true,
     };
   }
+
+  const getRes = await fetch(uri, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next: { revalidate: 300 },
+  });
+
+  if (!getRes.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const data = await getRes.json();
+
+  return {
+    props: {
+      basicSummonerInfo: data,
+    },
+  };
 }
 
 export default SummonerPage;

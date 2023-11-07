@@ -9,7 +9,7 @@ import List from '@common/List/List';
 import { MatchBasicType } from 'lib/types/match';
 import NameLink from '@common/Link/NameLink';
 import { useEffect, useState } from 'react';
-import { SummonerBasic } from 'lib/types/summoner';
+import { SummonerBasicType } from 'lib/types/summoner';
 import produce from 'immer';
 import { MasteryType } from 'lib/types/mastery';
 import CircularLoading from '@common/Loading/CircularLoading';
@@ -128,7 +128,7 @@ const Matches = ({ recentMatches }: { recentMatches: MatchBasicType[] }) => {
 
 const MultiSummonerCard = ({ name }: Props) => {
   const [info, setInfo] = useState<{
-    basicSummonerInfo: SummonerBasic;
+    basicSummonerInfo: SummonerBasicType;
     recentMatches: MatchBasicType[];
     mastery: MasteryType[];
   }>({

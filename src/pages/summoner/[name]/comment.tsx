@@ -7,7 +7,7 @@ import SummonerCard from '@pages/Summoner/Card/SummonerCard';
 import { GetServerSidePropsContext } from 'next';
 import CreateCommentForm from '@pages/Comment/Form/CreateCommentForm';
 import CommentCard from '@pages/Comment/Card/CommentCard';
-import { SummonerBasic } from 'lib/types/summoner';
+import { SummonerBasicType } from 'lib/types/summoner';
 import { CommentType } from 'lib/types/comment';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -15,7 +15,7 @@ import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
 import CircularLoading from '@common/Loading/CircularLoading';
 
 type Props = {
-  basicSummonerInfo: SummonerBasic;
+  basicSummonerInfo: SummonerBasicType;
 };
 
 const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {

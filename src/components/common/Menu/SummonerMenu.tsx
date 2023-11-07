@@ -1,8 +1,4 @@
-import {
-  getSummonerCommentUrl,
-  getSummonerStatUrl,
-  getSummonerUrl,
-} from 'config/path';
+import { getSummonerCommentUrl, getSummonerUrl } from 'config/path';
 import Link from 'next/link';
 import styles from './SummonerMenu.module.scss';
 import cn from 'classnames';
@@ -20,14 +16,13 @@ const SummonerMenu = ({ activeMenu }: Props) => {
   return (
     <>
       <div className={styles.menus}>
-        <Link href={getSummonerUrl(name)}>
-          <a
-            className={cn(styles.menu, {
-              [styles.active]: activeMenu === 'index',
-            })}
-          >
-            전적 종합
-          </a>
+        <Link
+          href={getSummonerUrl(name)}
+          className={cn(styles.menu, {
+            [styles.active]: activeMenu === 'index',
+          })}
+        >
+          전적 종합
         </Link>
 
         {/* <Link href={getSummonerStatUrl(name)}>
@@ -40,14 +35,13 @@ const SummonerMenu = ({ activeMenu }: Props) => {
           </a>
         </Link> */}
 
-        <Link href={getSummonerCommentUrl(name)}>
-          <a
-            className={cn(styles.menu, {
-              [styles.active]: activeMenu === 'comment',
-            })}
-          >
-            소환사에게 한마디
-          </a>
+        <Link
+          href={getSummonerCommentUrl(name)}
+          className={cn(styles.menu, {
+            [styles.active]: activeMenu === 'comment',
+          })}
+        >
+          소환사에게 한마디
         </Link>
       </div>
 

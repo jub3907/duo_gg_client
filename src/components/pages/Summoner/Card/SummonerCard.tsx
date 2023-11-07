@@ -1,14 +1,18 @@
 import Image from '@common/Image/Image';
-import { Entry } from 'lib/types/entry';
-import { SummonerBasic } from 'lib/types/summoner';
+import { SummonerBasicType } from 'lib/types/summoner';
 import { getDateFromNow } from 'lib/utils/date';
 import { getImagePath, getWinRate } from 'lib/utils/utils';
 import styles from './SummonerCard.module.scss';
 import RefreshSummonerButton from '@common/Button/RefreshSummonerButton';
 import WinRateGraph from '@common/Graph/WinRateGraph';
+import { useSelector } from 'react-redux';
+import { selectSummonerState } from 'lib/slice/summonerSlice';
+import { useEffect, useState } from 'react';
+import apiPath from 'config/apiPath';
+import { LeagueType } from 'lib/types/league';
 
 type Props = {
-  summoner: SummonerBasic;
+  summoner: SummonerBasicType;
 };
 
 // const SummonerInfo = ({ summoner }: Props) => {
@@ -25,7 +29,7 @@ type Props = {
 //   );
 // };
 
-const RankInfo = ({ rank, title }: { rank: Entry; title: string }) => {
+const RankInfo = ({ rank, title }: { rank: LeagueType; title: string }) => {
   return (
     <div className={styles.flex}>
       <Image
@@ -69,11 +73,76 @@ const UnrankedInfo = ({ title }: { title: string }) => {
 };
 
 const SummonerCard = ({ summoner }: Props) => {
+  const [soloRank, setSoloRank] = useState<LeagueType>(null);
+  const [freeRank, setFreeRank] = useState<LeagueType>(null);
+
+  useEffect(() => {
+    const uri = (apiPath.base + apiPath.league).replace(
+      '[name]',
+      summoner.name,
+    );
+
+    console.log(uri);
+
+    fetch(uri, {
+      method: 'POST',
+    }).then(() => {
+      const soloUri = (apiPath.base + apiPath.leagueSolo).replace(
+        '[name]',
+        summoner.name,
+      );
+
+      const freeUri = (apiPath.base + apiPath.leagueFree).replace(
+        '[name]',
+        summoner.name,
+      );
+
+      fetch(soloUri, {
+        method: 'GET',
+        next: { revalidate: 300 },
+      })
+        .then((res) => {
+          console.log(res);
+          if (!res.ok) {
+            return null;
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setSoloRank(data);
+        });
+
+      fetch(freeUri, {
+        method: 'GET',
+        next: { revalidate: 300 },
+      })
+        .then((res) => {
+          console.log(res);
+          if (!res.ok) {
+            return null;
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setFreeRank(data);
+        });
+    });
+  }, [summoner]);
+
+  useEffect(() => {
+    return () => {
+      setSoloRank(null);
+      setFreeRank(null);
+    };
+  }, [summoner]);
+
   return (
     <div className={styles.layout}>
       <div className={styles.flex}>
         <Image
-          src={summoner.iconPath}
+          src={getImagePath(summoner.profileIconId, 'summonerIcon')}
           alt="소환사 아이콘"
           width={120}
           height={120}
@@ -83,19 +152,19 @@ const SummonerCard = ({ summoner }: Props) => {
           <div className={styles.name}>{summoner.name}</div>
 
           <div className={styles.time}>
-            <div>업데이트: {getDateFromNow(summoner.updatedAt)}</div>
+            <div>업데이트: {getDateFromNow(summoner.revisionDate)}</div>
             <RefreshSummonerButton />
           </div>
         </div>
       </div>
-      {summoner.soleRank ? (
-        <RankInfo rank={summoner.soleRank} title="솔로 랭크" />
+      {soloRank ? (
+        <RankInfo rank={soloRank} title="솔로 랭크" />
       ) : (
         <UnrankedInfo title="솔로 랭크" />
       )}
 
-      {summoner.freeRank ? (
-        <RankInfo rank={summoner.freeRank} title="자유 5:5 랭크" />
+      {freeRank ? (
+        <RankInfo rank={freeRank} title="자유 5:5 랭크" />
       ) : (
         <UnrankedInfo title="자유 5:5 랭크" />
       )}
