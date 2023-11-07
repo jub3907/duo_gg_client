@@ -3,6 +3,7 @@ import Image from '@common/Image/Image';
 import WinRateGraph from '@common/Graph/WinRateGraph';
 import NameLink from '@common/Link/NameLink';
 import { RankingType } from 'lib/types/ranking';
+import { getImagePath } from 'lib/utils/utils';
 
 type Props = {
   ranking: RankingType;
@@ -14,14 +15,13 @@ const RankingCard = ({ ranking }: Props) => {
     <div className={styles.card}>
       <>
         <div className={styles.image}>
-          {/* <Image
-            src={summoner.iconPath}
+          <Image
+            src={getImagePath(ranking.profileIconId, 'summonerIcon')}
             alt="소환사아이콘"
             width={120}
             height={120}
             variant="circle"
-          /> */}
-          <div>{ranking.profileIconId} Profile</div>
+          />
         </div>
 
         <div className={styles.info}>

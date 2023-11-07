@@ -1,5 +1,5 @@
 import { Column } from 'lib/types/column';
-import { SummonerBasic } from 'lib/types/summoner';
+import { SummonerBasicType } from 'lib/types/summoner';
 import { useMemo } from 'react';
 import styles from './RankingTable.module.scss';
 import cn from 'classnames';
@@ -7,6 +7,7 @@ import NameLink from '@common/Link/NameLink';
 import WinRateGraph from '@common/Graph/WinRateGraph';
 import Image from '@common/Image/Image';
 import { RankingType } from 'lib/types/ranking';
+import { getImagePath } from 'lib/utils/utils';
 
 type Props = {
   rankings: RankingType[];
@@ -36,15 +37,14 @@ const row = (ranking: RankingType, index: number) => {
         <div className={styles.rank}>{index + 2}</div>
         <div className={styles.summoner}>
           <>
-            {/* <Image
-              src={ranking.iconPath}
+            <Image
+              src={getImagePath(ranking.profileIconId, 'summonerIcon')}
               alt="소환사아이콘"
               variant="circle"
               width={48}
               height={48}
               className={styles.image}
-            /> */}
-            <div>{ranking.profileIconId} Profile</div>
+            />
             <NameLink name={ranking.summonerName} />
           </>
         </div>
