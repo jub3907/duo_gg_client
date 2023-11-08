@@ -8,6 +8,8 @@ import { getDateFromNow } from 'lib/utils/date';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './MasteryList.module.scss';
+import apiPath from 'config/apiPath';
+import { getImagePath } from 'lib/utils/utils';
 
 // TODO: 챔피언 이름 받아오기
 
@@ -24,7 +26,7 @@ const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
             >
               <div className={styles.flex}>
                 <Image
-                  src={mastery.iconPath}
+                  src={getImagePath(mastery.championId, 'champion')}
                   alt="챔피언 아이콘"
                   width={40}
                   height={40}
@@ -38,7 +40,8 @@ const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
                 <div className={styles.level}>Lv. {mastery.championLevel}</div>
 
                 <div className={styles.date}>
-                  {getDateFromNow(mastery.lastPlayTime)}
+                  TODO: 시간
+                  {/* {getDateFromNow(mastery.lastPlayTime)} */}
                 </div>
               </div>
             </div>
@@ -49,38 +52,57 @@ const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
 };
 
 const MasteryList = () => {
-  const { id } = useSelector(selectSummonerState);
-  // const [mastery, { data, loading, error }] = useLazyQuery<{
-  //   mastery: MasteryType[];
-  // }>(MASTERY, {
-  //   variables: {
-  //     summonerId: id,
-  //     count: 3,
-  //   },
-  //   onError: (e) => {
-  //     ErrorToast('숙련도 정보를 불러오는데 실패했어요.');
-  //   },
-  // });
+  const { summonerId } = useSelector(selectSummonerState);
+  const [masteries, setMasteries] = useState<MasteryType[]>([]);
+  const [isLoading, setLoading] = useState(true);
+  const uri = (apiPath.base + apiPath.masteryBySummoner).replace(
+    '[summonerId]',
+    summonerId,
+  );
+
+  const fetchData = () => {
+    fetch(uri, {
+      method: 'POST',
+      next: { revalidate: 300 },
+    }).then(() => {
+      const getUri = uri + '?offset=0&limit=3';
+
+      fetch(getUri, {
+        method: 'GET',
+        next: { revalidate: 300 },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            return null;
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setMasteries(data);
+          setLoading(false);
+        });
+    });
+  };
 
   useEffect(() => {
-    if (id !== '') {
-      mastery();
+    if (summonerId !== '') {
+      fetchData();
     }
-  }, [id, mastery]);
+  }, [summonerId]);
 
   return (
     <List
       title="숙련도 정보"
-      contents={<Masteries masteries={data?.mastery} />}
-      error={error}
-      loading={loading}
+      contents={<Masteries masteries={masteries} />}
+      error={null}
+      loading={isLoading}
       reloadButton={
         <ReloadButton
           onClick={() => {
-            mastery();
+            fetchData();
           }}
           className={styles.reload}
-          loading={loading}
+          loading={isLoading}
         />
       }
     />

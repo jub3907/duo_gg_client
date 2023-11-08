@@ -53,13 +53,13 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
   return (
     <Layout subHeader={<SubHeader />} activeMenu="summoner">
       <PageTitleLayout title="전적 검색 결과">
-        <SummonerCard summoner={basicSummonerInfo} />
+        <SummonerCard />
         <div className={styles.menu}>
           <SummonerMenu activeMenu="index" />
         </div>
         <div className={styles.lists}>
-          {/* <CommentList /> */}
-          {/* <MasteryList /> */}
+          <CommentList />
+          <MasteryList />
         </div>
         {/* {loading && <CircularLoading />}
         {error && (

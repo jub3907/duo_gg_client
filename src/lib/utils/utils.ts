@@ -15,7 +15,12 @@ export const preventEvent = async (event: any) => {
   }
 };
 
-type ImagePath = 'emblems' | 'positions' | 'stats' | 'summonerIcon';
+type ImagePath =
+  | 'emblems'
+  | 'positions'
+  | 'stats'
+  | 'summonerIcon'
+  | 'champion';
 
 export const getImagePath = (id: string | number, type: ImagePath) => {
   return `/images/${type}/${id}.png`;

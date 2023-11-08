@@ -72,15 +72,14 @@ const UnrankedInfo = ({ title }: { title: string }) => {
   );
 };
 
-const SummonerCard = ({ summoner }: Props) => {
+const SummonerCard = () => {
+  const { name, profileIconId, revisionDate } =
+    useSelector(selectSummonerState);
   const [soloRank, setSoloRank] = useState<LeagueType>(null);
   const [freeRank, setFreeRank] = useState<LeagueType>(null);
 
   useEffect(() => {
-    const uri = (apiPath.base + apiPath.league).replace(
-      '[name]',
-      summoner.name,
-    );
+    const uri = (apiPath.base + apiPath.league).replace('[name]', name);
 
     console.log(uri);
 
@@ -89,12 +88,12 @@ const SummonerCard = ({ summoner }: Props) => {
     }).then(() => {
       const soloUri = (apiPath.base + apiPath.leagueSolo).replace(
         '[name]',
-        summoner.name,
+        name,
       );
 
       const freeUri = (apiPath.base + apiPath.leagueFree).replace(
         '[name]',
-        summoner.name,
+        name,
       );
 
       fetch(soloUri, {
@@ -102,14 +101,12 @@ const SummonerCard = ({ summoner }: Props) => {
         next: { revalidate: 300 },
       })
         .then((res) => {
-          console.log(res);
           if (!res.ok) {
             return null;
           }
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           setSoloRank(data);
         });
 
@@ -129,30 +126,30 @@ const SummonerCard = ({ summoner }: Props) => {
           setFreeRank(data);
         });
     });
-  }, [summoner]);
+  }, [name]);
 
   useEffect(() => {
     return () => {
       setSoloRank(null);
       setFreeRank(null);
     };
-  }, [summoner]);
+  }, [name]);
 
   return (
     <div className={styles.layout}>
       <div className={styles.flex}>
         <Image
-          src={getImagePath(summoner.profileIconId, 'summonerIcon')}
+          src={getImagePath(profileIconId, 'summonerIcon')}
           alt="소환사 아이콘"
           width={120}
           height={120}
           variant="circle"
         />
         <div className={styles.info}>
-          <div className={styles.name}>{summoner.name}</div>
+          <div className={styles.name}>{name}</div>
 
           <div className={styles.time}>
-            <div>업데이트: {getDateFromNow(summoner.revisionDate)}</div>
+            <div>업데이트: {getDateFromNow(revisionDate)}</div>
             <RefreshSummonerButton />
           </div>
         </div>

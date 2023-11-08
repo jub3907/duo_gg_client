@@ -1,7 +1,7 @@
 const apiPath = {
   base: 'http://localhost:8080',
 
-  comment: '/comment/[name]',
+  comment: '/comment/[puuid]',
   deleteComment: '/comment/[commentId]',
 
   league: '/league/[name]',
