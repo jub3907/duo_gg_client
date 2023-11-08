@@ -1,5 +1,4 @@
 import Image from '@common/Image/Image';
-import { SummonerBasicType } from 'lib/types/summoner';
 import { getDateFromNow } from 'lib/utils/date';
 import { getImagePath, getWinRate } from 'lib/utils/utils';
 import styles from './SummonerCard.module.scss';
@@ -10,24 +9,6 @@ import { selectSummonerState } from 'lib/slice/summonerSlice';
 import { useEffect, useState } from 'react';
 import apiPath from 'config/apiPath';
 import { LeagueType } from 'lib/types/league';
-
-type Props = {
-  summoner: SummonerBasicType;
-};
-
-// const SummonerInfo = ({ summoner }: Props) => {
-//   return (
-//     <div className={styles.flex}>
-//   <Image
-//     src={summoner.iconPath}
-//     alt="소환사 아이콘"
-//     width={120}
-//     height={120}
-//   />
-//   <div className = {styles.info}
-//     </div>
-//   );
-// };
 
 const RankInfo = ({ rank, title }: { rank: LeagueType; title: string }) => {
   return (
@@ -81,8 +62,6 @@ const SummonerCard = () => {
   useEffect(() => {
     const uri = (apiPath.base + apiPath.league).replace('[name]', name);
 
-    console.log(uri);
-
     fetch(uri, {
       method: 'POST',
     }).then(() => {
@@ -115,14 +94,12 @@ const SummonerCard = () => {
         next: { revalidate: 300 },
       })
         .then((res) => {
-          console.log(res);
           if (!res.ok) {
             return null;
           }
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           setFreeRank(data);
         });
     });

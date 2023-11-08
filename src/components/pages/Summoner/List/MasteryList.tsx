@@ -1,7 +1,6 @@
 import ReloadButton from '@common/Button/ReloadButton';
 import Image from '@common/Image/Image';
 import List from '@common/List/List';
-import ErrorToast from '@common/Toast/ErrorToast';
 import { selectSummonerState } from 'lib/slice/summonerSlice';
 import { MasteryType } from 'lib/types/mastery';
 import { getDateFromNow } from 'lib/utils/date';
@@ -10,8 +9,6 @@ import { useSelector } from 'react-redux';
 import styles from './MasteryList.module.scss';
 import apiPath from 'config/apiPath';
 import { getImagePath } from 'lib/utils/utils';
-
-// TODO: 챔피언 이름 받아오기
 
 const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
   return (
@@ -40,8 +37,7 @@ const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
                 <div className={styles.level}>Lv. {mastery.championLevel}</div>
 
                 <div className={styles.date}>
-                  TODO: 시간
-                  {/* {getDateFromNow(mastery.lastPlayTime)} */}
+                  {getDateFromNow(mastery.lastPlayTime)}
                 </div>
               </div>
             </div>

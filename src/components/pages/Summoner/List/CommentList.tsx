@@ -1,18 +1,13 @@
 import ReloadButton from '@common/Button/ReloadButton';
 import List from '@common/List/List';
-import CircularLoading from '@common/Loading/CircularLoading';
-import ErrorToast from '@common/Toast/ErrorToast';
-import { Button, ListSubheader } from '@mui/material';
-import { style } from '@mui/system';
+import { Button } from '@mui/material';
 import { getSummonerCommentUrl } from 'config/path';
-import summonerSlice, { selectSummonerState } from 'lib/slice/summonerSlice';
+import { selectSummonerState } from 'lib/slice/summonerSlice';
 import { CommentType } from 'lib/types/comment';
-import { PostType } from 'lib/types/post';
 import { getDateFromNow } from 'lib/utils/date';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from 'store';
 import styles from './CommentList.module.scss';
 import apiPath from 'config/apiPath';
 
@@ -30,10 +25,7 @@ const Comments = ({ comments }: { comments: CommentType[] }) => {
                 <div className={styles.writer}>
                   <div className={styles.nickname}>{nickname}</div>
                   <div className={styles.date}>
-                    TODO: 시간
-                    {
-                      // getDateFromNow(createdDate)
-                    }
+                    {getDateFromNow(createdDate)}
                   </div>
                 </div>
                 <div className={styles.divider} />
