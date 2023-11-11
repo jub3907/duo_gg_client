@@ -54,7 +54,7 @@ const CommentButton = ({ name }: { name: string }) => {
 // TODO: 컴포넌트 분리
 const CommentList = () => {
   const [comments, setComments] = useState<CommentType[]>([]);
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { puuid, name } = useSelector(selectSummonerState);
   const uri = (apiPath.base + apiPath.comment + '?offset=0&limit=2').replace(
@@ -75,7 +75,7 @@ const CommentList = () => {
       })
       .then((data) => {
         setComments(data);
-        setLoading(false);
+        setIsLoading(false);
       });
   };
 

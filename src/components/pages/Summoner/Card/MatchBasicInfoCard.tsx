@@ -7,25 +7,32 @@ import { Button } from '@mui/material';
 import { style } from '@mui/system';
 import NameLink from '@common/Link/NameLink';
 import { useCallback, useState } from 'react';
-import MatchDetail from '../MatchDetail/MatchDetail';
-import { getRate } from 'lib/utils/utils';
+import { ImageType, getImagePath, getRate } from 'lib/utils/utils';
 import { IoIosArrowDown } from 'react-icons/io';
 
 type Props = {
   match: MatchBasicType;
 };
 
-const MatchBasicInfoCard = ({
-  match: {
-    gameCreation,
-    gameDuration,
-    matchId,
-    matchType,
-    participants,
-    puuid,
-    summonerInGameData,
-  },
-}: Props) => {
+type ImageComponentType = {
+  item: number;
+  type: ImageType;
+  keyValue: string;
+};
+
+const ImageComponent = ({ item, type, keyValue }: ImageComponentType) => {
+  return (
+    <Image
+      src={getImagePath(item, type)}
+      alt={`스펠 아이콘 ${item}`}
+      width={34}
+      height={34}
+      key={keyValue}
+    />
+  );
+};
+
+const MatchBasicInfoCard = ({ match }: Props) => {
   const [detailOpen, setDetailOpen] = useState(false);
   const onClick = useCallback(() => {
     setDetailOpen(!detailOpen);
@@ -33,75 +40,89 @@ const MatchBasicInfoCard = ({
 
   return (
     <div>
-      <div
-        className={cn(styles.layout, { [styles.blue]: summonerInGameData.win })}
-      >
+      <div className={cn(styles.layout, { [styles.blue]: match.isWin })}>
         <div className={styles.summary}>
-          <div className={styles.type}>{matchType}</div>
-          <div className={styles.date}>{getDateFromNow(gameCreation)}</div>
-          {summonerInGameData.win ? (
+          <div className={styles.type}>{match.gameMode}</div>
+          <div className={styles.date}>
+            {getDateFromNow(match.gameCreation)}
+          </div>
+          {match.isWin ? (
             <div className={styles.win}>승리</div>
           ) : (
             <div className={styles.loss}>패배</div>
           )}
-          <div className={styles.date}>{getGameDuration(gameDuration)}</div>
+          <div className={styles.date}>
+            {getGameDuration(match.gameDuration)}
+          </div>
         </div>
         <div className={styles.divider} />
         <div className={styles.ingame}>
           <Image
-            src={summonerInGameData.championIconPath}
+            src={getImagePath(match.championId, 'champion')}
             alt="챔피언 아이콘"
             width={81}
             height={81}
             variant="circle"
-            key={`${matchId}-${summonerInGameData.championId}`}
+            key={`chmapion-icon-${match.matchId}-${match.championId}`}
           />
           <div className={styles.spell}>
-            {summonerInGameData.summoners.map((spell, index) => {
-              return (
-                <Image
-                  src={spell.iconPath}
-                  alt={`스펠 아이콘 ${index}`}
-                  width={34}
-                  height={34}
-                  key={`spell-icon-${matchId}-${spell.index}`}
-                />
-              );
-            })}
+            <ImageComponent
+              item={match.summoner1Id}
+              type={'spell'}
+              keyValue={`spell-icon-${match.matchId}-${0}`}
+            />
+            <ImageComponent
+              item={match.summoner2Id}
+              type={'spell'}
+              keyValue={`spell-icon-${match.matchId}-${1}`}
+            />
           </div>
 
           <div className={styles.score}>
             <div className={styles.kill}>
-              {summonerInGameData.kills} / {summonerInGameData.deaths} /{' '}
-              {summonerInGameData.assists}
+              {match.kills} / {match.deaths} / {match.assists}
             </div>
             <div className={styles.rate}>
-              {getRate(
-                summonerInGameData.kills,
-                summonerInGameData.deaths,
-                summonerInGameData.assists,
-              )}{' '}
-              : 1 평점
+              {getRate(match.kills, match.deaths, match.assists)} : 1 평점
             </div>
           </div>
 
           <div className={styles.items}>
-            {summonerInGameData.items.map((item, index) => {
-              return item.iconPath === '' ? (
-                <div
-                  key={`item-icon-${matchId}-${item.id}-${item.index}`}
-                  className={styles.blank}
-                ></div>
-              ) : (
-                <Image
-                  src={item.iconPath}
-                  alt={`아이템 ${index}`}
-                  width={34}
-                  height={34}
-                  key={`item-icon-${matchId}-${item.id}`}
-                />
-              );
-            })}
+            <ImageComponent
+              item={match.item0}
+              type={'item'}
+              keyValue={`item-icon-${match.matchId}-${0}`}
+            />
+            <ImageComponent
+              item={match.item1}
+              type={'item'}
+              keyValue={`item-icon-${match.matchId}-${1}`}
+            />
+            <ImageComponent
+              item={match.item2}
+              type={'item'}
+              keyValue={`item-icon-${match.matchId}-${2}`}
+            />
+            <ImageComponent
+              item={match.item3}
+              type={'item'}
+              keyValue={`item-icon-${match.matchId}-${3}`}
+            />
+            <ImageComponent
+              item={match.item4}
+              type={'item'}
+              keyValue={`item-icon-${match.matchId}-${4}`}
+            />
+            <ImageComponent
+              item={match.item5}
+              type={'item'}
+              keyValue={`item-icon-${match.matchId}-${5}`}
+            />
+            <ImageComponent
+              item={match.item6}
+              type={'item'}
+              keyValue={`item-icon-${match.matchId}-${6}`}
+            />
           </div>
         </div>
         <div className={styles.divider} />
@@ -113,30 +134,47 @@ const MatchBasicInfoCard = ({
           </div>
 
           <div className={styles.value}>
+            <div>{match.totalDamageDealtToChampions}</div>
+            <div>{match.goldEarned}</div>
             <div>
-              {summonerInGameData.totalDamageDealtToChampions.toLocaleString()}
-            </div>
-            <div>{summonerInGameData.goldEarned.toLocaleString()}</div>
-            <div>
-              {summonerInGameData.totalMinionsKilled} (
-              {(
-                (summonerInGameData.totalMinionsKilled * 60) /
-                gameDuration
-              ).toFixed(1)}
+              {match.totalMinionsKilled} (
+              {((match.totalMinionsKilled * 60) / match.gameDuration).toFixed(
+                1,
+              )}
               )
             </div>
           </div>
         </div>
         <div className={styles.divider} />
         <div className={styles.participants}>
-          {participants.map((participant, index) => {
+          {match.blue.map((participant, index) => {
             return (
               <div
                 className={styles.participant}
-                key={`${matchId}-${summonerInGameData.championId}-${participant.participantId}`}
+                key={`${match.matchId}-${participant.championId}-${participant.puuid}`}
               >
                 <Image
-                  src={participant.championIconPath}
+                  src={getImagePath(participant.championId, 'champion')}
+                  alt="챔피언 아이콘"
+                  width={17}
+                  height={17}
+                  variant="circle"
+                />
+                <div className={styles.name}>
+                  <NameLink name={participant.summonerName} />
+                </div>
+              </div>
+            );
+          })}
+
+          {match.red.map((participant, index) => {
+            return (
+              <div
+                className={styles.participant}
+                key={`${match.matchId}-${participant.championId}-${participant.puuid}`}
+              >
+                <Image
+                  src={getImagePath(participant.championId, 'champion')}
                   alt="챔피언 아이콘"
                   width={17}
                   height={17}
@@ -153,9 +191,9 @@ const MatchBasicInfoCard = ({
           <IoIosArrowDown />
         </Button>
       </div>
-      {detailOpen && (
+      {/* {detailOpen && (
         <MatchDetail matchId={matchId} perk={summonerInGameData.perks} />
-      )}
+      )} */}
     </div>
   );
 };

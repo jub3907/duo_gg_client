@@ -1,16 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SummonerBasicType } from 'lib/types/summoner';
 
-type SummonerState = {
-  summonerId: string;
-  name: string;
-  puuid: string;
-  profileIconId: number;
-  revisionDate: number;
-  summonerLevel: number;
-};
-
-const initialState: SummonerState = {
+const initialState: SummonerBasicType = {
   summonerId: '',
   name: '',
   puuid: '',
@@ -43,7 +34,7 @@ const summonerSlice = createSlice({
 export const selectSummonerState = ({
   summonerReducer,
 }: {
-  summonerReducer: SummonerState;
+  summonerReducer: SummonerBasicType;
 }) => ({
   ...summonerReducer,
 });

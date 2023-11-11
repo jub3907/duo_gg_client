@@ -4,6 +4,17 @@ import {
   PerkType,
 } from './participant';
 
+const PositionType = <const>[
+  'TOP',
+  'MIDDLE',
+  'JUNGLE',
+  'BOTTOM',
+  'UTILITY',
+  'Invalid',
+  '',
+];
+export type PositionType = (typeof PositionType)[number];
+
 export type MatchBasicType = {
   matchId: string;
 
@@ -25,7 +36,7 @@ export type MatchBasicType = {
   champLevel: number;
 
   // 라인
-  teamPosition: string;
+  teamPosition: PositionType;
   // 킬,
   // 데스
   // 어시
@@ -50,6 +61,7 @@ export type MatchBasicType = {
   goldEarned: number;
   // CS
   totalMinionsKilled: number;
+  totalDamageDealtToChampions: number;
 
   blue: ParticipantBasicType[];
   red: ParticipantBasicType[];

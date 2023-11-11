@@ -13,7 +13,7 @@ const apiPath = {
   masteryBySummoner: '/mastery/by-summoner/[summonerId]',
   masteryByName: '/mastery/by-name/[name]',
 
-  match: '/match/[name]',
+  match: '/match/[puuid]',
   matchDetail: '/match/detail',
 
   duo: '/duo',

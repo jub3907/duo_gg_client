@@ -13,12 +13,19 @@ import { style } from '@mui/system';
 import MatchBasicInfoCard from '@pages/Summoner/Card/MatchBasicInfoCard';
 import { SummonerBasicType } from 'lib/types/summoner';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
+import {
+  initMatchBasics,
+  addMatchBasics,
+  selectMatchBasicState,
+  clearMatchBasicState,
+} from 'lib/slice/matchBasicSlice';
 import CircularLoading from '@common/Loading/CircularLoading';
 import ErrorToast from '@common/Toast/ErrorToast';
 import ReloadButton from '@common/Button/ReloadButton';
 import apiPath from 'config/apiPath';
+import { LoadingButton } from '@mui/lab';
 
 type Props = {
   basicSummonerInfo: SummonerBasicType;
@@ -26,29 +33,62 @@ type Props = {
 
 const SummonerPage = ({ basicSummonerInfo }: Props) => {
   const dispatch = useDispatch();
-  const [matches, setMatches] = useState([]);
-  // const [recentMatch, { loading, error }] = useMutation<{
-  //   recentMatches: MatchBasicType[];
-  // }>(RECENT_MATCHES, {
-  //   variables: { count: 10, name: basicSummonerInfo.name },
-  //   onCompleted: ({ recentMatches }) => {
-  //     setMatches(recentMatches);
-  //   },
-  //   onError: (e) => {
-  //     ErrorToast('매치 정보를 불러오는데 실패했어요.');
-  //   },
-  // });
+  // const [matches, setMatches] = useState<MatchBasicType[]>(null);
+  const { count, matches } = useSelector(selectMatchBasicState);
+
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchData = (start: number, count: number, reducer: 'add' | 'init') => {
+    setIsLoading(true);
+
+    const uri = (
+      apiPath.base +
+      apiPath.match +
+      `?start=${start}&count=${count}`
+    ).replace('[puuid]', basicSummonerInfo.puuid);
+
+    fetch(uri, {
+      method: 'POST',
+      next: { revalidate: 300 },
+    }).then((res) => {
+      if (!res.ok) {
+        setIsError(true);
+        return null;
+      }
+      fetch(uri, {
+        method: 'GET',
+        next: { revalidate: 300 },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            setIsError(true);
+            return null;
+          }
+          return res.json();
+        })
+        .then((data: MatchBasicType[]) => {
+          if (reducer == 'init') {
+            dispatch(initMatchBasics(data));
+          } else {
+            dispatch(addMatchBasics(data));
+          }
+          setIsLoading(false);
+        });
+    });
+  };
 
   useEffect(() => {
     dispatch(initSummonerState(basicSummonerInfo));
-  }, [basicSummonerInfo, dispatch]);
+    fetchData(0, 10, 'init');
+  }, [basicSummonerInfo.name]);
 
   useEffect(() => {
     return () => {
       dispatch(clearSummonerState());
-      setMatches([]);
+      dispatch(clearMatchBasicState());
     };
-  }, [basicSummonerInfo.name, dispatch]);
+  }, [basicSummonerInfo.name]);
 
   return (
     <Layout subHeader={<SubHeader />} activeMenu="summoner">
@@ -61,16 +101,16 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
           <CommentList />
           <MasteryList />
         </div>
-        {/* {loading && <CircularLoading />}
-        {error && (
+        {isLoading && <CircularLoading />}
+        {isError && (
           <ReloadButton
             onClick={() => {
-              recentMatch();
+              fetchData(0, 10, 'init');
             }}
-            loading={loading}
+            loading={isLoading}
           />
-        )} */}
-        {/* {matches && matches.length > 0 && (
+        )}
+        {matches && matches.length > 0 && (
           <>
             <div className={styles.summary}>
               <MatchSummaryCard matches={matches} />
@@ -80,9 +120,21 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
               {matches.map((match: MatchBasicType, index) => {
                 return <MatchBasicInfoCard match={match} key={match.matchId} />;
               })}
+
+              <LoadingButton
+                variant="outlined"
+                className={styles.button}
+                fullWidth
+                loading={isLoading}
+                onClick={() => {
+                  fetchData(count, 5, 'add');
+                }}
+              >
+                더보기
+              </LoadingButton>
             </div>
           </>
-        )} */}
+        )}
       </PageTitleLayout>
     </Layout>
   );

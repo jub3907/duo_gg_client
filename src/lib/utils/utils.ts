@@ -15,14 +15,16 @@ export const preventEvent = async (event: any) => {
   }
 };
 
-type ImagePath =
+export type ImageType =
   | 'emblems'
   | 'positions'
   | 'stats'
   | 'summonerIcon'
-  | 'champion';
+  | 'champion'
+  | 'item'
+  | 'spell';
 
-export const getImagePath = (id: string | number, type: ImagePath) => {
+export const getImagePath = (id: string | number, type: ImageType) => {
   return `/images/${type}/${id}.png`;
 };
 
@@ -52,7 +54,7 @@ export const getMatchDetailSummary = (
   red: ParticipantDetailType[],
   blue: ParticipantDetailType[],
 ) => {
-  const wins = red[0].win ? 200 : 100;
+  const wins = red[0].isWin ? 200 : 100;
 
   const redSummary = red.reduce(
     (acc, participant) => {
@@ -98,16 +100,18 @@ export const getMatchDetailSummary = (
 export const getMatchSummary = (matches: MatchBasicType[]) => {
   return matches.reduce(
     (acc, val) => {
-      const data = val.summonerInGameData;
+      const data = val;
 
-      if (data.win) {
+      const position = data.teamPosition ? data.teamPosition : 'Invalid';
+
+      if (data.isWin) {
         acc.wins += 1;
-        acc[data.individualPosition].wins += 1;
+        acc[position].wins += 1;
       } else {
         acc.losses += 1;
-        acc[data.individualPosition].losses += 1;
+        acc[position].losses += 1;
       }
-      acc[data.individualPosition].total += 1;
+      acc[position].total += 1;
       acc.total += 1;
       acc.kills += data.kills;
       acc.deaths += data.deaths;

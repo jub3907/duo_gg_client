@@ -1,6 +1,6 @@
 import PieGraph from '@common/Graph/PieGraph';
 import Image from '@common/Image/Image';
-import { MatchBasicType } from 'lib/types/match';
+import { MatchBasicType, PositionType } from 'lib/types/match';
 import { getImagePath, getMatchSummary, getWinRate } from 'lib/utils/utils';
 import styles from './MatchSummaryCard.module.scss';
 
@@ -15,7 +15,7 @@ type PostionInfoProps = {
     wins: number;
     losses: number;
   };
-  type: 'TOP' | 'MIDDLE' | 'JUNGLE' | 'BOTTOM' | 'UTILITY' | 'Invalid';
+  type: PositionType;
 };
 
 const PositionInfo = ({ total, data, type }: PostionInfoProps) => {

@@ -1,5 +1,5 @@
 export type ParticipantBasicType = {
-  riotIdName: string;
+  summonerName: string;
   championId: number;
   puuid: string;
 };
