@@ -16,16 +16,16 @@ export const preventEvent = async (event: any) => {
 };
 
 export type ImageType =
-  | 'emblems'
-  | 'positions'
+  | 'tier'
+  | 'position'
   | 'stats'
-  | 'summonerIcon'
+  | 'profileicon'
   | 'champion'
   | 'item'
   | 'spell';
 
 export const getImagePath = (id: string | number, type: ImageType) => {
-  return `/images/${type}/${id}.png`;
+  return `https://lolduo.s3.ap-northeast-2.amazonaws.com/${type}/${id}.png`;
 };
 
 export const getWinRate = (wins: number, losses: number) => {
@@ -34,6 +34,10 @@ export const getWinRate = (wins: number, losses: number) => {
 
 export const getRate = (kills: number, deaths: number, assists: number) => {
   return deaths === 0 ? 'Perfect' : ((kills + assists) / deaths).toFixed(1);
+};
+
+export const getPickRate = (pick: number, total: number) => {
+  return ((100 * pick) / total).toFixed();
 };
 
 export const parseMultiSearchInput = (text: string) => {

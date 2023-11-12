@@ -14,7 +14,7 @@ const RankInfo = ({ rank, title }: { rank: LeagueType; title: string }) => {
   return (
     <div className={styles.flex}>
       <Image
-        src={getImagePath(rank.tier, 'emblems')}
+        src={getImagePath(rank.tier, 'tier')}
         alt={`${rank.tier} 티어 이미지`}
         width={102}
         height={116}
@@ -40,7 +40,7 @@ const UnrankedInfo = ({ title }: { title: string }) => {
   return (
     <div className={styles.flex}>
       <Image
-        src={getImagePath('Unranked', 'emblems')}
+        src={getImagePath('Unranked', 'tier')}
         alt={`언랭크 티어 이미지`}
         width={100}
         height={100}
@@ -116,7 +116,7 @@ const SummonerCard = () => {
     <div className={styles.layout}>
       <div className={styles.flex}>
         <Image
-          src={getImagePath(profileIconId, 'summonerIcon')}
+          src={getImagePath(profileIconId, 'profileicon')}
           alt="소환사 아이콘"
           width={120}
           height={120}

@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import styles from './MasteryList.module.scss';
 import apiPath from 'config/apiPath';
 import { getImagePath } from 'lib/utils/utils';
+import { getChampionName } from 'config/championKey';
 
 const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
   return (
@@ -23,7 +24,10 @@ const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
             >
               <div className={styles.flex}>
                 <Image
-                  src={getImagePath(mastery.championId, 'champion')}
+                  src={getImagePath(
+                    getChampionName(mastery.championId),
+                    'champion',
+                  )}
                   alt="챔피언 아이콘"
                   width={40}
                   height={40}

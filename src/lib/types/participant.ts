@@ -1,6 +1,8 @@
+import { ChampionKey } from 'config/championKey';
+
 export type ParticipantBasicType = {
   summonerName: string;
-  championId: number;
+  championId: ChampionKey;
   puuid: string;
 };
 

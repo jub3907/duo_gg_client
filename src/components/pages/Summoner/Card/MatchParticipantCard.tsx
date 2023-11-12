@@ -18,7 +18,7 @@ const MatchParticipantCard = ({ participant }: Props) => {
     >
       <div className={styles.header}>
         <Image
-          src={getImagePath(participant.individualPosition, 'positions')}
+          src={getImagePath(participant.individualPosition, 'position')}
           alt="포지션 이미지"
           width={20}
           height={20}

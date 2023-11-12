@@ -1,8 +1,10 @@
+import { ChampionKey } from 'config/championKey';
 import {
   ParticipantBasicType,
   ParticipantDetailType,
   PerkType,
 } from './participant';
+import { SpellKey } from 'config/spellKey';
 
 const PositionType = <const>[
   'TOP',
@@ -31,7 +33,7 @@ export type MatchBasicType = {
   // 챔피언 이름
   championName: string;
   // 챔피언 아이디
-  championId: number;
+  championId: ChampionKey;
   // 챔피언 레벨
   champLevel: number;
 
@@ -53,8 +55,8 @@ export type MatchBasicType = {
   item5: number;
   item6: number;
   // 스펠 1, 2
-  summoner1Id: number;
-  summoner2Id: number;
+  summoner1Id: SpellKey;
+  summoner2Id: SpellKey;
 
   // 팀 전체 킬
   // 골드 획득량

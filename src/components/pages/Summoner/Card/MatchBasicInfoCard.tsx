@@ -9,13 +9,15 @@ import NameLink from '@common/Link/NameLink';
 import { useCallback, useState } from 'react';
 import { ImageType, getImagePath, getRate } from 'lib/utils/utils';
 import { IoIosArrowDown } from 'react-icons/io';
+import { getChampionName } from 'config/championKey';
+import { getSpellName } from 'config/spellKey';
 
 type Props = {
   match: MatchBasicType;
 };
 
 type ImageComponentType = {
-  item: number;
+  item: number | string;
   type: ImageType;
   keyValue: string;
 };
@@ -58,7 +60,7 @@ const MatchBasicInfoCard = ({ match }: Props) => {
         <div className={styles.divider} />
         <div className={styles.ingame}>
           <Image
-            src={getImagePath(match.championId, 'champion')}
+            src={getImagePath(getChampionName(match.championId), 'champion')}
             alt="챔피언 아이콘"
             width={81}
             height={81}
@@ -67,12 +69,12 @@ const MatchBasicInfoCard = ({ match }: Props) => {
           />
           <div className={styles.spell}>
             <ImageComponent
-              item={match.summoner1Id}
+              item={getSpellName(match.summoner1Id)}
               type={'spell'}
               keyValue={`spell-icon-${match.matchId}-${0}`}
             />
             <ImageComponent
-              item={match.summoner2Id}
+              item={getSpellName(match.summoner2Id)}
               type={'spell'}
               keyValue={`spell-icon-${match.matchId}-${1}`}
             />
@@ -154,7 +156,10 @@ const MatchBasicInfoCard = ({ match }: Props) => {
                 key={`${match.matchId}-${participant.championId}-${participant.puuid}`}
               >
                 <Image
-                  src={getImagePath(participant.championId, 'champion')}
+                  src={getImagePath(
+                    getChampionName(participant.championId),
+                    'champion',
+                  )}
                   alt="챔피언 아이콘"
                   width={17}
                   height={17}
@@ -174,7 +179,10 @@ const MatchBasicInfoCard = ({ match }: Props) => {
                 key={`${match.matchId}-${participant.championId}-${participant.puuid}`}
               >
                 <Image
-                  src={getImagePath(participant.championId, 'champion')}
+                  src={getImagePath(
+                    getChampionName(participant.championId),
+                    'champion',
+                  )}
                   alt="챔피언 아이콘"
                   width={17}
                   height={17}

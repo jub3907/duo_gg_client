@@ -8,7 +8,7 @@ const path = require('path');
 module.exports = (phase) => {
   return {
     images: {
-      domains: ['ddragon.leagueoflegends.com'],
+      domains: ['lolduo.s3.ap-northeast-2.amazonaws.com'],
     },
 
     env: {

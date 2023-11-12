@@ -1,7 +1,12 @@
 import PieGraph from '@common/Graph/PieGraph';
 import Image from '@common/Image/Image';
 import { MatchBasicType, PositionType } from 'lib/types/match';
-import { getImagePath, getMatchSummary, getWinRate } from 'lib/utils/utils';
+import {
+  getImagePath,
+  getMatchSummary,
+  getPickRate,
+  getWinRate,
+} from 'lib/utils/utils';
 import styles from './MatchSummaryCard.module.scss';
 
 type Props = {
@@ -22,13 +27,13 @@ const PositionInfo = ({ total, data, type }: PostionInfoProps) => {
   return (
     <div className={styles.row} key={`${type}`}>
       <Image
-        src={getImagePath(type, 'positions')}
+        src={getImagePath(type, 'position')}
         alt={`${type} 이미지`}
         width={40}
         height={40}
       />
       <div>
-        <div>픽률 {(100 * data.total) / total} %</div>
+        <div>픽률 {getPickRate(data.total, total)} %</div>
         <div>
           승률 {data.total === 0 ? 0 : getWinRate(data.wins, data.losses)} %
         </div>
@@ -97,7 +102,7 @@ const MatchSummaryCard = ({ matches }: Props) => {
           <div className={styles.column}>
             <PositionInfo total={total} data={BOTTOM} type="BOTTOM" />
             <PositionInfo total={total} data={UTILITY} type="UTILITY" />
-            {/* <PositionInfo total={total} data={Invalid} type="Invalid" /> */}
+            <PositionInfo total={total} data={Invalid} type="Invalid" />
           </div>
         </div>
       </div>

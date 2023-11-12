@@ -24,7 +24,7 @@ const RankInfo = ({ rank: soleRank }: { rank: Entry }) => {
     <>
       <div className={styles.rank}>
         <Image
-          src={getImagePath(soleRank.tier, 'emblems')}
+          src={getImagePath(soleRank.tier, 'tier')}
           alt={`티어 이미지`}
           width={21}
           height={24}
@@ -42,7 +42,7 @@ const UnRankInfo = () => {
   return (
     <div className={cn(styles.rank, styles.unrank)}>
       <Image
-        src={getImagePath('Unranked', 'emblems')}
+        src={getImagePath('Unranked', 'tier')}
         alt={`언랭크 티어 이미지`}
         width={24}
         height={24}

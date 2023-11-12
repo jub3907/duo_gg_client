@@ -1,5 +1,7 @@
+import { ChampionKey } from 'config/championKey';
+
 export type MasteryType = {
-  championId: number;
+  championId: ChampionKey;
   championLevel: number;
   championPoints: number;
   lastPlayTime: number;
