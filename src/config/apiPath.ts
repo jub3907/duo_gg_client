@@ -1,5 +1,7 @@
+import { API_URL } from './env';
+
 const apiPath = {
-  base: 'http://localhost:8080',
+  base: API_URL,
 
   comment: '/comment/[puuid]',
   deleteComment: '/comment/[commentId]',

@@ -38,7 +38,10 @@ const row = (ranking: RankingType, index: number) => {
         <div className={styles.summoner}>
           <>
             <Image
-              src={getImagePath(ranking.profileIconId, 'profileicon')}
+              src={getImagePath(
+                ranking.profileIconId ? ranking.profileIconId : 0,
+                'profileicon',
+              )}
               alt="소환사아이콘"
               variant="circle"
               width={48}

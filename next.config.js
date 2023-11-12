@@ -8,7 +8,14 @@ const path = require('path');
 module.exports = (phase) => {
   return {
     images: {
-      domains: ['lolduo.s3.ap-northeast-2.amazonaws.com'],
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'lolduo.s3.ap-northeast-2.amazonaws.com',
+          port: '',
+          pathname: '/**',
+        },
+      ],
     },
 
     env: {

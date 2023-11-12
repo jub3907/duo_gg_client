@@ -70,6 +70,7 @@ export type MatchBasicType = {
 };
 
 export type MatchDetailType = {
+  matchId: string;
   gameCreation: number;
   gameDuration: number;
   winner: number;

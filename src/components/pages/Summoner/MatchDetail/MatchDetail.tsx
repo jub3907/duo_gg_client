@@ -8,60 +8,85 @@ import MatchBuild from './Build/MatchBuild';
 import { PerkType } from 'lib/types/participant';
 import CircularLoading from '@common/Loading/CircularLoading';
 import ReloadButton from '@common/Button/ReloadButton';
+import apiPath from 'config/apiPath';
+import { match } from 'assert';
+import { useSelector } from 'react-redux';
+import { selectSummonerState } from 'lib/slice/summonerSlice';
+import MatchDetailMenu from './MatchDetailMenu';
 
 type Props = {
   matchId: string;
-  perk: PerkType;
 };
 
-export type MatchDetailMenu = 'total' | 'analytics' | 'build';
+export type MatchDetailMenuType = 'total' | 'analytics' | 'build';
 
-const MatchDetail = ({ matchId, perk }: Props) => {
-  const [tab, setTab] = useState<MatchDetailMenu>('total');
-  const onClickTab = (tab: MatchDetailMenu) => {
+//TODO: MatchBuild 구현
+const MatchDetail = ({ matchId }: Props) => {
+  const { puuid } = useSelector(selectSummonerState);
+  const [tab, setTab] = useState<MatchDetailMenuType>('total');
+  const onClickTab = (tab: MatchDetailMenuType) => {
     setTab(tab);
   };
-  const [matchInfo, setMatchInfo] = useState<MatchDetailType>(null);
+  const [matchDetail, setMatchDetail] = useState<MatchDetailType>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-  // const [matchDetail, { loading, error }] = useLazyQuery(MATCH_DETAIL, {
-  //   onCompleted: ({ matchDetail }) => {
-  //     setMatchInfo(matchDetail);
-  //   },
-  //   onError: (e) => {
-  //     console.log(e);
-  //   },
-  // });
+  const fetchData = (matchId: string, puuid: string) => {
+    setIsLoading(true);
+    const uri =
+      apiPath.base + apiPath.matchDetail + `?matchId=${matchId}&puuid=${puuid}`;
 
-  // useEffect(() => {
-  //   matchDetail({ variables: { matchId } });
-  // }, [matchDetail, matchId]);
+    fetch(uri, {
+      method: 'GET',
+    })
+      .then((res) => {
+        if (!res.ok) {
+          setIsError(true);
+          return null;
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setIsLoading(false);
+        setMatchDetail(data);
+      });
+  };
+
+  useEffect(() => {
+    fetchData(matchId, puuid);
+  }, [matchId, puuid]);
 
   useEffect(() => {
     return () => {
-      setMatchInfo(null);
+      setIsLoading(true);
+      setMatchDetail(null);
     };
   }, []);
 
   return (
     <div className={styles.layout}>
       <div className={styles.menus}>
-        {/* <MatchDetailMenu activeMenu={tab} onClickTab={onClickTab} /> */}
+        <MatchDetailMenu activeMenu={tab} onClickTab={onClickTab} />
       </div>
       <div className={styles.tab}>
-        {/* {loading && <CircularLoading />}
-        {error && (
+        {isLoading && <CircularLoading />}
+        {isError && (
           <ReloadButton
-            onClick={() => matchDetail({ variables: { matchId } })}
-            loading={loading}
+            onClick={() => {
+              fetchData(matchId, puuid);
+            }}
+            loading={isLoading}
           />
-        )} */}
-        {matchInfo && (
+        )}
+        {matchDetail && (
           <>
-            {tab === 'total' && <MatchTotal matchDetail={matchInfo} />}
-            {tab === 'analytics' && <MatchAnalytics matchDetail={matchInfo} />}
+            {tab === 'total' && <MatchTotal matchDetail={matchDetail} />}
+            {tab === 'analytics' && (
+              <MatchAnalytics matchDetail={matchDetail} />
+            )}
           </>
         )}
-        {tab === 'build' && <MatchBuild matchId={matchId} perk={perk} />}
+        {/* {tab === 'build' && <MatchBuild matchId={matchId} perk={perk} />} */}
       </div>
     </div>
   );

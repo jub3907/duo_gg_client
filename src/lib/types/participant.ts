@@ -1,4 +1,5 @@
 import { ChampionKey } from 'config/championKey';
+import { SpellKey } from 'config/spellKey';
 
 export type ParticipantBasicType = {
   summonerName: string;
@@ -7,10 +8,11 @@ export type ParticipantBasicType = {
 };
 
 export type ParticipantDetailType = {
+  isWin: boolean;
   // 라인
   teamPosition: string;
   // 이름
-  riotIdName: string;
+  summonerName: string;
   puuid: string;
 
   // 팀
@@ -21,10 +23,10 @@ export type ParticipantDetailType = {
   // 챔피언 이름
   championName: string;
   // 챔피언 아이디
-  championId: number;
+  championId: ChampionKey;
   // 스펠 1~4
-  summoner1Id: number;
-  summoner2Id: number;
+  summoner1Id: SpellKey;
+  summoner2Id: SpellKey;
   // 아이템 0~6
   item0: number;
   item1: number;
@@ -33,6 +35,10 @@ export type ParticipantDetailType = {
   item4: number;
   item5: number;
   item6: number;
+
+  baronKills: number;
+  dragonKills: number;
+  turretKills: number;
 
   // 킬
   // 데스

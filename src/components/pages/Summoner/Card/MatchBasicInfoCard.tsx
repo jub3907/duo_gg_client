@@ -11,6 +11,7 @@ import { ImageType, getImagePath, getRate } from 'lib/utils/utils';
 import { IoIosArrowDown } from 'react-icons/io';
 import { getChampionName } from 'config/championKey';
 import { getSpellName } from 'config/spellKey';
+import MatchDetail from '../MatchDetail/MatchDetail';
 
 type Props = {
   match: MatchBasicType;
@@ -199,9 +200,7 @@ const MatchBasicInfoCard = ({ match }: Props) => {
           <IoIosArrowDown />
         </Button>
       </div>
-      {/* {detailOpen && (
-        <MatchDetail matchId={matchId} perk={summonerInGameData.perks} />
-      )} */}
+      {detailOpen && <MatchDetail matchId={match.matchId} />}
     </div>
   );
 };

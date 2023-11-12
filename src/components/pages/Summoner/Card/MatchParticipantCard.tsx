@@ -4,6 +4,8 @@ import Image from '@common/Image/Image';
 import { getImagePath, getRate } from 'lib/utils/utils';
 import NameLink from '@common/Link/NameLink';
 import cn from 'classnames';
+import { getChampionName } from 'config/championKey';
+import { getSpellName } from 'config/spellKey';
 type Props = {
   participant: ParticipantDetailType;
 };
@@ -18,7 +20,10 @@ const MatchParticipantCard = ({ participant }: Props) => {
     >
       <div className={styles.header}>
         <Image
-          src={getImagePath(participant.individualPosition, 'position')}
+          src={getImagePath(
+            participant.teamPosition ? participant.teamPosition : 'Invalid',
+            'position',
+          )}
           alt="포지션 이미지"
           width={20}
           height={20}
@@ -31,7 +36,10 @@ const MatchParticipantCard = ({ participant }: Props) => {
 
       <div className={styles.ingame}>
         <Image
-          src={participant.championIconPath}
+          src={getImagePath(
+            getChampionName(participant.championId),
+            'champion',
+          )}
           alt="챔피언 아이콘"
           width={54}
           height={54}
@@ -39,13 +47,13 @@ const MatchParticipantCard = ({ participant }: Props) => {
         />
         <div className={styles.spell}>
           <Image
-            src={participant.summoners[0].iconPath}
+            src={getImagePath(getSpellName(participant.summoner1Id), 'spell')}
             alt={`스펠 아이콘 `}
             width={25}
             height={25}
           />
           <Image
-            src={participant.summoners[1].iconPath}
+            src={getImagePath(getSpellName(participant.summoner2Id), 'spell')}
             alt={`스펠 아이콘 `}
             width={25}
             height={25}
@@ -74,33 +82,69 @@ const MatchParticipantCard = ({ participant }: Props) => {
           <div className={styles.value}>
             <div>{participant.totalMinionsKilled}</div>
             <div>
-              <span className={styles.vision}>
-                {participant.visionWardsBoughtInGame}{' '}
-              </span>
+              <span className={styles.vision}>{participant.visionScore} </span>
               <span>
-                {participant.wardsPlaced}/{participant.wardsKilled}
+                {participant.wardsPlaced}/{participant.detectorWardsPlaced}
               </span>
             </div>
           </div>
         </div>
 
         <div className={styles.items}>
-          {participant.items.map((item, index) => {
-            return item.iconPath === '' ? (
-              <div
-                key={`item-icon-${item.iconPath}-${item.id}-${item.index}-${index}`}
-                className={styles.blank}
-              ></div>
-            ) : (
-              <Image
-                src={item.iconPath}
-                alt={`아이템 ${index}`}
-                width={25}
-                height={25}
-                key={`item-icon-${item.id}`}
-              />
-            );
-          })}
+          <Image
+            src={getImagePath(participant.item0, 'item')}
+            alt={`아이템 아이콘 ${participant.item0}`}
+            width={34}
+            height={34}
+            key={`item-icon-${participant.puuid}-${participant.item0}`}
+          />
+
+          <Image
+            src={getImagePath(participant.item1, 'item')}
+            alt={`아이템 아이콘 ${participant.item1}`}
+            width={34}
+            height={34}
+            key={`item-icon-${participant.puuid}-${participant.item1}`}
+          />
+
+          <Image
+            src={getImagePath(participant.item2, 'item')}
+            alt={`아이템 아이콘 ${participant.item2}`}
+            width={34}
+            height={34}
+            key={`item-icon-${participant.puuid}-${participant.item2}`}
+          />
+
+          <Image
+            src={getImagePath(participant.item3, 'item')}
+            alt={`아이템 아이콘 ${participant.item3}`}
+            width={34}
+            height={34}
+            key={`item-icon-${participant.puuid}-${participant.item3}`}
+          />
+
+          <Image
+            src={getImagePath(participant.item4, 'item')}
+            alt={`아이템 아이콘 ${participant.item4}`}
+            width={34}
+            height={34}
+            key={`item-icon-${participant.puuid}-${participant.item4}`}
+          />
+
+          <Image
+            src={getImagePath(participant.item5, 'item')}
+            alt={`아이템 아이콘 ${participant.item5}`}
+            width={34}
+            height={34}
+            key={`item-icon-${participant.puuid}-${participant.item5}`}
+          />
+          <Image
+            src={getImagePath(participant.item6, 'item')}
+            alt={`아이템 아이콘 ${participant.item6}`}
+            width={34}
+            height={34}
+            key={`item-icon-${participant.puuid}-${participant.item6}`}
+          />
         </div>
       </div>
     </div>

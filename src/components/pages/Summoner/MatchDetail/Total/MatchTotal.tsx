@@ -119,7 +119,7 @@ const MatchTotal = ({ matchDetail: { matchId, red, blue } }: Props) => {
         {blue.map((participant, index) => {
           return (
             <MatchParticipantCard
-              key={`${matchId}-${participant.participantId}`}
+              key={`${matchId}-${participant.puuid}`}
               participant={participant}
             />
           );
@@ -128,7 +128,7 @@ const MatchTotal = ({ matchDetail: { matchId, red, blue } }: Props) => {
         {red.map((participant, index) => {
           return (
             <MatchParticipantCard
-              key={`${matchId}-${participant.participantId}`}
+              key={`${matchId}-${participant.puuid}`}
               participant={participant}
             />
           );

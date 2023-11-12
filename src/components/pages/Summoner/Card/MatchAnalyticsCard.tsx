@@ -4,6 +4,8 @@ import Graph from '@common/Graph/Graph';
 import PieGraph from '@common/Graph/PieGraph';
 import { useMemo } from 'react';
 import Image from '@common/Image/Image';
+import { getImagePath } from 'lib/utils/utils';
+import { getChampionName } from 'config/championKey';
 
 type Props = {
   title: string;
@@ -72,7 +74,10 @@ const MatchAnalyticsCard = ({ red, blue, title, dataKey }: Props) => {
                   key={`${participant.totalDamageDealtToChampions}-${participant.puuid}-${dataKey}`}
                 >
                   <Image
-                    src={participant.championIconPath}
+                    src={getImagePath(
+                      getChampionName(participant.championId),
+                      'champion',
+                    )}
                     alt="아이콘"
                     width={16}
                     height={16}
@@ -113,7 +118,10 @@ const MatchAnalyticsCard = ({ red, blue, title, dataKey }: Props) => {
                   key={`${participant.totalDamageDealtToChampions}-${participant.puuid}-${dataKey}`}
                 >
                   <Image
-                    src={participant.championIconPath}
+                    src={getImagePath(
+                      getChampionName(participant.championId),
+                      'champion',
+                    )}
                     alt="아이콘"
                     width={16}
                     height={16}
