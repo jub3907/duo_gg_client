@@ -10,9 +10,10 @@ import CommentCard from '@pages/Comment/Card/CommentCard';
 import { SummonerBasicType } from 'lib/types/summoner';
 import { CommentType } from 'lib/types/comment';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
 import CircularLoading from '@common/Loading/CircularLoading';
+import apiPath from 'config/apiPath';
 
 type Props = {
   basicSummonerInfo: SummonerBasicType;
@@ -20,24 +21,42 @@ type Props = {
 
 const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [comments, setComments] = useState<CommentType[]>([]);
 
-  // const { data, loading, error } = useQuery<{ comments: CommentType[] }>(
-  //   COMMENTS,
-  //   {
-  //     skip: !basicSummonerInfo || !basicSummonerInfo.name,
-  //     variables: { name: basicSummonerInfo.name, count: 10 },
-  //     onError: (e) => {
-  //       console.log('error', e);
-  //     },
-  //   },
-  // );
+  const getComments = (offset: number, limit: number) => {
+    setIsLoading(true);
+    const uri = (
+      apiPath.base +
+      apiPath.comment +
+      `?offset=${offset}&limit=${limit}`
+    ).replace('[puuid]', basicSummonerInfo.puuid);
+
+    fetch(uri, {
+      method: 'GET',
+    })
+      .then((res) => {
+        if (!res.ok) {
+          setIsError(true);
+        }
+        setIsLoading(false);
+        return res.json();
+      })
+      .then((data: CommentType[]) => {
+        setComments(data);
+        setIsLoading(false);
+      });
+  };
 
   useEffect(() => {
     dispatch(initSummonerState(basicSummonerInfo));
+    getComments(0, 10);
   }, [basicSummonerInfo, dispatch]);
 
   useEffect(() => {
     return () => {
+      setComments([]);
       dispatch(clearSummonerState());
     };
   }, [dispatch]);
@@ -45,22 +64,29 @@ const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
   return (
     <Layout subHeader={<SubHeader />} activeMenu="summoner">
       <PageTitleLayout title="전적 검색 결과">
-        <SummonerCard summoner={basicSummonerInfo} />
+        <SummonerCard />
         <div className={styles.menu}>
           <SummonerMenu activeMenu="comment" />
         </div>
         <div className={styles.form}>
-          <CreateCommentForm />
+          <CreateCommentForm refetchComments={getComments} />
         </div>
 
-        {/* {loading && <CircularLoading />}
-        {data && data.comments && (
+        {isLoading ? (
+          <CircularLoading />
+        ) : (
           <div className={styles.comments}>
-            {data.comments.map((comment) => {
-              return <CommentCard comment={comment} key={comment._id} />;
+            {comments.map((comment) => {
+              return (
+                <CommentCard
+                  refetchComments={getComments}
+                  comment={comment}
+                  key={comment.commentId}
+                />
+              );
             })}
           </div>
-        )} */}
+        )}
       </PageTitleLayout>
     </Layout>
   );
@@ -68,30 +94,49 @@ const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const params = ctx.params;
-  if (!params) {
+  if (!params.name) {
     return {
       notFound: true,
     };
   }
 
-  // const { data } = await apolloClient.mutate<Props>({
-  //   mutation: BASIC_SUMMONER_INFO,
-  //   variables: {
-  //     name: params.name,
-  //   },
-  // });
+  const uri = (apiPath.base + apiPath.summoner).replace(
+    '[name]',
+    params.name.toString(),
+  );
 
-  // if (!data) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
+  const postRes = await fetch(uri, {
+    method: 'POST',
+    next: { revalidate: 300 },
+  });
 
-  // return {
-  //   props: {
-  //     basicSummonerInfo: data.basicSummonerInfo,
-  //   },
-  // };
+  if (!postRes.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const getRes = await fetch(uri, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next: { revalidate: 300 },
+  });
+
+  if (!getRes.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const data = await getRes.json();
+
+  return {
+    props: {
+      basicSummonerInfo: data,
+    },
+  };
 }
 
 export default SummonerCommentPage;

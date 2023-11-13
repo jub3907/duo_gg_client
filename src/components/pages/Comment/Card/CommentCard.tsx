@@ -8,9 +8,10 @@ import { MdDelete } from 'react-icons/md';
 
 type Props = {
   comment: CommentType;
+  refetchComments: (offset: number, limit: number) => void;
 };
 
-const CommentCard = ({ comment }: Props) => {
+const CommentCard = ({ comment, refetchComments }: Props) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const toggleDeleteOpen = useCallback(() => {
     setDeleteOpen(!deleteOpen);
@@ -23,15 +24,20 @@ const CommentCard = ({ comment }: Props) => {
         <div className={styles.info}>
           {deleteOpen === false && (
             <div className={styles.date}>
-              {getDateFromNow(comment.createdAt)}
+              {getDateFromNow(comment.createdDate)}
             </div>
           )}
 
-          {deleteOpen === true && <DeleteCommentForm id={comment._id} />}
+          {deleteOpen === true && (
+            <DeleteCommentForm
+              refetchComments={refetchComments}
+              id={comment.commentId}
+            />
+          )}
           <MdDelete className={styles.delete} onClick={toggleDeleteOpen} />
         </div>
       </div>
-      <div className={styles.text}>{comment.text}</div>
+      <div className={styles.text}>{comment.content}</div>
     </div>
   );
 };
