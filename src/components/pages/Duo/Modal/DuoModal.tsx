@@ -13,8 +13,8 @@ import {
 import { Box } from '@mui/system';
 import {
   PostInputKey,
-  PostInputType,
-  PostQueueType,
+  PostFormType,
+  PostRankType,
   PostRoleType,
   PostType,
 } from 'lib/types/post';
@@ -26,6 +26,7 @@ import ErrorToast from '@common/Toast/ErrorToast';
 import { LoadingButton } from '@mui/lab';
 import { useDispatch } from 'react-redux';
 import { addCreatedPost } from 'lib/slice/postSlice';
+import apiPath from 'config/apiPath';
 
 type Props = {
   closeModal: () => void;
@@ -34,31 +35,44 @@ type Props = {
 
 const DuoModal = ({ closeModal, open }: Props) => {
   const dispatch = useDispatch();
-  // const [createPost, { loading }] = useMutation<{ createPost: PostType }>(
-  //   CREATE_POST,
-  //   {
-  //     onCompleted: ({ createPost }) => {
-  //       dispatch(addCreatedPost(createPost));
-  //     },
-  //     onError: () => {
-  //       ErrorToast('포스트 등록중 오류가 발생했습니다.');
-  //     },
-  //   },
-  // );
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const initInput: PostInputType = {
-    name: '',
-    text: '',
-    tier: '',
-    queueType: '솔로랭크',
-    role: '포지션 상관없이 구함',
+  const createPost = () => {
+    setIsLoading(true);
+    const uri = apiPath.base + apiPath.duo;
+
+    fetch(uri, {
+      method: 'POST',
+      body: JSON.stringify(input),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => {
+      if (!res.ok) {
+        ErrorToast('포스트 작성에 실패했습니다.');
+        setIsLoading(false);
+        setIsError(true);
+        return null;
+      }
+      setIsLoading(false);
+      dispatch(addCreatedPost(input));
+    });
   };
 
-  const [input, setInput] = useState<PostInputType>(initInput);
+  const initInput: PostFormType = {
+    name: '',
+    body: '',
+    tier: '',
+    rankType: '솔로랭크',
+    position: '모든 포지션',
+  };
+
+  const [input, setInput] = useState<PostFormType>(initInput);
 
   const onSubmit = async (e: any) => {
     preventEvent(e);
-    // await createPost({ variables: { post: input } });
+    createPost();
 
     closeModal();
     setInput(initInput);
@@ -67,21 +81,21 @@ const DuoModal = ({ closeModal, open }: Props) => {
   const blockSubmit = useMemo(
     () =>
       input.name.length === 0 ||
-      input.text.length === 0 ||
+      input.body.length === 0 ||
       input.tier.length === 0,
     [input],
   );
 
   const onChangeInput = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      const key = e.target.name as 'name' | 'text' | 'tier';
+      const key = e.target.name as 'name' | 'body' | 'tier';
 
-      if (key === 'text' && e.target.value.length > 200) {
+      if (key === 'body' && e.target.value.length > 200) {
         return;
       }
 
       setInput(
-        produce(input, (draft: PostInputType) => {
+        produce(input, (draft: PostFormType) => {
           draft[key] = e.target.value;
         }),
       );
@@ -91,17 +105,17 @@ const DuoModal = ({ closeModal, open }: Props) => {
 
   const onChangeSelect = useCallback(
     (e: SelectChangeEvent) => {
-      const key = e.target.name as 'queueType' | 'role';
-      if (key === 'queueType') {
+      const key = e.target.name as 'rankType' | 'position';
+      if (key === 'rankType') {
         setInput(
           produce(input, (draft) => {
-            draft.queueType = e.target.value as PostQueueType;
+            draft.rankType = e.target.value as PostRankType;
           }),
         );
-      } else if (key === 'role') {
+      } else if (key === 'position') {
         setInput(
           produce(input, (draft) => {
-            draft.role = e.target.value as PostRoleType;
+            draft.position = e.target.value as PostRoleType;
           }),
         );
       }
@@ -122,11 +136,11 @@ const DuoModal = ({ closeModal, open }: Props) => {
           <div className={styles.divider} />
           <div className={styles.dropdown}>
             <FormControl fullWidth>
-              <InputLabel id="queueType">게임 타입</InputLabel>
+              <InputLabel id="rankType">게임 타입</InputLabel>
               <Select
-                name="queueType"
-                id="queueType"
-                value={input.queueType}
+                name="rankType"
+                id="rankType"
+                value={input.rankType}
                 label="게임 타입"
                 onChange={onChangeSelect}
               >
@@ -139,15 +153,13 @@ const DuoModal = ({ closeModal, open }: Props) => {
             <FormControl fullWidth>
               <InputLabel>포지션</InputLabel>
               <Select
-                name="role"
-                id="role"
-                value={input.role}
+                name="position"
+                id="position"
+                value={input.position}
                 label="포지션"
                 onChange={onChangeSelect}
               >
-                <MenuItem value="포지션 상관없이 구함">
-                  포지션 상관없이 구함
-                </MenuItem>
+                <MenuItem value="모든 포지션">모든 포지션</MenuItem>
                 <MenuItem value="탑">탑</MenuItem>
                 <MenuItem value="정글">정글</MenuItem>
                 <MenuItem value="미드">미드</MenuItem>
@@ -178,8 +190,8 @@ const DuoModal = ({ closeModal, open }: Props) => {
           />
 
           <TextField
-            name="text"
-            value={input.text}
+            name="body"
+            value={input.body}
             onChange={onChangeInput}
             className={styles.text}
             placeholder="200자 이내 내용"
@@ -194,7 +206,7 @@ const DuoModal = ({ closeModal, open }: Props) => {
               type="submit"
               disabled={blockSubmit}
               className={styles.submit}
-              // loading={loading}
+              loading={isLoading}
             >
               등록
             </LoadingButton>

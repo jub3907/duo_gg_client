@@ -7,6 +7,7 @@ import { Button } from '@mui/material';
 import DuoCard from '@pages/Duo/Card/DuoCard';
 import styles from '@pages/Duo/DuoPage.module.scss';
 import DuoModal from '@pages/Duo/Modal/DuoModal';
+import apiPath from 'config/apiPath';
 import { addPosts, initPosts, selectPostState } from 'lib/slice/postSlice';
 import { PostType } from 'lib/types/post';
 import { useCallback, useEffect, useState } from 'react';
@@ -14,19 +15,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const DuoPage = () => {
   const dispatch = useDispatch();
-  const { createdAt, posts } = useSelector(selectPostState);
+  const { posts } = useSelector(selectPostState);
   const [modalOpen, setModalOpen] = useState(false);
-
-  // const [postQuery, { loading }] = useLazyQuery<{ posts: PostType[] }>(POSTS, {
-  //   onCompleted: ({ posts }) => {
-  //     if (posts.length > 0) {
-  //       dispatch(addPosts(posts));
-  //     }
-  //   },
-  //   onError: (e) => {
-  //     ErrorToast('포스트를 불러오는데 실패했습니다.');
-  //   },
-  // });
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const closeModal = useCallback(() => {
     setModalOpen(false);
@@ -36,13 +28,31 @@ const DuoPage = () => {
     setModalOpen(true);
   }, []);
 
-  // const fetchPost = useCallback(async () => {
-  //   await postQuery({ variables: { createdAt, limit: 6 } });
-  // }, [createdAt, postQuery]);
+  const fetchPost = (offset: number, limit: number) => {
+    setIsLoading(true);
+    const uri = apiPath.base + apiPath.duo + `?offset=${offset}&limit=${limit}`;
 
-  // useEffect(() => {
-  //   fetchPost();
-  // }, []);
+    fetch(uri, {
+      method: 'GET',
+    })
+      .then((res) => {
+        if (!res.ok) {
+          setIsError(true);
+          setIsLoading(false);
+          return null;
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log('posts: ', data);
+        setIsLoading(false);
+        dispatch(addPosts(data));
+      });
+  };
+
+  useEffect(() => {
+    fetchPost(0, 6);
+  }, []);
 
   return (
     <Layout subHeader={<SubHeader />} activeMenu="duo">
@@ -58,21 +68,23 @@ const DuoPage = () => {
             return (
               <DuoCard
                 post={post}
-                key={`duo-card-${post.createdAt}-${index}`}
+                key={`duo-card-${post.createdDate}-${index}`}
               />
             );
           })}
         </div>
         <div className={styles.fetch}>
-          {/* <LoadingButton
+          <LoadingButton
             fullWidth
-            onClick={fetchPost}
+            onClick={() => {
+              fetchPost(posts.length, 6);
+            }}
             className={styles['fetch-button']}
-            loading={loading}
+            loading={isLoading}
             variant="contained"
           >
             더보기
-          </LoadingButton> */}
+          </LoadingButton>
         </div>
       </PageTitleLayout>
 

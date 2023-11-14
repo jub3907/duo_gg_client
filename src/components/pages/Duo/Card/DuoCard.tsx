@@ -12,11 +12,13 @@ const DuoCard = ({ post }: Props) => {
     <NameLink name={post.name} className={styles.layout}>
       <div className={styles.info}>
         <div className={styles.name}>{post.name}</div>
-        <div className={styles.date}>{getDateFromNow(post.createdAt)}</div>
+        <div className={styles.date}>{getDateFromNow(post.createdDate)}</div>
       </div>
-      <div className={styles.title}>{post.title}</div>
+      <div className={styles.title}>
+        {post.rankType} {post.tier} {post.position}
+      </div>
 
-      <div className={styles.text}>{post.text}</div>
+      <div className={styles.text}>{post.body}</div>
     </NameLink>
   );
 };
