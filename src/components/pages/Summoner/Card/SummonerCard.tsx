@@ -64,6 +64,7 @@ const SummonerCard = () => {
 
     fetch(uri, {
       method: 'POST',
+      next: { revalidate: 300 },
     }).then(() => {
       const soloUri = (apiPath.base + apiPath.leagueSolo).replace(
         '[name]',

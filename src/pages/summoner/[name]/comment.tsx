@@ -35,6 +35,7 @@ const SummonerCommentPage = ({ basicSummonerInfo }: Props) => {
 
     fetch(uri, {
       method: 'GET',
+      next: { revalidate: 300 },
     })
       .then((res) => {
         if (!res.ok) {
