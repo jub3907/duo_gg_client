@@ -1,6 +1,5 @@
 import WinRateGraph from '@common/Graph/WinRateGraph';
 import Image from '@common/Image/Image';
-import { Entry } from 'lib/types/entry';
 import { getImagePath } from 'lib/utils/utils';
 import styles from './MultiSummonerCard.module.scss';
 import cn from 'classnames';
@@ -14,249 +13,91 @@ import produce from 'immer';
 import { MasteryType } from 'lib/types/mastery';
 import CircularLoading from '@common/Loading/CircularLoading';
 import ReloadButton from '@common/Button/ReloadButton';
+import apiPath from 'config/apiPath';
+import { LeagueType } from 'lib/types/league';
+import { getChampionName } from 'config/championKey';
+import MultiLeagueCard from './MultiLeagueCard';
+import MultiMasteryCard from './MultiMasteryCard';
+import MultiMatchCard from './MultiMatchCard';
 
 type Props = {
   name: string;
 };
 
-const RankInfo = ({ rank: soleRank }: { rank: Entry }) => {
-  return (
-    <>
-      <div className={styles.rank}>
-        <Image
-          src={getImagePath(soleRank.tier, 'tier')}
-          alt={`티어 이미지`}
-          width={21}
-          height={24}
-        />
-        <div className={styles.tier}>
-          {soleRank.tier} {soleRank.rank}, {soleRank.leaguePoints}LP
-        </div>
-      </div>
-      <WinRateGraph wins={soleRank.wins} losses={soleRank.losses} textVisible />
-    </>
-  );
-};
-
-const UnRankInfo = () => {
-  return (
-    <div className={cn(styles.rank, styles.unrank)}>
-      <Image
-        src={getImagePath('Unranked', 'tier')}
-        alt={`언랭크 티어 이미지`}
-        width={24}
-        height={24}
-      />
-      <div className={styles.tier}>Unranked</div>
-    </div>
-  );
-};
-
-const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
-  return (
-    <>
-      {masteries &&
-        masteries.length > 0 &&
-        masteries.map((mastery, index) => {
-          return (
-            <div
-              className={styles.flex}
-              key={`mastery-${mastery.championId}-${index}`}
-            >
-              <Image
-                src={mastery.iconPath}
-                alt="챔피언 아이콘"
-                width={30}
-                height={30}
-                variant="circle"
-              />
-
-              <div className={styles.score}>
-                {mastery.championPoints.toLocaleString()}점
-              </div>
-              <div className={styles.date}>
-                {getDateFromNow(mastery.lastPlayTime)}
-              </div>
-            </div>
-          );
-        })}
-    </>
-  );
-};
-
-const Matches = ({ recentMatches }: { recentMatches: MatchBasicType[] }) => {
-  return (
-    <>
-      {recentMatches &&
-        recentMatches.length > 0 &&
-        recentMatches.map((match, index) => {
-          return (
-            <div
-              className={styles.flex}
-              key={`match-${match.matchId}-${match.summonerInGameData.summonerName}`}
-            >
-              <div className={styles.result}>
-                <Image
-                  src={match.summonerInGameData.championIconPath}
-                  alt="챔피언 아이콘"
-                  width={25}
-                  height={25}
-                  variant="circle"
-                />
-                {match.summonerInGameData.win ? (
-                  <div className={styles.win}>승리</div>
-                ) : (
-                  <div className={styles.loss}>패배</div>
-                )}
-              </div>
-
-              <div className={styles.stat}>
-                {match.summonerInGameData.kills} /{' '}
-                {match.summonerInGameData.deaths} /{' '}
-                {match.summonerInGameData.assists}
-              </div>
-
-              <div className={styles.position}>
-                {match.summonerInGameData.individualPosition}
-              </div>
-            </div>
-          );
-        })}
-    </>
-  );
-};
-
 const MultiSummonerCard = ({ name }: Props) => {
-  const [info, setInfo] = useState<{
-    basicSummonerInfo: SummonerBasicType;
-    recentMatches: MatchBasicType[];
-    mastery: MasteryType[];
-  }>({
-    basicSummonerInfo: null,
-    recentMatches: null,
-    mastery: null,
-  });
+  const [summoner, setSummoner] = useState<SummonerBasicType>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  // const [basicSummonerInfo, { loading: infoLoading, error: infoError }] =
-  //   useMutation<{
-  //     basicSummonerInfo: SummonerBasic;
-  //   }>(BASIC_SUMMONER_INFO, {
-  //     onCompleted: async ({ basicSummonerInfo }) => {
-  //       setInfo(
-  //         produce(info, (draft) => {
-  //           draft.basicSummonerInfo = basicSummonerInfo;
-  //         }),
-  //       );
+  const getSummonerInfo = (name: string) => {
+    setIsLoading(true);
+    const uri = (apiPath.base + apiPath.summoner).replace('[name]', name);
 
-  //       await recentMatches({
-  //         variables: { name: basicSummonerInfo.name, count: 3 },
-  //       });
+    fetch(uri, {
+      method: 'POST',
+      next: { revalidate: 300 },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          setIsError(true);
+          setIsLoading(false);
+          return null;
+        }
+      })
+      .then((data) => {
+        fetch(uri, {
+          method: 'GET',
+          next: { revalidate: 300 },
+        })
+          .then((res) => {
+            if (!res.ok) {
+              setIsError(true);
+              setIsLoading(false);
+              return null;
+            }
+            return res.json();
+          })
+          .then((data: SummonerBasicType) => {
+            setSummoner(data);
+            setIsLoading(false);
+          });
+      });
+  };
 
-  //       await mastery({
-  //         variables: { summonerId: basicSummonerInfo.id, count: 3 },
-  //       });
-  //     },
-  //     onError: (e) => {
-  //       console.log(e);
-  //     },
-  //   });
-
-  // const [recentMatches, { loading: matchLoading, error: matchError }] =
-  //   useMutation<{
-  //     recentMatches: MatchBasicType[];
-  //   }>(RECENT_MATCHES, {
-  //     onCompleted: ({ recentMatches }) => {
-  //       setInfo(
-  //         produce(info, (draft) => {
-  //           draft.recentMatches = recentMatches;
-  //         }),
-  //       );
-  //     },
-  //     onError: (e) => {
-  //       console.log(e);
-  //     },
-  //   });
-
-  // const [mastery, { loading: masteryLoading, error: masteryError }] =
-  //   useLazyQuery<{
-  //     mastery: MasteryType[];
-  //   }>(MASTERY, {
-  //     onCompleted: ({ mastery }) => {
-  //       setInfo(
-  //         produce(info, (draft) => {
-  //           draft.mastery = mastery;
-  //         }),
-  //       );
-  //     },
-  //     onError: (e) => {
-  //       console.log(e);
-  //     },
-  //   });
-
-  // useEffect(() => {
-  //   basicSummonerInfo({ variables: { name } });
-  // }, [basicSummonerInfo, name]);
+  useEffect(() => {
+    if (name) {
+      getSummonerInfo(name);
+    }
+  }, [name]);
 
   return (
     <div className={styles.layout}>
-      {/* {infoLoading && <CircularLoading />} */}
-      {info.basicSummonerInfo && (
-        <>
-          <div className={styles.name}>
-            <NameLink name={info.basicSummonerInfo.name} />
-          </div>
-          <div className={styles.info}>
-            {info.basicSummonerInfo.soleRank ? (
-              <RankInfo rank={info.basicSummonerInfo.soleRank} />
-            ) : (
-              <UnRankInfo />
-            )}
-          </div>
-          <div className={styles.mastery}>
-            {/* <List
-              title="숙련도 정보"
-              contents={<Masteries masteries={info.mastery} />}
-              loading={masteryLoading}
-              error={masteryError}
-              reloadButton={
-                <ReloadButton
-                  // onClick={() => {
-                  //   mastery({
-                  //     variables: {
-                  //       summonerId: info.basicSummonerInfo.id,
-                  //       count: 3,
-                  //     },
-                  //   });
-                  }}
-                  loading={masteryLoading}
-                />
-              }
-            /> */}
-          </div>
-          {info.recentMatches && (
-            <div className={styles.matches}>
-              {/* <List
-                title="최근 플레이"
-                contents={<Matches recentMatches={info.recentMatches} />}
-                loading={matchLoading}
-                error={matchError}
-                reloadButton={
-                  <ReloadButton
-                    onClick={() => {
-                      recentMatches({
-                        variables: {
-                          name: info.basicSummonerInfo.name,
-                          count: 3,
-                        },
-                      });
-                    }}
-                    loading={matchLoading}
-                  />
-                }
-              /> */}
+      {isLoading ? (
+        <CircularLoading />
+      ) : isError ? (
+        <ReloadButton
+          onClick={() => {
+            getSummonerInfo(name);
+          }}
+          loading={isLoading}
+        />
+      ) : (
+        summoner && (
+          <>
+            <div className={styles.name}>
+              <NameLink name={summoner.name} />
             </div>
-          )}
-        </>
+            <div className={styles.info}>
+              <MultiLeagueCard name={name} />
+            </div>
+            <div className={styles.mastery}>
+              <MultiMasteryCard summonerId={summoner.summonerId} />
+            </div>
+            <div className={styles.matches}>
+              <MultiMatchCard puuid={summoner.puuid} />
+            </div>
+          </>
+        )
       )}
     </div>
   );

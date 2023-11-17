@@ -1,0 +1,15 @@
+.rank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: $spacing-4;
+  .tier {
+    @include body1-bold;
+    color: $gray-6;
+    margin-left: $spacing-8;
+  }
+}
+
+.unrank {
+  margin-bottom: $spacing-24;
+}

@@ -1,0 +1,30 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-8;
+}
+
+.result {
+  @include body3-bold;
+  display: flex;
+  align-items: center;
+  column-gap: $spacing-8;
+
+  .win {
+    color: $blue;
+  }
+
+  .loss {
+    color: $red;
+  }
+}
+
+.stat {
+  @include body3;
+}
+
+.position {
+  @include caption;
+  color: $gray-5;
+}

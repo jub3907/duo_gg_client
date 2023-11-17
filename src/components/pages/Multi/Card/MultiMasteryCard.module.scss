@@ -1,0 +1,14 @@
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-8;
+}
+
+.score {
+  @include body2;
+}
+
+.date {
+  @include body3;
+}
