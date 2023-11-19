@@ -16,7 +16,10 @@ const RankingCard = ({ ranking }: Props) => {
       <>
         <div className={styles.image}>
           <Image
-            src={getImagePath(ranking.profileIconId, 'profileicon')}
+            src={getImagePath(
+              ranking.profileIconId ? ranking.profileIconId : 0,
+              'profileicon',
+            )}
             alt="소환사아이콘"
             width={120}
             height={120}

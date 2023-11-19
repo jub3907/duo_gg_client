@@ -117,7 +117,7 @@ const SummonerCard = () => {
     <div className={styles.layout}>
       <div className={styles.flex}>
         <Image
-          src={getImagePath(profileIconId, 'profileicon')}
+          src={getImagePath(profileIconId ? profileIconId : 0, 'profileicon')}
           alt="소환사 아이콘"
           width={120}
           height={120}
