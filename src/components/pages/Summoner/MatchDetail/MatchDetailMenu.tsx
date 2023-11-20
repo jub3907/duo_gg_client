@@ -1,11 +1,11 @@
 import styles from './MatchDetailMenu.module.scss';
-import { MatchDetailMenu } from './MatchDetail';
+import { MatchDetailMenuType } from './MatchDetail';
 import { Button } from '@mui/material';
 import cn from 'classnames';
 
 type Props = {
   activeMenu: 'total' | 'analytics' | 'build';
-  onClickTab: (tab: MatchDetailMenu) => void;
+  onClickTab: (tab: MatchDetailMenuType) => void;
 };
 const MatchDetailMenu = ({ activeMenu, onClickTab }: Props) => {
   return (

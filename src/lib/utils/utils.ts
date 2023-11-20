@@ -18,11 +18,12 @@ export const preventEvent = async (event: any) => {
 export type ImageType =
   | 'tier'
   | 'position'
-  | 'stats'
+  | 'stat'
   | 'profileicon'
   | 'champion'
   | 'item'
-  | 'spell';
+  | 'spell'
+  | 'perk';
 
 export const getImagePath = (id: string | number, type: ImageType) => {
   return `https://lolduo.s3.ap-northeast-2.amazonaws.com/${type}/${id}.png`;

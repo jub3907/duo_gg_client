@@ -43,6 +43,8 @@ const MatchBuild = ({ matchId, perk }: Props) => {
   //   };
   // }, []);
 
+  console.log(perk);
+
   return (
     <>
       {/* {loading && <CircularLoading />}
@@ -52,9 +54,11 @@ const MatchBuild = ({ matchId, perk }: Props) => {
           loading={loading}
         />
       )} */}
-      {/* {build && (
+      {/* {build  */}
+
+      {true && (
         <div className={styles.layout}>
-          <div className={styles.build}>
+          {/* <div className={styles.build}>
             <BuildLayout title="아이템 빌드">
               <div className={styles.list}>
                 {build.items.map(({ iconPathes, timestamp }, index) => {
@@ -74,49 +78,64 @@ const MatchBuild = ({ matchId, perk }: Props) => {
               <SkillBuild skillId={3} skillName="E" skills={build.skills} />
               <SkillBuild skillId={4} skillName="R" skills={build.skills} />
             </BuildLayout>
-          </div>
+          </div> */}
           <div className={styles.build}>
             <BuildLayout title="룬">
               <div className={styles.main}>
                 <Image
-                  src={perk.primaryStyle}
+                  src={getImagePath(perk.primaryStyle, 'perk')}
                   alt="메인룬 이미지"
                   width={40}
                   height={40}
                 />
                 <IoMdArrowDropright className={styles.icon} />
-                {perk.primarySelections.map((path, index) => {
-                  return (
-                    <Image
-                      src={path}
-                      alt="메인룬2 이미지"
-                      width={30}
-                      height={30}
-                      key={`rune-image-${index}`}
-                    />
-                  );
-                })}
+
+                <Image
+                  src={getImagePath(perk.primary_1, 'perk')}
+                  alt="메인룬1 이미지"
+                  width={30}
+                  height={30}
+                  key={`rune-image-${matchId}-main1`}
+                />
+                <Image
+                  src={getImagePath(perk.primary_2, 'perk')}
+                  alt="메인룬2 이미지"
+                  width={30}
+                  height={30}
+                  key={`rune-image-${matchId}-main2`}
+                />
+                <Image
+                  src={getImagePath(perk.primary_3, 'perk')}
+                  alt="메인룬3 이미지"
+                  width={30}
+                  height={30}
+                  key={`rune-image-${matchId}-main3`}
+                />
               </div>
 
               <div className={styles.sub}>
                 <Image
-                  src={perk.subStyle}
+                  src={getImagePath(perk.subStyle, 'perk')}
                   alt="서브룬 이미지"
                   width={40}
                   height={40}
                 />
                 <IoMdArrowDropright className={styles.icon} />
-                {perk.subSelections.map((path, index) => {
-                  return (
-                    <Image
-                      src={path}
-                      alt="서브룬2 이미지"
-                      width={30}
-                      height={30}
-                      key={`rune-image-${index}`}
-                    />
-                  );
-                })}
+
+                <Image
+                  src={getImagePath(perk.sub_1, 'perk')}
+                  alt="서브룬1 이미지"
+                  width={30}
+                  height={30}
+                  key={`rune-image-${matchId}-sub1`}
+                />
+                <Image
+                  src={getImagePath(perk.sub_2, 'perk')}
+                  alt="서브룬2 이미지"
+                  width={30}
+                  height={30}
+                  key={`rune-image-${matchId}-sub2`}
+                />
               </div>
             </BuildLayout>
 
@@ -125,7 +144,7 @@ const MatchBuild = ({ matchId, perk }: Props) => {
                 {[5008, 5005, 5007].map((id, index) => {
                   return (
                     <Image
-                      src={getImagePath(id.toString(), 'stats')}
+                      src={getImagePath(id.toString(), 'stat')}
                       alt="스탯 이미지"
                       width={30}
                       height={30}
@@ -142,7 +161,7 @@ const MatchBuild = ({ matchId, perk }: Props) => {
                 {[5008, 5002, 5003].map((id, index) => {
                   return (
                     <Image
-                      src={getImagePath(id.toString(), 'stats')}
+                      src={getImagePath(id.toString(), 'stat')}
                       alt="스탯 이미지"
                       width={30}
                       height={30}
@@ -157,7 +176,7 @@ const MatchBuild = ({ matchId, perk }: Props) => {
                 {[5001, 5002, 5003].map((id, index) => {
                   return (
                     <Image
-                      src={getImagePath(id.toString(), 'stats')}
+                      src={getImagePath(id.toString(), 'stat')}
                       alt="스탯 이미지"
                       width={30}
                       height={30}
@@ -172,7 +191,7 @@ const MatchBuild = ({ matchId, perk }: Props) => {
             </BuildLayout>
           </div>
         </div>
-      )} */}
+      )}
     </>
   );
 };

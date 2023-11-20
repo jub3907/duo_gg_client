@@ -87,7 +87,9 @@ const MatchDetail = ({ matchId }: Props) => {
             )}
           </>
         )}
-        {/* {tab === 'build' && <MatchBuild matchId={matchId} perk={perk} />} */}
+        {tab === 'build' && (
+          <MatchBuild matchId={matchId} perk={matchDetail.perk} />
+        )}
       </div>
     </div>
   );
