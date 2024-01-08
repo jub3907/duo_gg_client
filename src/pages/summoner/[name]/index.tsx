@@ -26,6 +26,7 @@ import ErrorToast from '@common/Toast/ErrorToast';
 import ReloadButton from '@common/Button/ReloadButton';
 import apiPath from 'config/apiPath';
 import { LoadingButton } from '@mui/lab';
+import { Account } from 'lib/types/account';
 
 type Props = {
   basicSummonerInfo: SummonerBasicType;
@@ -142,29 +143,31 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const params = ctx.params;
-  if (!params.name) {
+  if (!params.name || typeof params.name != 'string') {
     return {
       notFound: true,
     };
   }
 
-  const uri = (apiPath.base + apiPath.summoner).replace(
-    '[name]',
-    params.name.toString(),
-  );
+  const arr = params.name.split('#');
+  const gameName = params.name.includes('#') ? arr[0] : params.name;
+  const tagLine = params.name.includes('#') ? arr[1] : 'KR1';
 
-  const postRes = await fetch(uri, {
+  const accountUri =
+    apiPath.base + apiPath.comment + `?gameName=${gameName}&tagLine=${tagLine}`;
+
+  const accountPost = await fetch(accountUri, {
     method: 'POST',
     next: { revalidate: 300 },
   });
 
-  if (!postRes.ok) {
+  if (!accountPost.ok) {
     return {
       notFound: true,
     };
   }
 
-  const getRes = await fetch(uri, {
+  const accountGet = await fetch(accountUri, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -172,13 +175,45 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     next: { revalidate: 300 },
   });
 
-  if (!getRes.ok) {
+  if (!accountGet.ok) {
     return {
       notFound: true,
     };
   }
 
-  const data = await getRes.json();
+  const accountData: Account = await accountGet.json();
+
+  const summonerUri = (apiPath.base + apiPath.summoner).replace(
+    '[name]',
+    accountData.puuid,
+  );
+
+  const summonerPost = await fetch(summonerUri, {
+    method: 'POST',
+    next: { revalidate: 300 },
+  });
+
+  if (!summonerPost.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const summonerGet = await fetch(summonerUri, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    next: { revalidate: 300 },
+  });
+
+  if (!summonerGet.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const data = await summonerGet.json();
 
   return {
     props: {
