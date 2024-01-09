@@ -20,9 +20,12 @@ const SubHeaderSearch = () => {
       ErrorToast('소환사명을 입력해 주세요.');
       return;
     }
+
     router.push({
       pathname: Path.summoner,
-      query: { name },
+      query: {
+        name: name.includes('#') ? name.replace('#', '-') : `${name}-KR1`,
+      },
     });
   };
 
