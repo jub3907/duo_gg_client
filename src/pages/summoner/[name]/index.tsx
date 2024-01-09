@@ -34,7 +34,6 @@ type Props = {
 
 const SummonerPage = ({ basicSummonerInfo }: Props) => {
   const dispatch = useDispatch();
-  // const [matches, setMatches] = useState<MatchBasicType[]>(null);
   const { count, matches } = useSelector(selectMatchBasicState);
 
   const [isError, setIsError] = useState(false);
@@ -149,12 +148,14 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     };
   }
 
-  const arr = params.name.split('#');
-  const gameName = params.name.includes('#') ? arr[0] : params.name;
-  const tagLine = params.name.includes('#') ? arr[1] : 'KR1';
+  const arr = params.name.split('-');
+  const gameName = params.name.includes('-') ? arr[0] : params.name;
+  const tagLine = params.name.includes('-') ? arr[1] : 'KR1';
 
   const accountUri =
-    apiPath.base + apiPath.comment + `?gameName=${gameName}&tagLine=${tagLine}`;
+    apiPath.base + apiPath.account + `?gameName=${gameName}&tagLine=${tagLine}`;
+
+  console.log('request url : ', accountUri);
 
   const accountPost = await fetch(accountUri, {
     method: 'POST',
