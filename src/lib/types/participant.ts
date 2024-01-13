@@ -3,6 +3,7 @@ import { SpellKey } from 'config/spellKey';
 
 export type ParticipantBasicType = {
   summonerName: string;
+  summonerTag: string;
   championId: ChampionKey;
   puuid: string;
 };
