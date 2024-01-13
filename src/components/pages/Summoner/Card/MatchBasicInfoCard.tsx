@@ -167,7 +167,11 @@ const MatchBasicInfoCard = ({ match }: Props) => {
                   variant="circle"
                 />
                 <div className={styles.name}>
-                  <NameLink name={participant.summonerName} />
+                  <NameLink
+                    name={`${participant.summonerName}-${participant.summonerTag}`}
+                  >
+                    {participant.summonerName}
+                  </NameLink>
                 </div>
               </div>
             );
@@ -190,7 +194,11 @@ const MatchBasicInfoCard = ({ match }: Props) => {
                   variant="circle"
                 />
                 <div className={styles.name}>
-                  <NameLink name={participant.summonerName} />
+                  <NameLink
+                    name={`${participant.summonerName}-${participant.summonerTag}`}
+                  >
+                    {participant.summonerName}
+                  </NameLink>
                 </div>
               </div>
             );
