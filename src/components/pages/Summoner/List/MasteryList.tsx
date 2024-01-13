@@ -52,13 +52,10 @@ const Masteries = ({ masteries }: { masteries: MasteryType[] }) => {
 };
 
 const MasteryList = () => {
-  const { summonerId } = useSelector(selectSummonerState);
+  const { puuid } = useSelector(selectSummonerState);
   const [masteries, setMasteries] = useState<MasteryType[]>([]);
   const [isLoading, setLoading] = useState(true);
-  const uri = (apiPath.base + apiPath.masteryBySummoner).replace(
-    '[summonerId]',
-    summonerId,
-  );
+  const uri = (apiPath.base + apiPath.masteryByPuuid).replace('[puuid]', puuid);
 
   const fetchData = () => {
     fetch(uri, {
@@ -85,10 +82,14 @@ const MasteryList = () => {
   };
 
   useEffect(() => {
-    if (summonerId !== '') {
+    if (puuid !== '') {
       fetchData();
     }
-  }, [summonerId]);
+
+    return () => {
+      setMasteries([]);
+    };
+  }, [puuid]);
 
   return (
     <List
