@@ -54,26 +54,26 @@ const UnrankedInfo = ({ title }: { title: string }) => {
 };
 
 const SummonerCard = () => {
-  const { name, profileIconId, revisionDate } =
+  const { name, puuid, profileIconId, revisionDate } =
     useSelector(selectSummonerState);
   const [soloRank, setSoloRank] = useState<LeagueType>(null);
   const [freeRank, setFreeRank] = useState<LeagueType>(null);
 
   useEffect(() => {
-    const uri = (apiPath.base + apiPath.league).replace('[name]', name);
+    const uri = (apiPath.base + apiPath.league).replace('[puuid]', puuid);
 
     fetch(uri, {
       method: 'POST',
       next: { revalidate: 300 },
     }).then(() => {
       const soloUri = (apiPath.base + apiPath.leagueSolo).replace(
-        '[name]',
-        name,
+        '[puuid]',
+        puuid,
       );
 
       const freeUri = (apiPath.base + apiPath.leagueFree).replace(
-        '[name]',
-        name,
+        '[puuid]',
+        puuid,
       );
 
       fetch(soloUri, {
@@ -104,14 +104,14 @@ const SummonerCard = () => {
           setFreeRank(data);
         });
     });
-  }, [name]);
+  }, [puuid]);
 
   useEffect(() => {
     return () => {
       setSoloRank(null);
       setFreeRank(null);
     };
-  }, [name]);
+  }, [puuid]);
 
   return (
     <div className={styles.layout}>
