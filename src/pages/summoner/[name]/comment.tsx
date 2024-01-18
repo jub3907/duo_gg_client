@@ -101,7 +101,8 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     };
   }
 
-  const uri = (apiPath.base + apiPath.summoner).replace(
+  // TODO: 수정
+  const uri = (apiPath.base + apiPath.summonerByPuuid).replace(
     '[name]',
     params.name.toString(),
   );

@@ -22,7 +22,8 @@ const apiPath = {
 
   duo: '/duo',
 
-  summoner: '/summoner/[name]',
+  summonerByPuuid: '/summoner/by-puuid/[puuid]',
+  summonerById: '/summoner/by-id/[summonerId]',
 };
 
 export type PathType = keyof typeof apiPath;

@@ -31,7 +31,11 @@ const MultiSummonerCard = ({ name }: Props) => {
 
   const getSummonerInfo = (name: string) => {
     setIsLoading(true);
-    const uri = (apiPath.base + apiPath.summoner).replace('[name]', name);
+    //TODO: 수정
+    const uri = (apiPath.base + apiPath.summonerByPuuid).replace(
+      '[name]',
+      name,
+    );
 
     fetch(uri, {
       method: 'POST',

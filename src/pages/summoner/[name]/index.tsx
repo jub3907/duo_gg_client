@@ -142,85 +142,127 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const params = ctx.params;
+
   if (!params.name || typeof params.name != 'string') {
     return {
       notFound: true,
     };
   }
 
-  const arr = params.name.split('-');
-  const gameName = params.name.includes('-') ? arr[0] : params.name;
-  const tagLine = params.name.includes('-') ? arr[1] : 'KR1';
+  if (params.name.length > 40) {
+    const summonerId = params.name;
+    const summonerUri = (apiPath.base + apiPath.summonerById).replace(
+      '[summonerId]',
+      summonerId,
+    );
 
-  const accountUri =
-    apiPath.base + apiPath.account + `?gameName=${gameName}&tagLine=${tagLine}`;
+    const summonerPost = await fetch(summonerUri, {
+      method: 'POST',
+      next: { revalidate: 300 },
+    });
 
-  console.log('request url : ', accountUri);
+    if (!summonerPost.ok) {
+      return {
+        notFound: true,
+      };
+    }
 
-  const accountPost = await fetch(accountUri, {
-    method: 'POST',
-    next: { revalidate: 300 },
-  });
+    const summonerGet = await fetch(summonerUri, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 300 },
+    });
 
-  if (!accountPost.ok) {
+    if (!summonerGet.ok) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const data = await summonerGet.json();
+
     return {
-      notFound: true,
+      props: {
+        basicSummonerInfo: data,
+      },
+    };
+  } else {
+    const arr = params.name.split('-');
+    const gameName = params.name.includes('-') ? arr[0] : params.name;
+    const tagLine = params.name.includes('-') ? arr[1] : 'KR1';
+
+    const accountUri =
+      apiPath.base +
+      apiPath.account +
+      `?gameName=${gameName}&tagLine=${tagLine}`;
+
+    const accountPost = await fetch(accountUri, {
+      method: 'POST',
+      next: { revalidate: 300 },
+    });
+
+    if (!accountPost.ok) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const accountGet = await fetch(accountUri, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 300 },
+    });
+
+    if (!accountGet.ok) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const accountData: Account = await accountGet.json();
+
+    const summonerUri = (apiPath.base + apiPath.summonerByPuuid).replace(
+      '[puuid]',
+      accountData.puuid,
+    );
+
+    const summonerPost = await fetch(summonerUri, {
+      method: 'POST',
+      next: { revalidate: 300 },
+    });
+
+    if (!summonerPost.ok) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const summonerGet = await fetch(summonerUri, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 300 },
+    });
+
+    if (!summonerGet.ok) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const data = await summonerGet.json();
+
+    return {
+      props: {
+        basicSummonerInfo: data,
+      },
     };
   }
-
-  const accountGet = await fetch(accountUri, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    next: { revalidate: 300 },
-  });
-
-  if (!accountGet.ok) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const accountData: Account = await accountGet.json();
-
-  const summonerUri = (apiPath.base + apiPath.summoner).replace(
-    '[name]',
-    accountData.puuid,
-  );
-
-  const summonerPost = await fetch(summonerUri, {
-    method: 'POST',
-    next: { revalidate: 300 },
-  });
-
-  if (!summonerPost.ok) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const summonerGet = await fetch(summonerUri, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    next: { revalidate: 300 },
-  });
-
-  if (!summonerGet.ok) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const data = await summonerGet.json();
-
-  return {
-    props: {
-      basicSummonerInfo: data,
-    },
-  };
 }
 
 export default SummonerPage;

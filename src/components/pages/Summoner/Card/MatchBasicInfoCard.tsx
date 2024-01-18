@@ -27,7 +27,7 @@ const ImageComponent = ({ item, type, keyValue }: ImageComponentType) => {
   return (
     <Image
       src={getImagePath(item, type)}
-      alt={`스펠 아이콘 ${item}`}
+      alt={`${type} Icon ${item}`}
       width={34}
       height={34}
       key={keyValue}

@@ -48,7 +48,9 @@ const row = (ranking: RankingType, index: number) => {
               height={48}
               className={styles.image}
             />
-            <NameLink name={ranking.summonerName} />
+            <NameLink name={ranking.summonerId}>
+              {ranking.summonerName}
+            </NameLink>
           </>
         </div>
         <div className={styles.tier}>{ranking.tier}</div>

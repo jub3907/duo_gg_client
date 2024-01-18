@@ -29,7 +29,9 @@ const RankingCard = ({ ranking }: Props) => {
 
         <div className={styles.info}>
           <div className={styles.name}>
-            <NameLink name={ranking.summonerName} />
+            <NameLink name={ranking.summonerId}>
+              {ranking.summonerName}
+            </NameLink>
           </div>
           <div className={styles.rank}>
             <div>{ranking.tier}</div>
