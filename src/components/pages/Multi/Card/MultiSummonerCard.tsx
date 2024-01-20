@@ -19,6 +19,7 @@ import { getChampionName } from 'config/championKey';
 import MultiLeagueCard from './MultiLeagueCard';
 import MultiMasteryCard from './MultiMasteryCard';
 import MultiMatchCard from './MultiMatchCard';
+import { Account } from 'lib/types/account';
 
 type Props = {
   name: string;
@@ -26,46 +27,85 @@ type Props = {
 
 const MultiSummonerCard = ({ name }: Props) => {
   const [summoner, setSummoner] = useState<SummonerBasicType>(null);
+  const [account, setAccount] = useState<Account>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
   const getSummonerInfo = (name: string) => {
     setIsLoading(true);
     //TODO: 수정
-    const uri = (apiPath.base + apiPath.summonerByPuuid).replace(
-      '[name]',
-      name,
-    );
+    const arr = name.split('#');
+    const gameName = arr[0];
+    const tagLine = arr[1];
 
-    fetch(uri, {
+    const accountUri =
+      apiPath.base +
+      apiPath.account +
+      `?gameName=${gameName}&tagLine=${tagLine}`;
+
+    fetch(accountUri, {
       method: 'POST',
       next: { revalidate: 300 },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          setIsError(true);
-          setIsLoading(false);
-          return null;
-        }
+    }).then((res) => {
+      if (!res.ok) {
+        setIsLoading(false);
+        setIsError(true);
+        return null;
+      }
+      fetch(accountUri, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { revalidate: 300 },
       })
-      .then((data) => {
-        fetch(uri, {
-          method: 'GET',
-          next: { revalidate: 300 },
-        })
-          .then((res) => {
-            if (!res.ok) {
-              setIsError(true);
-              setIsLoading(false);
-              return null;
-            }
-            return res.json();
-          })
-          .then((data: SummonerBasicType) => {
-            setSummoner(data);
+        .then((res) => {
+          if (!res.ok) {
+            setIsError(true);
             setIsLoading(false);
-          });
-      });
+            return null;
+          }
+          return res.json();
+        })
+        .then((account: Account) => {
+          setAccount(account);
+
+          const uri = (apiPath.base + apiPath.summonerByPuuid).replace(
+            '[puuid]',
+            account.puuid,
+          );
+
+          fetch(uri, {
+            method: 'POST',
+            next: { revalidate: 300 },
+          })
+            .then((res) => {
+              if (!res.ok) {
+                setIsError(true);
+                setIsLoading(false);
+                return null;
+              }
+            })
+            .then((data) => {
+              fetch(uri, {
+                method: 'GET',
+                next: { revalidate: 300 },
+              })
+                .then((res) => {
+                  if (!res.ok) {
+                    setIsError(true);
+                    setIsLoading(false);
+                    return null;
+                  }
+                  return res.json();
+                })
+                .then((data: SummonerBasicType) => {
+                  setSummoner(data);
+                  setIsLoading(false);
+                });
+            });
+        });
+    });
   };
 
   useEffect(() => {
@@ -89,13 +129,13 @@ const MultiSummonerCard = ({ name }: Props) => {
         summoner && (
           <>
             <div className={styles.name}>
-              <NameLink name={summoner.name} />
+              <NameLink name={summoner.puuid}>{summoner.name}</NameLink>
             </div>
             <div className={styles.info}>
-              <MultiLeagueCard name={name} />
+              <MultiLeagueCard puuid={summoner.puuid} />
             </div>
             <div className={styles.mastery}>
-              <MultiMasteryCard summonerId={summoner.summonerId} />
+              <MultiMasteryCard puuid={summoner.puuid} />
             </div>
             <div className={styles.matches}>
               <MultiMatchCard puuid={summoner.puuid} />

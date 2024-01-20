@@ -42,17 +42,17 @@ const UnRankInfo = () => {
 };
 
 type Props = {
-  name: string;
+  puuid: string;
 };
 
-const MultiLeagueCard = ({ name }: Props) => {
+const MultiLeagueCard = ({ puuid }: Props) => {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [league, setLeague] = useState<LeagueType>(null);
 
-  const getLeague = (name: string) => {
+  const getLeague = (puuid: string) => {
     setIsLoading(true);
-    const postUri = (apiPath.base + apiPath.league).replace('[name]', name);
+    const postUri = (apiPath.base + apiPath.league).replace('[puuid]', puuid);
 
     fetch(postUri, {
       method: 'POST',
@@ -65,8 +65,8 @@ const MultiLeagueCard = ({ name }: Props) => {
       }
 
       const getUri = (apiPath.base + apiPath.leagueSolo).replace(
-        '[name]',
-        name,
+        '[puuid]',
+        puuid,
       );
 
       fetch(getUri, {
@@ -89,10 +89,10 @@ const MultiLeagueCard = ({ name }: Props) => {
   };
 
   useEffect(() => {
-    if (name) {
-      getLeague(name);
+    if (puuid) {
+      getLeague(puuid);
     }
-  }, [name]);
+  }, [puuid]);
 
   return isLoading ? (
     <CircularLoading />

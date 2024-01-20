@@ -55,19 +55,19 @@ const Masteries = ({
 };
 
 type Props = {
-  summonerId: string;
+  puuid: string;
 };
 
-const MultiMasteryCard = ({ summonerId }: Props) => {
+const MultiMasteryCard = ({ puuid }: Props) => {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [masteries, setMasteries] = useState<MasteryType[]>(null);
 
-  const getMastery = (summonerId: string) => {
+  const getMastery = (puuid: string) => {
     setIsLoading(true);
-    const uri = (apiPath.base + apiPath.masteryBySummoner).replace(
-      '[summonerId]',
-      summonerId,
+    const uri = (apiPath.base + apiPath.masteryByPuuid).replace(
+      '[puuid]',
+      puuid,
     );
 
     fetch(uri, {
@@ -102,10 +102,10 @@ const MultiMasteryCard = ({ summonerId }: Props) => {
   };
 
   useEffect(() => {
-    if (summonerId) {
-      getMastery(summonerId);
+    if (puuid) {
+      getMastery(puuid);
     }
-  }, [summonerId]);
+  }, [puuid]);
 
   return (
     <>
@@ -117,7 +117,7 @@ const MultiMasteryCard = ({ summonerId }: Props) => {
         reloadButton={
           <ReloadButton
             onClick={() => {
-              getMastery(summonerId);
+              getMastery(puuid);
             }}
             loading={isLoading}
           />
