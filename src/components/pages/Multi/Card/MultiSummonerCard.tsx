@@ -40,7 +40,7 @@ const MultiSummonerCard = ({ name }: Props) => {
 
     const accountUri =
       apiPath.base +
-      apiPath.account +
+      apiPath.accountByRiotId +
       `?gameName=${gameName}&tagLine=${tagLine}`;
 
     fetch(accountUri, {

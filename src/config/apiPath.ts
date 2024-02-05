@@ -3,7 +3,8 @@ import { API_URL } from './env';
 const apiPath = {
   base: API_URL,
 
-  account: '/account/by-riot-id',
+  accountByRiotId: '/account/by-riot-id',
+  accountByPuuid: '/account/by-puuid',
 
   comment: '/comment/[puuid]',
   deleteComment: '/comment/[commentId]',

@@ -49,7 +49,7 @@ const row = (ranking: RankingType, index: number) => {
               className={styles.image}
             />
             <NameLink name={ranking.summonerId}>
-              {ranking.summonerName}
+              {`${ranking.gameName}#${ranking.tagLine}`}
             </NameLink>
           </>
         </div>

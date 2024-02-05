@@ -195,7 +195,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
     const accountUri =
       apiPath.base +
-      apiPath.account +
+      apiPath.accountByRiotId +
       `?gameName=${gameName}&tagLine=${tagLine}`;
 
     const accountPost = await fetch(accountUri, {

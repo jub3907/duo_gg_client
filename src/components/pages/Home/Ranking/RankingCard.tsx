@@ -30,7 +30,7 @@ const RankingCard = ({ ranking }: Props) => {
         <div className={styles.info}>
           <div className={styles.name}>
             <NameLink name={ranking.summonerId}>
-              {ranking.summonerName}
+              {`${ranking.gameName}#${ranking.tagLine}`}
             </NameLink>
           </div>
           <div className={styles.rank}>
