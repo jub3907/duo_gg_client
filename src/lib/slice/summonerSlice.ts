@@ -1,13 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SummonerBasicType } from 'lib/types/summoner';
 
-const initialState: SummonerBasicType = {
+export type SummonerSliceType = SummonerBasicType & {
+  gameName: string;
+  tagLine: string;
+};
+
+const initialState: SummonerSliceType = {
   summonerId: '',
   name: '',
   puuid: '',
   profileIconId: null,
   revisionDate: null,
   summonerLevel: null,
+
+  gameName: '',
+  tagLine: '',
 };
 
 const summonerSlice = createSlice({
@@ -16,7 +24,7 @@ const summonerSlice = createSlice({
   reducers: {
     initSummonerState: (
       state,
-      { payload }: PayloadAction<SummonerBasicType>,
+      { payload }: PayloadAction<SummonerSliceType>,
     ) => {
       state.summonerId = payload.summonerId;
       state.name = payload.name;
@@ -24,6 +32,8 @@ const summonerSlice = createSlice({
       state.profileIconId = payload.profileIconId;
       state.revisionDate = payload.revisionDate;
       state.summonerLevel = payload.summonerLevel;
+      state.gameName = payload.gameName;
+      state.tagLine = payload.tagLine;
     },
     clearSummonerState: (state) => {
       Object.assign(state, initialState);
@@ -34,7 +44,7 @@ const summonerSlice = createSlice({
 export const selectSummonerState = ({
   summonerReducer,
 }: {
-  summonerReducer: SummonerBasicType;
+  summonerReducer: SummonerSliceType;
 }) => ({
   ...summonerReducer,
 });

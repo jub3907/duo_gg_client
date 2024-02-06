@@ -54,7 +54,7 @@ const UnrankedInfo = ({ title }: { title: string }) => {
 };
 
 const SummonerCard = () => {
-  const { name, puuid, profileIconId, revisionDate } =
+  const { name, puuid, profileIconId, revisionDate, gameName, tagLine } =
     useSelector(selectSummonerState);
   const [soloRank, setSoloRank] = useState<LeagueType>(null);
   const [freeRank, setFreeRank] = useState<LeagueType>(null);
@@ -124,7 +124,9 @@ const SummonerCard = () => {
           variant="circle"
         />
         <div className={styles.info}>
-          <div className={styles.name}>{name}</div>
+          <div className={styles.name}>
+            {gameName}#{tagLine}
+          </div>
 
           <div className={styles.time}>
             <div>업데이트: {getDateFromNow(revisionDate)}</div>

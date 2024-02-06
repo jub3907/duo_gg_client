@@ -14,7 +14,11 @@ import MatchBasicInfoCard from '@pages/Summoner/Card/MatchBasicInfoCard';
 import { SummonerBasicType } from 'lib/types/summoner';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearSummonerState, initSummonerState } from 'lib/slice/summonerSlice';
+import {
+  SummonerSliceType,
+  clearSummonerState,
+  initSummonerState,
+} from 'lib/slice/summonerSlice';
 import {
   initMatchBasics,
   addMatchBasics,
@@ -26,10 +30,10 @@ import ErrorToast from '@common/Toast/ErrorToast';
 import ReloadButton from '@common/Button/ReloadButton';
 import apiPath from 'config/apiPath';
 import { LoadingButton } from '@mui/lab';
-import { Account } from 'lib/types/account';
+import { AccountType } from 'lib/types/account';
 
 type Props = {
-  basicSummonerInfo: SummonerBasicType;
+  basicSummonerInfo: SummonerSliceType;
 };
 
 const SummonerPage = ({ basicSummonerInfo }: Props) => {
@@ -79,6 +83,7 @@ const SummonerPage = ({ basicSummonerInfo }: Props) => {
   };
 
   useEffect(() => {
+    console.log(basicSummonerInfo);
     dispatch(initSummonerState(basicSummonerInfo));
     fetchData(0, 10, 'init');
   }, [basicSummonerInfo.name]);
@@ -181,11 +186,34 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
       };
     }
 
-    const data = await summonerGet.json();
+    const data: SummonerBasicType = await summonerGet.json();
+
+    const accountUri =
+      apiPath.base + apiPath.accountByPuuid + `?puuid=${data.puuid}`;
+
+    const accountGet = await fetch(accountUri, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 300 },
+    });
+
+    if (!accountGet.ok) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const accountData: AccountType = await accountGet.json();
 
     return {
       props: {
-        basicSummonerInfo: data,
+        basicSummonerInfo: {
+          ...data,
+          gameName: accountData.gameName,
+          tagLine: accountData.tagLine,
+        },
       },
     };
   } else {
@@ -223,7 +251,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
       };
     }
 
-    const accountData: Account = await accountGet.json();
+    const accountData: AccountType = await accountGet.json();
 
     const summonerUri = (apiPath.base + apiPath.summonerByPuuid).replace(
       '[puuid]',
@@ -259,7 +287,11 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
     return {
       props: {
-        basicSummonerInfo: data,
+        basicSummonerInfo: {
+          gameName,
+          tagLine,
+          ...data,
+        },
       },
     };
   }

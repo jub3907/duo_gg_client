@@ -19,7 +19,7 @@ import { getChampionName } from 'config/championKey';
 import MultiLeagueCard from './MultiLeagueCard';
 import MultiMasteryCard from './MultiMasteryCard';
 import MultiMatchCard from './MultiMatchCard';
-import { Account } from 'lib/types/account';
+import { AccountType } from 'lib/types/account';
 
 type Props = {
   name: string;
@@ -27,7 +27,7 @@ type Props = {
 
 const MultiSummonerCard = ({ name }: Props) => {
   const [summoner, setSummoner] = useState<SummonerBasicType>(null);
-  const [account, setAccount] = useState<Account>(null);
+  const [account, setAccount] = useState<AccountType>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -67,7 +67,7 @@ const MultiSummonerCard = ({ name }: Props) => {
           }
           return res.json();
         })
-        .then((account: Account) => {
+        .then((account: AccountType) => {
           setAccount(account);
 
           const uri = (apiPath.base + apiPath.summonerByPuuid).replace(
