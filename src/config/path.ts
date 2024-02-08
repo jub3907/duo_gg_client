@@ -15,8 +15,10 @@ export const getSummonerUrl = (name: string) => {
   return name ? `/summoner/${name}` : '#';
 };
 
-export const getSummonerCommentUrl = (name: string) => {
-  return name ? `/summoner/${name}/comment` : '#';
+export const getSummonerCommentUrl = (gameName: string, tagLine: string) => {
+  return tagLine
+    ? `/summoner/${gameName}-${tagLine}/comment`
+    : `/summoner/${gameName}-KR1}/comment`;
 };
 
 export const getSummonerStatUrl = (name: string) => {

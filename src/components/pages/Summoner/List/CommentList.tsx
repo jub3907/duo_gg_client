@@ -41,9 +41,15 @@ const Comments = ({ comments }: { comments: CommentType[] }) => {
   );
 };
 
-const CommentButton = ({ name }: { name: string }) => {
+const CommentButton = ({
+  gameName,
+  tagLine,
+}: {
+  gameName: string;
+  tagLine: string;
+}) => {
   return (
-    <Link href={getSummonerCommentUrl(name)}>
+    <Link href={getSummonerCommentUrl(gameName, tagLine)}>
       <Button variant="contained" fullWidth className={styles.button}>
         더보기 {'>'}
       </Button>
@@ -56,7 +62,7 @@ const CommentList = () => {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const { puuid, name } = useSelector(selectSummonerState);
+  const { puuid, name, gameName, tagLine } = useSelector(selectSummonerState);
   const uri = (apiPath.base + apiPath.comment + '?offset=0&limit=2').replace(
     '[puuid]',
     puuid,
@@ -88,7 +94,7 @@ const CommentList = () => {
       <List
         title="최근 한마디"
         contents={<Comments comments={comments} />}
-        button={<CommentButton name={name} />}
+        button={<CommentButton gameName={gameName} tagLine={tagLine} />}
         loading={isLoading}
         error={null}
         reloadButton={
