@@ -8,7 +8,12 @@ import DuoCard from '@pages/Duo/Card/DuoCard';
 import styles from '@pages/Duo/DuoPage.module.scss';
 import DuoModal from '@pages/Duo/Modal/DuoModal';
 import apiPath from 'config/apiPath';
-import { addPosts, initPosts, selectPostState } from 'lib/slice/postSlice';
+import {
+  addPosts,
+  initPosts,
+  selectPostState,
+  clearPosts,
+} from 'lib/slice/postSlice';
 import { PostType } from 'lib/types/post';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -45,7 +50,6 @@ const DuoPage = () => {
         return res.json();
       })
       .then((data) => {
-        console.log('posts: ', data);
         setIsLoading(false);
         dispatch(addPosts(data));
       });
@@ -53,6 +57,9 @@ const DuoPage = () => {
 
   useEffect(() => {
     fetchPost(0, 6);
+    return () => {
+      dispatch(clearPosts());
+    };
   }, []);
 
   return (

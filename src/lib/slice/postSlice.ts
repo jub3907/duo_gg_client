@@ -26,6 +26,9 @@ const postSlice = createSlice({
         state.posts,
       );
     },
+    clearPosts: (state) => {
+      Object.assign(state, initialState);
+    },
   },
 });
 
@@ -35,5 +38,6 @@ export const selectPostState = ({
   postReducer: PostState;
 }) => ({ ...postReducer });
 
-export const { initPosts, addPosts, addCreatedPost } = postSlice.actions;
+export const { initPosts, addPosts, addCreatedPost, clearPosts } =
+  postSlice.actions;
 export default postSlice.reducer;
