@@ -11,13 +11,13 @@ type Props = {
   activeMenu: MenuType;
 };
 const SummonerMenu = ({ activeMenu }: Props) => {
-  const { name } = useSelector(selectSummonerState);
+  const { gameName, tagLine, summonerId } = useSelector(selectSummonerState);
 
   return (
     <>
       <div className={styles.menus}>
         <Link
-          href={getSummonerUrl(name)}
+          href={getSummonerUrl(summonerId)}
           className={cn(styles.menu, {
             [styles.active]: activeMenu === 'index',
           })}
@@ -36,7 +36,7 @@ const SummonerMenu = ({ activeMenu }: Props) => {
         </Link> */}
 
         <Link
-          href={getSummonerCommentUrl(name)}
+          href={getSummonerCommentUrl(gameName, tagLine)}
           className={cn(styles.menu, {
             [styles.active]: activeMenu === 'comment',
           })}
