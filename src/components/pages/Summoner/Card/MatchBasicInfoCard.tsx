@@ -168,9 +168,9 @@ const MatchBasicInfoCard = ({ match }: Props) => {
                 />
                 <div className={styles.name}>
                   <NameLink
-                    name={`${participant.summonerName}-${participant.summonerTag}`}
+                    name={`${participant.riotIdGameName}-${participant.riotIdTagLine}`}
                   >
-                    {participant.summonerName}
+                    {participant.riotIdGameName}
                   </NameLink>
                 </div>
               </div>
@@ -195,9 +195,9 @@ const MatchBasicInfoCard = ({ match }: Props) => {
                 />
                 <div className={styles.name}>
                   <NameLink
-                    name={`${participant.summonerName}-${participant.summonerTag}`}
+                    name={`${participant.riotIdGameName}-${participant.riotIdTagLine}`}
                   >
-                    {participant.summonerName}
+                    {participant.riotIdGameName}
                   </NameLink>
                 </div>
               </div>

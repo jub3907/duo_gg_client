@@ -30,7 +30,11 @@ const MatchParticipantCard = ({ participant }: Props) => {
         />
 
         <div className={styles.name}>
-          <NameLink name={participant.summonerName} />
+          <NameLink
+            name={`${participant.riotIdGameName}-${participant.riotIdTagLine}`}
+          >
+            {participant.riotIdGameName}
+          </NameLink>
         </div>
       </div>
 

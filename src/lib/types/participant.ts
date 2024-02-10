@@ -2,8 +2,8 @@ import { ChampionKey } from 'config/championKey';
 import { SpellKey } from 'config/spellKey';
 
 export type ParticipantBasicType = {
-  summonerName: string;
-  summonerTag: string;
+  riotIdGameName: string;
+  riotIdTagLine: string;
   championId: ChampionKey;
   puuid: string;
 };
@@ -13,7 +13,8 @@ export type ParticipantDetailType = {
   // 라인
   teamPosition: string;
   // 이름
-  summonerName: string;
+  riotIdGameName: string;
+  riotIdTagLine: string;
   puuid: string;
 
   // 팀
